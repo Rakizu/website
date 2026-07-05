@@ -66,14 +66,14 @@ export const StoryVisiMisi = () => {
 
         {/* Right Side: Massive Serif Storytelling */}
         <div className="w-full lg:w-7/12 flex flex-col" ref={textRef}>
-          <div className="story-line text-accent-sage font-semibold uppercase tracking-[0.25em] text-lg mb-12">
+          <div className="story-line text-accent-sage font-medium uppercase tracking-[0.25em] text-sm mb-12">
             Target Lulusan
           </div>
           
           <h2 className="font-accent italic text-4xl md:text-5xl lg:text-[4rem] text-charcoal-ink leading-[1.3] md:leading-[1.2] tracking-tight">
             <div className="story-line overflow-hidden pb-2">Tidak sekadar menguasai</div>
             <div className="story-line overflow-hidden pb-2">ilmu dunia, mereka adalah</div>
-            <div className="story-line overflow-hidden pb-2 text-accent-sage">penerus yang sholeh,</div>
+            <div className="story-line overflow-hidden pb-2 text-accent-gold">penerus yang sholeh,</div>
             <div className="story-line overflow-hidden pb-2">mandiri, dan berprestasi.</div>
           </h2>
           

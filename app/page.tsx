@@ -8,7 +8,7 @@ import { EditorialGuru } from '@/components/sections/EditorialGuru';
 import { KurikulumTree } from '@/components/sections/KurikulumTree';
 import { HorizontalEkskul } from '@/components/sections/HorizontalEkskul';
 import { ProgramUnggulan } from '@/components/sections/ProgramUnggulan';
-import { AlumniStack } from '@/components/sections/AlumniStack';
+import { AlumniGallery } from '@/components/sections/AlumniGallery';
 import { ArtikelHighlight } from '@/components/sections/ArtikelHighlight';
 import { FormSPMB } from '@/components/sections/FormSPMB';
 
@@ -24,25 +24,35 @@ export default function Home() {
 
   return (
     <main className="bg-canvas-white text-charcoal-ink min-h-screen">
-      <GatePage />
+      <div data-theme="dark">
+        <GatePage />
+      </div>
       <HeroCinematic />
-      <section id="visi">
+      <section id="visi" data-theme="light">
         <StoryVisiMisi />
       </section>
-      <section id="fasilitas">
+      <section id="fasilitas" data-theme="light">
         <FasilitasGrid fasilitas={data.fasilitas} />
       </section>
-      <section id="guru">
+      <section id="guru" data-theme="dark">
         <EditorialGuru guru={data.guru} />
       </section>
-      <section id="program">
+      <section id="kurikulum" data-theme="light">
         <KurikulumTree kurikulum={data.kurikulum} />
-        <ProgramUnggulan programs={data.kurikulum.programUnggulan} />
-        <HorizontalEkskul ekskul={data.ekskul} />
       </section>
-      <AlumniStack alumni={data.alumni} />
-      <ArtikelHighlight artikel={data.artikel} />
-      <section id="daftar">
+      <div data-theme="dark">
+        <ProgramUnggulan programs={data.kurikulum.programUnggulan} />
+        <section id="ekskul">
+          <HorizontalEkskul ekskul={data.ekskul} />
+        </section>
+      </div>
+      <div data-theme="light">
+        <AlumniGallery alumni={data.alumni} />
+      </div>
+      <div data-theme="dark">
+        <ArtikelHighlight artikel={data.artikel} />
+      </div>
+      <section id="daftar" data-theme="dark">
         <FormSPMB />
       </section>
     </main>

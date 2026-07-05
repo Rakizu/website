@@ -24,26 +24,10 @@ export const Navbar = () => {
   const navRef = useRef<HTMLElement>(null);
   const curtainRef = useRef<SVGSVGElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const isAnimating = useRef(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const pathname = usePathname();
   const router = useRouter();
-
-  // Effect untuk mempercepat animasi (skip) saat baru pindah halaman via Navbar
-  useEffect(() => {
-    if (sessionStorage.getItem('skipNextReveal') === 'true') {
-      sessionStorage.removeItem('skipNextReveal');
-      const interval = setInterval(() => {
-        ScrollTrigger.getAll().forEach(t => {
-          if (t.isActive && t.animation) {
-            t.animation.progress(1);
-          }
-        });
-      }, 50);
-      setTimeout(() => clearInterval(interval), 1500);
-    }
-  }, [pathname]);
 
   useGSAP(() => {
     // Global shrink/expand based on scroll position
@@ -79,34 +63,16 @@ export const Navbar = () => {
     }
   }, { scope: navRef });
 
-  const executeTransition = (href: string, isRoute: boolean = false) => {
-    if (isAnimating.current) return;
-    
-    // Gunakan window.location.pathname agar selalu fresh dan terhindar dari stale closure di useEffect
-    const currentPath = window.location.pathname;
-    
-    // Pengecualian khusus: Jika di halaman artikel dan klik navbar Artikel, tetap di halaman (gulir ke grid bawah)
-    const isArticleToArticle = currentPath.startsWith('/artikel') && href === '#artikel';
-    const isCrossPageHash = currentPath !== '/' && href.startsWith('#') && !isArticleToArticle;
-    
-    const target = (!isRoute && !isCrossPageHash) ? document.querySelector(href) : null;
-    
-    // Cek apakah pengunjung sudah berada di section tersebut (rect.top berada di dekat area pandang)
-    let isAlreadyInSection = false;
-    if (target) {
-      const rect = target.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      // Jika jarak atas elemen kurang dari setengah layar, berarti kita sedang melihatnya
-      if (Math.abs(rect.top) < viewportHeight * 0.5) {
-        isAlreadyInSection = true;
-      }
+  const executeTransition = (href: string) => {
+    if (pathname !== '/') {
+      // If we are not on the homepage (e.g. article detail), simply route back to homepage with hash
+      router.push(`/${href}`);
+      return;
     }
     
-    // Tirai dipicu jika: rute berubah, lompat dari halaman lain, atau target valid TAPI belum dilihat
-    const shouldRunCurtain = (target && !isArticleToArticle && !isAlreadyInSection) || isRoute || isCrossPageHash;
+    const target = document.querySelector(href);
     
-    if (shouldRunCurtain && curtainRef.current && contentRef.current) {
-      isAnimating.current = true;
+    if (target && curtainRef.current && contentRef.current) {
       const svg = curtainRef.current;
       const paths = [
         svg.querySelector('.layer-gold') as SVGPathElement,
@@ -162,43 +128,13 @@ export const Navbar = () => {
       // Ink wave finishes at 0.12 + 0.9 = 1.02s
       tl.addLabel("covered", 0.9);
       
-      // Centerpiece Animations
+      // 2. Centerpiece Animations
       tl.to(sheen, { left: '150%', duration: 0.75, ease: "power2.inOut" }, "covered");
       tl.addLabel("sheenDone");
       
       tl.add(() => {
-         const skipAnimations = () => {
-           requestAnimationFrame(() => {
-             requestAnimationFrame(() => {
-               ScrollTrigger.getAll().forEach(t => {
-                 if (t.isActive && t.animation) {
-                   t.animation.progress(1);
-                 }
-               });
-             });
-           });
-         };
-
-         if (isCrossPageHash) {
-           sessionStorage.setItem('skipNextReveal', 'true');
-           router.push('/');
-           // Wait for Next.js soft navigation and GSAP ScrollTrigger to initialize GatePage
-           setTimeout(() => {
-             const t = document.querySelector(href);
-             if (t) {
-               t.scrollIntoView({ behavior: 'auto', block: 'start' });
-               ScrollTrigger.refresh();
-               skipAnimations();
-             }
-           }, 600);
-         } else if (isRoute) {
-           sessionStorage.setItem('skipNextReveal', 'true');
-           router.push(href);
-         } else if (target) {
-           target.scrollIntoView({ behavior: 'auto', block: 'start' });
-           ScrollTrigger.refresh();
-           skipAnimations();
-         }
+         target.scrollIntoView({ behavior: 'auto', block: 'start' });
+         ScrollTrigger.refresh();
       }, "sheenDone-=0.2");
       
       tl.to(pulseRing, {
@@ -236,30 +172,19 @@ export const Navbar = () => {
             onComplete: index === 1 ? () => {
                gsap.set(svg, { autoAlpha: 0 });
                content.style.pointerEvents = 'none';
-               isAnimating.current = false;
             } : undefined
          }, `liftStart+=${index * 0.12}`);
       });
     } else if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else if (isRoute) {
-      router.push(href);
-    } else if (isCrossPageHash) {
-      router.push('/');
-      setTimeout(() => {
-        const t = document.querySelector(href);
-        if (t) {
-          t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 600);
     }
   };
 
   useEffect(() => {
     const listener = (e: Event) => {
-      const customEvent = e as CustomEvent<{ href: string, isRoute?: boolean }>;
+      const customEvent = e as CustomEvent<{ href: string }>;
       if (customEvent.detail && customEvent.detail.href) {
-        executeTransition(customEvent.detail.href, customEvent.detail.isRoute);
+        executeTransition(customEvent.detail.href);
       }
     };
     window.addEventListener('navigate-curtain', listener);
@@ -412,9 +337,9 @@ export const Navbar = () => {
             onClick={(e) => handleNav(e, '#daftar')}
             className="pointer-events-auto relative px-6 h-[40px] rounded-full overflow-hidden group shrink-0 flex items-center justify-center transition-all duration-500 z-20 hover:scale-105"
             style={{
-              background: isScrolled ? (isDarkBg ? 'rgba(253, 246, 236, 0.12)' : 'var(--sage-deep)') : (isDarkBg ? 'rgba(253, 246, 236, 0.12)' : 'var(--sage)'),
-              border: `1px solid ${isDarkBg ? 'rgba(253, 246, 236, 0.25)' : 'var(--sage-deep)'}`,
-              color: '#FDF6EC',
+              background: isScrolled ? (isDarkBg ? 'rgba(253, 246, 236, 0.12)' : '#2A201A') : (isDarkBg ? 'rgba(253, 246, 236, 0.12)' : 'rgba(42, 32, 26, 0.08)'),
+              border: `1px solid ${isDarkBg ? 'rgba(253, 246, 236, 0.25)' : 'rgba(42, 32, 26, 0.2)'}`,
+              color: isScrolled ? (isDarkBg ? '#FDF6EC' : '#FDF6EC') : (isDarkBg ? '#FDF6EC' : '#2A201A'),
             }}
           >
             <span 

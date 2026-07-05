@@ -12,11 +12,11 @@ interface ProgramUnggulanProps {
 }
 
 const mockPhotos = [
-  "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop", // IPA
-  "https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=800&auto=format&fit=crop", // Math
-  "https://images.unsplash.com/photo-1546410531-ef4ce3ef648c?q=80&w=800&auto=format&fit=crop", // English
-  "https://images.unsplash.com/photo-1584851212852-c827c15ff92f?q=80&w=800&auto=format&fit=crop", // Arabic
-  "https://images.unsplash.com/photo-1606105417614-7264a780e060?q=80&w=800&auto=format&fit=crop"  // Tahfidz
+  "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop", // IPA (0)
+  "https://images.unsplash.com/photo-1632516643720-e7f5d7d6eca8?q=80&w=800&auto=format&fit=crop", // Math (1)
+  "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=800&auto=format&fit=crop", // English (2)
+  "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?q=80&w=800&auto=format&fit=crop", // Arabic (3)
+  "https://images.unsplash.com/photo-1590082729930-b3b44b80eec9?q=80&w=800&auto=format&fit=crop"  // Tahfidz (4)
 ];
 
 export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) => {
@@ -30,13 +30,12 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
     const isMobile = window.innerWidth < 768;
 
     if (isMobile) {
-      // Mobile fallback: Simple vertical fade in
       const items = gsap.utils.toArray('.mobile-item') as HTMLElement[];
       items.forEach(item => {
         gsap.fromTo(item,
           { y: 50, opacity: 0 },
           {
-            y: 0, opacity: 1, duration: 1, ease: "power2.out",
+            y: 0, opacity: 1, duration: 1, ease: "power3.out",
             scrollTrigger: { trigger: item, start: "top 80%" }
           }
         );
@@ -44,83 +43,64 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
       return;
     }
 
-    // Desktop: Split Screen Pinned Scrolling
     const rightList = rightRef.current;
+    const totalItems = programs.length;
     
-    // Calculate how far to scroll the right list
-    // We want to pin the container, and scroll the right list up
-    const scrollDistance = rightList.scrollHeight - window.innerHeight;
+    // Exact height per item ensures perfect centering math
+    const itemHeight = window.innerHeight;
+    const scrollDistance = (totalItems - 1) * itemHeight;
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
         end: `+=${scrollDistance}`,
-        scrub: true,
+        scrub: 1, 
         pin: true,
         anticipatePin: 1,
       }
     });
 
-    // Animate the right list scrolling up
+    // Scroll the list (must be exactly duration 1 to sync with absolute timeline math)
     tl.to(rightList, {
       y: -scrollDistance,
-      ease: "none"
-    });
+      ease: "none",
+      duration: 1
+    }, 0);
 
-    // Image swapping logic based on scroll progress
     const images = leftRef.current.querySelectorAll('.program-img');
-    const textItems = rightList.querySelectorAll('.program-text');
-    const totalItems = programs.length;
+    const textItems = rightList.querySelectorAll('.program-item');
 
-    // We can use a simple stagger or just tie opacity to specific progress points
-    // But since it's a scrubbed timeline, we can create individual tweens for each image
-    
     images.forEach((img, i) => {
-      if (i === 0) return; // First image is visible by default
+      if (i === 0) return; 
       
-      const startTrigger = i / totalItems;
-      const endTrigger = (i + 0.1) / totalItems;
-
+      // Image crossfade starts halfway from previous item and finishes exactly when this item is centered
+      const start = (i - 0.5) / (totalItems - 1);
+      const end = i / (totalItems - 1);
+      
       tl.fromTo(img, 
-        { clipPath: 'inset(100% 0 0 0)' },
+        { opacity: 0, scale: 1.1 },
         { 
-          clipPath: 'inset(0% 0 0 0)', 
-          ease: "none",
-          duration: endTrigger - startTrigger, // Fraction of the timeline
+          opacity: 1, 
+          scale: 1,
+          ease: "power2.inOut",
+          duration: end - start,
         },
-        startTrigger // Absolute time in timeline (fraction)
+        start
       );
     });
 
-    // Text highlighting logic
-    textItems.forEach((text, i) => {
-      const startTrigger = (i - 0.5) / totalItems;
-      const activeTrigger = i / totalItems;
-      const endTrigger = (i + 0.5) / totalItems;
-
-      // Ensure first item starts active
-      if (i !== 0) {
-        gsap.set(text, { color: 'rgba(255, 255, 255, 0.2)' });
-      } else {
-        gsap.set(text, { color: 'rgba(255, 255, 255, 1)' });
-      }
-
-      // Add color changes to timeline using absolute position based on scroll fraction
-      if (i > 0) {
-        tl.to(text, {
-          color: 'rgba(255, 255, 255, 1)',
-          duration: 0.1,
-          ease: "none"
-        }, activeTrigger); // Using fraction 0-1
-      }
+    textItems.forEach((item, i) => {
+      const activePoint = i / (totalItems - 1);
       
+      if (i !== 0) gsap.set(item, { opacity: 0.15, x: 20 });
+      else gsap.set(item, { opacity: 1, x: 0 });
+
+      if (i > 0) {
+        tl.to(item, { opacity: 1, x: 0, duration: 0.2, ease: "power2.out" }, activePoint - 0.2);
+      }
       if (i < totalItems - 1) {
-        tl.to(text, {
-          color: 'rgba(255, 255, 255, 0.2)',
-          duration: 0.1,
-          ease: "none"
-        }, endTrigger);
+        tl.to(item, { opacity: 0.15, x: 20, duration: 0.2, ease: "power2.in" }, activePoint + 0.1);
       }
     });
 
@@ -134,7 +114,7 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
     >
       <div className="flex flex-col md:flex-row h-full">
         
-        {/* Left Side: Pinned Cinematic Images (Desktop only) */}
+        {/* Left Side: Pinned Cinematic Images */}
         <div 
           ref={leftRef}
           className="hidden md:block w-1/2 h-full relative overflow-hidden"
@@ -148,16 +128,15 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
               <img 
                 src={mockPhotos[i % mockPhotos.length]} 
                 alt={p}
-                className="w-full h-full object-cover sepia-[0.2]"
+                className="w-full h-full object-cover grayscale-[30%] sepia-[0.1]"
               />
-              {/* Vignette */}
-              <div className="absolute inset-0 bg-charcoal-ink/30 mix-blend-multiply"></div>
+              <div className="absolute inset-0 bg-charcoal-ink/40 mix-blend-multiply" />
             </div>
           ))}
           
-          <div className="absolute top-12 left-16 z-50">
-             <h2 className="text-xs font-mono uppercase tracking-[0.4em] text-accent-gold mb-2 drop-shadow-md">
-              Program Unggulan
+          <div className="absolute bottom-12 left-12 z-50">
+             <h2 className="text-sm font-heading font-bold uppercase tracking-[0.4em] text-pure-surface/70 drop-shadow-lg">
+              Program Unggulan Sekolah
             </h2>
           </div>
         </div>
@@ -167,26 +146,17 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
           
           <div 
             ref={rightRef}
-            className="flex flex-col pt-[30vh] pb-[50vh] px-8 md:px-20"
+            className="flex flex-col"
           >
-            {/* Mobile Header */}
-            <h2 className="md:hidden text-xs font-mono uppercase tracking-[0.4em] text-accent-gold mb-12">
-              Program Unggulan
-            </h2>
-
             {programs.map((p, i) => (
-              <div key={i} className="mobile-item flex flex-col justify-center min-h-[50vh] md:min-h-0 md:mb-[30vh]">
+              <div key={i} className="program-item mobile-item flex flex-col justify-center min-h-[50vh] md:h-screen px-8 md:px-16 lg:px-24">
                 
-                {/* Mobile Image (hidden on desktop) */}
                 <div className="md:hidden w-full aspect-[4/3] rounded-2xl overflow-hidden mb-8">
                   <img src={mockPhotos[i % mockPhotos.length]} alt={p} className="w-full h-full object-cover" />
                 </div>
 
-                <div className="flex items-start gap-4 md:gap-8">
-                  <span className="text-sm md:text-xl font-mono text-accent-gold mt-2 md:mt-4">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="program-text text-5xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tighter uppercase leading-[0.9]">
+                <div className="flex items-center">
+                  <h3 className="text-4xl md:text-5xl lg:text-7xl font-heading font-bold tracking-tighter uppercase leading-[0.9]">
                     {p}
                   </h3>
                 </div>

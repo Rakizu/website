@@ -88,15 +88,7 @@ export const ArtikelHighlight: React.FC<ArtikelHighlightProps> = ({ artikel }) =
         {/* Article List — Editorial divider style */}
         <div className="flex flex-col divide-y divide-pure-surface/10">
           {artikel.map((a, i) => (
-            <a 
-              href={`/artikel/${a.id}`} 
-              key={a.id} 
-              className="block"
-              onClick={(e) => {
-                e.preventDefault();
-                window.dispatchEvent(new CustomEvent('navigate-curtain', { detail: { href: `/artikel/${a.id}`, isRoute: true } }));
-              }}
-            >
+            <Link href={`/artikel/${a.id}`} key={a.id} className="block">
               <article
                 className="artikel-item group grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-10 md:py-14 cursor-pointer"
               >
@@ -134,7 +126,7 @@ export const ArtikelHighlight: React.FC<ArtikelHighlightProps> = ({ artikel }) =
                   />
                 </div>
               </article>
-            </a>
+            </Link>
           ))}
         </div>
 

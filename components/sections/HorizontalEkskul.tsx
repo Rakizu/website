@@ -13,6 +13,14 @@ interface Ekskul {
   deskripsi: string;
 }
 
+const mockImages = [
+  "https://images.unsplash.com/photo-1508933220556-9b986ee0626b?q=80&w=800&auto=format&fit=crop", // Pramuka
+  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop", // PMR
+  "https://images.unsplash.com/photo-1475721025870-2440ed1836ba?q=80&w=800&auto=format&fit=crop", // Public Speaking
+  "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800&auto=format&fit=crop", // Nasyid
+  "https://images.unsplash.com/photo-1518605368461-1e12d6a5674d?q=80&w=800&auto=format&fit=crop"  // Olahraga
+];
+
 interface HorizontalEkskulProps {
   ekskul: Ekskul[];
 }
@@ -92,17 +100,24 @@ export const HorizontalEkskul: React.FC<HorizontalEkskulProps> = ({ ekskul }) =>
           {ekskul.map((e, i) => (
             <div 
               key={e.id}
-              className="ekskul-item w-full md:w-[400px] aspect-[4/5] bg-canvas-white/5 border border-whisper-border/20 rounded-[2rem] p-10 flex flex-col justify-between group hover:bg-canvas-white/10 transition-colors duration-500 shrink-0"
+              className="ekskul-item relative w-full md:w-[440px] aspect-[4/5] rounded-[2.5rem] p-10 flex flex-col justify-end group overflow-hidden shadow-2xl shrink-0"
             >
-              <div className="text-5xl font-accent italic text-accent-gold/40 mb-8">
-                {String(i + 1).padStart(2, '0')}
-              </div>
+              {/* Background Mock Image */}
+              <img 
+                src={mockImages[i % mockImages.length]} 
+                alt={e.nama}
+                className="absolute inset-0 w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+              />
               
-              <div>
-                <h3 className="text-3xl font-heading mb-4 group-hover:text-accent-gold transition-colors duration-500">
+              {/* Dark Gradient Overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal-ink via-charcoal-ink/60 to-transparent opacity-90 group-hover:opacity-80 transition-opacity duration-500" />
+              
+              {/* Content */}
+              <div className="relative z-10 transform group-hover:-translate-y-2 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                <h3 className="text-3xl md:text-4xl font-heading font-medium tracking-tight mb-4 text-white group-hover:text-accent-gold transition-colors duration-500">
                   {e.nama}
                 </h3>
-                <p className="text-muted-steel leading-relaxed">
+                <p className="text-muted-steel leading-relaxed text-sm md:text-base max-w-[90%]">
                   {e.deskripsi}
                 </p>
               </div>

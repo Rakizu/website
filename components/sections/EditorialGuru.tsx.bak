@@ -4,7 +4,6 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { IslamicPattern } from '@/components/ui/IslamicPattern';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -73,14 +72,13 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
   return (
     <section 
       ref={container}
-      className="py-24 md:py-32 bg-chapter-sage text-cream relative overflow-hidden"
+      className="py-24 md:py-32 bg-charcoal-ink text-pure-surface"
     >
-      <IslamicPattern color="#c79a45" opacity={0.05} />
-      <div className="max-w-[1400px] mx-auto px-6 md:px-16 relative z-10">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-16">
         
         {/* Header */}
         <div className="mb-32">
-          <div className="inline-block border border-whisper-border px-4 py-2 text-base font-semibold uppercase tracking-[0.25em] text-cream/90 mb-8">
+          <div className="inline-block border border-whisper-border px-4 py-2 text-xs uppercase tracking-[0.25em] text-muted-steel mb-8">
             Para Pendidik
           </div>
           <h2 className="text-5xl md:text-7xl font-heading font-medium tracking-tighter max-w-2xl">
@@ -99,7 +97,7 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
               >
                 {/* Image Side */}
                 <div className="w-full md:w-5/12 aspect-[3/4] overflow-hidden rounded-sm relative">
-                  <div className="absolute inset-0 bg-sage-deep z-10 opacity-10 mix-blend-multiply pointer-events-none" />
+                  <div className="absolute inset-0 bg-charcoal-ink z-10 opacity-10 mix-blend-multiply pointer-events-none" />
                   <img 
                     src={g.image} 
                     alt={g.nama} 
@@ -109,7 +107,7 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
 
                 {/* Text Side */}
                 <div className="guru-text w-full md:w-7/12 flex flex-col">
-                  <span className="text-accent-gold font-semibold uppercase tracking-[0.2em] text-lg mb-6">
+                  <span className="text-accent-gold font-medium uppercase tracking-[0.2em] text-sm mb-6">
                     {g.mapel}
                   </span>
                   
@@ -117,7 +115,7 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
                     {g.nama}
                   </h3>
 
-                  <blockquote className="text-2xl md:text-3xl font-accent italic text-cream/80 leading-relaxed max-w-xl border-l-2 border-accent-gold pl-8">
+                  <blockquote className="text-2xl md:text-3xl font-accent italic text-muted-steel leading-relaxed max-w-xl border-l-2 border-accent-gold pl-8">
                     &quot;{g.quote}&quot;
                   </blockquote>
                 </div>

@@ -8,7 +8,12 @@ import { IslamicPattern } from '@/components/ui/IslamicPattern';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const words = ["Sholeh.", "Mandiri.", "Kreatif.", "Berprestasi."];
+const wordsData = [
+  { text: "Sholeh", className: "font-heading font-bold" },
+  { text: "Mandiri", className: "font-accent italic font-light" },
+  { text: "Kreatif", className: "font-heading font-bold" },
+  { text: "Berprestasi", className: "font-accent italic font-medium text-accent-gold" },
+];
 
 export const GatePage = () => {
   const container = useRef<HTMLElement>(null);
@@ -49,14 +54,14 @@ export const GatePage = () => {
       }
     });
 
-    tl.to(container.current, { opacity: 0, duration: 1, ease: "power2.inOut" });
+    tl.to(container.current, { autoAlpha: 0, duration: 1, ease: "power2.inOut" });
 
   }, { scope: container });
 
   return (
     <section
       ref={container}
-      className="cinematic-grain vignette relative w-full h-screen flex items-center justify-center z-50 overflow-hidden"
+      className="cinematic-grain vignette relative w-full h-screen flex items-center justify-center z-[999] overflow-hidden"
       style={{ background: 'var(--ink)' }}
     >
       {/* Warm cinematic light leak */}
@@ -72,13 +77,16 @@ export const GatePage = () => {
 
       {/* Text Container */}
       <div ref={textContainer} className="relative z-10 w-full h-full flex items-center justify-center">
-        {words.map((word) => (
+        {wordsData.map((w, i) => (
           <div
-            key={word}
-            className="gate-word absolute text-5xl md:text-7xl lg:text-[7rem] font-heading font-bold tracking-tighter"
-            style={{ opacity: 0, color: 'var(--gold-soft)' }}
+            key={i}
+            className={`gate-word absolute text-6xl md:text-8xl lg:text-[9rem] tracking-tighter whitespace-nowrap transform-gpu ${w.className}`}
+            style={{ 
+              opacity: 0, 
+              color: w.className.includes('text-accent-gold') ? undefined : '#FDF6EC' 
+            }}
           >
-            {word}
+            {w.text}
           </div>
         ))}
       </div>

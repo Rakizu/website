@@ -61,6 +61,7 @@ export const HeroCinematic = () => {
   return (
     <section
       ref={container}
+      data-theme="light"
       className="cinematic-grain vignette relative min-h-[100dvh] flex flex-col justify-center px-6 md:px-16 overflow-hidden pt-24 pb-12"
       style={{ background: 'var(--background)' }}
     >
@@ -73,7 +74,7 @@ export const HeroCinematic = () => {
       />
 
       {/* Islamic Pattern subtle overlay */}
-      <IslamicPattern color="#2a201a" opacity={0.04} />
+      <IslamicPattern color="#2a201a" opacity={0.05} />
 
       <div className="max-w-[1400px] w-full mx-auto relative z-10 flex flex-col h-full justify-between gap-16 md:gap-24">
 

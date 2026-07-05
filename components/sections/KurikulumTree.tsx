@@ -138,23 +138,6 @@ export const KurikulumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
             );
           })}
 
-          {/* Node 4: Program Unggulan */}
-          <div className="kurikulum-node w-full md:w-1/2 md:pr-16 self-start text-left md:text-right">
-            <div className="md:hidden absolute left-[-48px] top-2 w-4 h-4 rounded-full bg-canvas-white border-2 border-accent-gold" />
-            <div className="hidden md:block absolute right-[-8px] top-2 w-4 h-4 rounded-full bg-canvas-white border-2 border-accent-gold" />
-            
-            <h3 className="text-sm font-medium uppercase tracking-widest text-accent-gold mb-4">
-              Program Unggulan
-            </h3>
-            <ul className="flex flex-col gap-4">
-              {kurikulum.programUnggulan.map((prog) => (
-                <li key={prog} className="text-2xl font-heading text-charcoal-ink">
-                  {prog}
-                </li>
-              ))}
-            </ul>
-          </div>
-
         </div>
       </div>
     </section>
