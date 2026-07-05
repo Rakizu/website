@@ -1,0 +1,237 @@
+{
+  "sekolah": {
+    "nama": "SMPIT Thoriqul Jannah",
+    "alamat": "Jl. Lamatti, Kel. Bongki, Kec. Sinjai Utara, Kode Pos 92615",
+    "jamOperasional": "Full Day School, 07.30 – 16.30",
+    "tagline": "Mencetak Generasi Sholeh, Mandiri, Kreatif, dan Berprestasi",
+    "tahunAjaran": "2026/2027",
+    "kuota": 60
+  },
+  "targetLulusan": [
+    {
+      "id": "sholeh",
+      "judul": "Sholeh",
+      "deskripsi": "Memiliki aqidah yang lurus, tertib melaksanakan ibadah wajib dan sunnah, serta memiliki hafalan Al-Qur'an sesuai target."
+    },
+    {
+      "id": "mandiri",
+      "judul": "Mandiri",
+      "deskripsi": "Memiliki kecakapan hidup (life skill), disiplin waktu, dan kemampuan melayani diri sendiri dalam aktivitas harian."
+    },
+    {
+      "id": "kreatif",
+      "judul": "Kreatif",
+      "deskripsi": "Mampu mengembangkan potensi, berpikir kritis, dan menghasilkan karya inovatif baik akademik maupun non-akademik."
+    },
+    {
+      "id": "berprestasi",
+      "judul": "Berprestasi",
+      "deskripsi": "Mampu mencapai standar kompetensi nasional dan siap berkompetisi untuk meraih prestasi terbaik."
+    }
+  ],
+  "kurikulum": {
+    "konsep": "Full Day School",
+    "sesi": [
+      {
+        "nama": "Nasional",
+        "waktu": "07.30 – 12.30",
+        "fokus": "Penuntasan materi akademik sesuai standar kurikulum nasional"
+      },
+      {
+        "nama": "Pesantren",
+        "waktu": "12.30 – 16.30",
+        "fokus": "Diniyah, Tahfidz, & Pembinaan Karakter. Pulang setelah Ashar berjamaah"
+      }
+    ],
+    "programUnggulan": [
+      "Bina Olimpiade IPA",
+      "Bina Matematika",
+      "English Class",
+      "Kelas Bahasa Arab",
+      "Kelas Tahfidz"
+    ]
+  },
+  "spmb": {
+    "gelombang": [
+      {
+        "nama": "Gelombang I",
+        "periode": "5 Jan – 31 Mar 2026",
+        "seleksi": "1 – 2 April 2026"
+      },
+      {
+        "nama": "Gelombang II",
+        "periode": "1 Apr – 30 Jun 2026",
+        "seleksi": "1 – 2 Juli 2026"
+      }
+    ],
+    "syarat": [
+      "Isi Formulir Pendaftaran",
+      "FC Akte & KK (1 lembar)",
+      "FC KTP Orang Tua (1 lembar)",
+      "Pas Foto 3x4 (2 lembar)",
+      "Lunas Biaya Awal"
+    ]
+  },
+  "kontak": [
+    {
+      "nama": "Kurniati, S.Pd. Gr",
+      "peran": "Ketua",
+      "whatsapp": "085326999906",
+      "displayWa": "0853-2699-9906"
+    },
+    {
+      "nama": "Hanif Nur R., S.Ap",
+      "peran": "Sekretaris",
+      "whatsapp": "082344075695",
+      "displayWa": "0823-4407-5695"
+    },
+    {
+      "nama": "Sulfiani, S.E",
+      "peran": "Humas",
+      "whatsapp": "082331508108",
+      "displayWa": "0823-3150-8108"
+    }
+  ],
+  "guru": [
+    {
+      "id": "g1",
+      "nama": "Ahmad Fadillah, S.Pd., M.Pd.",
+      "mapel": "Matematika & Tahfidz",
+      "quote": "Pendidikan adalah senjata paling mematikan di dunia, karena dengan pendidikan, Anda dapat mengubah dunia.",
+      "image": "https://images.unsplash.com/photo-1544717302-de2939b7ef71?q=80&w=400&auto=format&fit=crop"
+    },
+    {
+      "id": "g2",
+      "nama": "Siti Nurhaliza, S.Ag.",
+      "mapel": "Bahasa Arab & PAI",
+      "quote": "Barangsiapa bersungguh-sungguh, sesungguhnya kesungguhannya itu adalah untuk dirinya sendiri.",
+      "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop"
+    },
+    {
+      "id": "g3",
+      "nama": "Budi Santoso, S.Si.",
+      "mapel": "IPA Terpadu (Fisika & Biologi)",
+      "quote": "Belajar dari alam, karena alam selalu memberikan pelajaran tanpa henti.",
+      "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop"
+    },
+    {
+      "id": "g4",
+      "nama": "Aisyah Putri, S.S., M.A.",
+      "mapel": "English Class",
+      "quote": "Language is the road map of a culture. It tells you where its people come from and where they are going.",
+      "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop"
+    }
+  ],
+  "fasilitas": [
+    {
+      "id": "f1",
+      "nama": "Masjid Sekolah",
+      "deskripsi": "Pusat kegiatan spiritual dan tahfidz dengan kapasitas 500 jamaah.",
+      "image": "https://images.unsplash.com/photo-1564683214964-16016e7dd786?q=80&w=800&auto=format&fit=crop"
+    },
+    {
+      "id": "f2",
+      "nama": "Laboratorium Komputer",
+      "deskripsi": "Dilengkapi dengan 40 PC modern untuk mendukung pembelajaran IT dan koding.",
+      "image": "https://images.unsplash.com/photo-1571260899304-42507011ec7b?q=80&w=800&auto=format&fit=crop"
+    },
+    {
+      "id": "f3",
+      "nama": "Laboratorium Sains",
+      "deskripsi": "Fasilitas lengkap untuk eksperimen Biologi, Fisika, dan Kimia dasar.",
+      "image": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop"
+    },
+    {
+      "id": "f4",
+      "nama": "Perpustakaan Digital",
+      "deskripsi": "Ribuan koleksi buku fisik dan e-book yang nyaman untuk membaca.",
+      "image": "https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=800&auto=format&fit=crop"
+    }
+  ],
+  "ekskul": [
+    {
+      "id": "e1",
+      "nama": "Pramuka SIT",
+      "deskripsi": "Membentuk kemandirian, kedisiplinan, dan jiwa kepemimpinan islami."
+    },
+    {
+      "id": "e2",
+      "nama": "Klub Tahfidz",
+      "deskripsi": "Akselerasi hafalan Quran dengan metode mutqin dan tahsin bersertifikat."
+    },
+    {
+      "id": "e3",
+      "nama": "English Club",
+      "deskripsi": "Mengasah kemampuan speaking, debate, dan storytelling berbahasa Inggris."
+    },
+    {
+      "id": "e4",
+      "nama": "Science Club",
+      "deskripsi": "Persiapan olimpiade sains nasional dan eksperimen aplikatif."
+    }
+  ],
+  "prestasi": [
+    {
+      "id": "p1",
+      "judul": "Juara 1 Olimpiade Sains Nasional",
+      "tingkat": "Nasional",
+      "tahun": "2025"
+    },
+    {
+      "id": "p2",
+      "judul": "Medali Emas Tahfidz 5 Juz",
+      "tingkat": "Provinsi",
+      "tahun": "2025"
+    },
+    {
+      "id": "p3",
+      "judul": "Juara 2 Lomba Pidato Bahasa Arab",
+      "tingkat": "Kabupaten",
+      "tahun": "2024"
+    }
+  ],
+  "alumni": [
+    {
+      "id": "a1",
+      "nama": "Fatimah Az-Zahra",
+      "tahunLulus": "2022",
+      "tujuan": "Fakultas Kedokteran UNHAS",
+      "testimoni": "Pondasi agama dan akademik yang kuat di sekolah ini benar-benar membentuk karakter dan persiapan saya menuju dunia perkuliahan.",
+      "image": "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop"
+    },
+    {
+      "id": "a2",
+      "nama": "Muhammad Rizky",
+      "tahunLulus": "2023",
+      "tujuan": "Teknik Informatika ITB",
+      "testimoni": "Fasilitas lab komputer dan dukungan penuh dari guru membuat saya menemukan minat saya sejak dini.",
+      "image": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=400&auto=format&fit=crop"
+    }
+  ],
+  "artikel": [
+    {
+      "id": "ar1",
+      "judul": "Pentingnya Pendidikan Karakter di Era Digital",
+      "kategori": "Edukasi",
+      "tanggal": "24 Mei 2026",
+      "excerpt": "Menghadapi arus informasi yang deras, pendidikan karakter Islami menjadi benteng utama bagi generasi muda.",
+      "image": "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop"
+    },
+    {
+      "id": "ar2",
+      "judul": "Siswa Kita Berhasil Meraih Medali Emas OSN",
+      "kategori": "Berita",
+      "tanggal": "15 Mei 2026",
+      "excerpt": "Prestasi membanggakan kembali ditorehkan di kancah nasional melalui kompetisi sains bergengsi.",
+      "image": "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800&auto=format&fit=crop"
+    },
+    {
+      "id": "ar3",
+      "judul": "Program Tahfidz Camp 2026 Sukses Digelar",
+      "kategori": "Kegiatan",
+      "tanggal": "02 Mei 2026",
+      "excerpt": "Selama tiga hari, para siswa dikarantina untuk mengakselerasi hafalan Quran mereka dengan metode mutqin.",
+      "image": "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=800&auto=format&fit=crop"
+    }
+  ]
+}
