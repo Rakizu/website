@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏫 Premium Islamic School Platform
 
-## Getting Started
+A state-of-the-art educational platform designed to deliver a highly cinematic public frontend for visitors and an ultra-premium, clean enterprise CMS for administrators. Built with Next.js 15, Tailwind CSS, and GSAP.
 
-First, run the development server:
+## ✨ Key Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 🎬 Cinematic Public Frontend
+- **High-End Visuals:** Dark cinematic aesthetic with warm golden accents and deep Islamic greens, designed for an Awwwards-quality experience.
+- **Micro-Interactions:** Buttery-smooth scroll animations, dynamic parallax effects, and premium hover states powered by GSAP.
+- **Performance Optimized:** Server-side rendering (SSR) and optimized asset delivery via Next.js App Router.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 💼 Ultra-Premium Studio CMS (Internal Tool)
+- **Role-Based Access Control (RBAC):** Secure middleware-protected admin area with `Publisher` (Admin) and `Writer` roles. Writers can draft content but are systematically locked from publishing or deleting.
+- **Clean Enterprise Design:** A stark contrast to the frontend—the CMS utilizes a crisp `Ghost White` canvas with sharp `Slate` typography, inspired by high-end SaaS dashboards (like Stripe and Linear).
+- **Notion-Style Editor:** Distraction-free, markdown-supported writing experience with real-time metadata binding.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework:** [Next.js 15+](https://nextjs.org/) (App Router, Server Components, API Routes)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) (Custom Design System with strictly enforced typography and layout discipline)
+- **Animation:** [GSAP](https://gsap.com/) (ScrollTrigger for high-performance scroll storytelling)
+- **Language:** TypeScript
+- **Auth:** Custom Cookie-Based Secure Authentication (Edge Middleware)
 
-## Learn More
+## 📦 Installation & Setup
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Rakizu/website.git
+   cd website
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+4. **Access the application**
+   - Public Website: `http://localhost:3000`
+   - Admin Studio: `http://localhost:3000/admin` (Credentials: `admin`/`123` or `writer`/`123`)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎨 Design Philosophy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project strictly adheres to a dual-philosophy design system:
+- **The "Stage" (Frontend):** Emotional, cinematic, and dramatic. Uses `charcoal-ink`, `accent-gold`, and deep `primary` greens. High motion intensity.
+- **The "Backstage" (Admin):** Utilitarian, highly legible, and incredibly clean. Uses `Ghost White` (`#F8F8FF`) and `Slate` color scales. Tactile micro-interactions and high data density.
+
+---
+*Built with passion for excellence in Islamic Education.*
