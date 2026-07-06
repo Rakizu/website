@@ -44,10 +44,11 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
       const img = card.querySelector('.parallax-img');
       if (img && !isMobile) {
         gsap.fromTo(img, 
-          { scale: 1.15 },
+          { yPercent: -15 },
           { 
-            scale: 1, 
+            yPercent: 0, 
             ease: "none", 
+            force3D: true,
             scrollTrigger: {
                trigger: card,
                start: "top bottom",
@@ -67,6 +68,7 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
           opacity: 0.3,
           y: -50, // Slight upward drift as it gets buried
           ease: "none",
+          force3D: true,
           scrollTrigger: {
             trigger: cardEls[i + 1], // Triggered by the arrival of the NEXT card
             start: "top bottom",     // When next card touches bottom of viewport
@@ -84,6 +86,7 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
         y: -50,
         scale: 0.95,
         ease: "power2.out",
+        force3D: true,
         scrollTrigger: {
           trigger: cardEls[0],
           start: "top 80%",
@@ -126,13 +129,15 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
               <div className="relative w-full h-full rounded-[calc(2rem-0.5rem)] md:rounded-[calc(2.5rem-0.75rem)] overflow-hidden bg-charcoal-ink group">
                 
                 {/* Parallax Image */}
-                <Image 
-                   src={mockPhotos[i % mockPhotos.length]} 
-                   alt={p}
-                   fill
-                   className="parallax-img object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]"
-                   sizes="100vw"
-                />
+                <div className="absolute inset-[-10%] w-[120%] h-[120%]">
+                  <Image 
+                     src={mockPhotos[i % mockPhotos.length]} 
+                     alt={p}
+                     fill
+                     className="parallax-img object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)] will-change-transform"
+                     sizes="(max-width: 1400px) 100vw, 1400px"
+                  />
+                </div>
                 
                 {/* Cinematic Vignettes */}
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal-ink/95 via-charcoal-ink/40 to-transparent" />

@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,14 +29,14 @@ export const FasilitasGrid: React.FC<FasilitasGridProps> = ({ fasilitas }) => {
     
     // Staggered reveal for grid items
     gsap.fromTo(items,
-      { y: 100, opacity: 0, scale: 0.95 },
+      { y: 100, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        scale: 1,
         duration: 1.2,
         stagger: 0.1,
         ease: "power4.out",
+        force3D: true,
         scrollTrigger: {
           trigger: container.current,
           start: "top 75%",
@@ -78,10 +79,12 @@ export const FasilitasGrid: React.FC<FasilitasGridProps> = ({ fasilitas }) => {
                 className={`fasilitas-item group relative rounded-[2rem] overflow-hidden bg-charcoal-ink ${spanClass}`}
               >
                 {/* Image Layer with subtle scale on hover */}
-                <img 
+                <Image 
                   src={f.image} 
                   alt={f.nama} 
-                  className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.2s] ease-[cubic-bezier(0.19,1,0.22,1)]"
+                  fill
+                  className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.2s] ease-[cubic-bezier(0.19,1,0.22,1)] will-change-transform"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 
                 {/* Gradient Overlay */}

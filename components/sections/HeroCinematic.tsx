@@ -23,6 +23,7 @@ export const HeroCinematic = () => {
       stagger: 0.1,
       ease: "elastic.out(1, 0.75)",
       delay: 0.2,
+      force3D: true,
     });
 
     gsap.from(".hero-subtext", {
@@ -40,6 +41,7 @@ export const HeroCinematic = () => {
       yoyo: true,
       ease: "sine.inOut",
       stagger: 0.5,
+      force3D: true,
     });
 
     gsap.to(container.current, {
@@ -101,7 +103,7 @@ export const HeroCinematic = () => {
             <span ref={(el) => setWordRef(el, 0)} className="inline-block">Generasi</span>
           </span>
 
-          <span className="inline-img relative w-20 h-16 md:w-36 md:h-24 lg:w-48 lg:h-32 rounded-full overflow-hidden inline-block shrink-0"
+          <span className="inline-img will-change-transform relative w-20 h-16 md:w-36 md:h-24 lg:w-48 lg:h-32 rounded-full overflow-hidden inline-block shrink-0"
             style={{ border: '1px solid var(--border-clr)' }}>
             <Image
               src="https://images.unsplash.com/photo-1544717302-de2939b7ef71?q=80&w=400&auto=format&fit=crop"
@@ -120,7 +122,7 @@ export const HeroCinematic = () => {
             <span ref={(el) => setWordRef(el, 2)} className="inline-block" style={{ color: 'var(--sage)' }}>Mandiri</span>
           </span>
 
-          <span className="inline-img relative w-16 h-16 md:w-28 md:h-24 lg:w-36 lg:h-32 rounded-[2rem] overflow-hidden inline-block shrink-0">
+          <span className="inline-img will-change-transform relative w-16 h-16 md:w-28 md:h-24 lg:w-36 lg:h-32 rounded-[2rem] overflow-hidden inline-block shrink-0">
             <Image
               src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=400&auto=format&fit=crop"
               alt="Education"

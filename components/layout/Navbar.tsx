@@ -48,6 +48,8 @@ export const Navbar = () => {
   }, [pathname]);
 
   useGSAP(() => {
+    ScrollTrigger.normalizeScroll(true);
+
     // Global shrink/expand based on scroll position
     const shrinkOffset = pathname === '/' ? window.innerHeight * 2.8 : 100;
     ScrollTrigger.create({
@@ -357,6 +359,7 @@ export const Navbar = () => {
         <div 
           className="absolute inset-0 rounded-full border pointer-events-auto transition-all duration-[600ms]"
           style={{
+            willChange: 'backdrop-filter',
             background: glassBg,
             backdropFilter: isScrolled ? 'blur(24px) saturate(150%)' : 'blur(12px) saturate(120%)',
             WebkitBackdropFilter: isScrolled ? 'blur(24px) saturate(150%)' : 'blur(12px) saturate(120%)',

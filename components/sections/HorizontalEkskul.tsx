@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,6 +47,7 @@ export const HorizontalEkskul: React.FC<HorizontalEkskulProps> = ({ ekskul }) =>
           stagger: 0.1,
           duration: 1,
           ease: "power3.out",
+          force3D: true,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 80%"
@@ -63,6 +65,7 @@ export const HorizontalEkskul: React.FC<HorizontalEkskulProps> = ({ ekskul }) =>
     gsap.to(trackRef.current, {
       x: -scrollDistance,
       ease: "none",
+      force3D: true,
       scrollTrigger: {
         trigger: sectionRef.current,
         start: "top top",
@@ -94,20 +97,24 @@ export const HorizontalEkskul: React.FC<HorizontalEkskulProps> = ({ ekskul }) =>
 
         {/* Scroll Track */}
         <div 
-          className="mt-32 md:mt-0 flex flex-col md:flex-row gap-6 md:gap-12 px-6 md:px-16 md:absolute md:top-1/2 md:-translate-y-1/2 w-full md:w-max"
+          className="mt-32 md:mt-0 flex flex-col md:flex-row gap-6 md:gap-12 px-6 md:px-16 md:absolute md:top-1/2 md:-translate-y-1/2 w-full md:w-max will-change-transform"
           ref={trackRef}
         >
           {ekskul.map((e, i) => (
             <div 
               key={e.id}
-              className="ekskul-item relative w-full md:w-[440px] aspect-[4/5] rounded-[2.5rem] p-10 flex flex-col justify-end group overflow-hidden shadow-2xl shrink-0"
+              className="ekskul-item relative w-full md:w-[440px] aspect-[4/5] rounded-[2.5rem] p-10 flex flex-col justify-end group overflow-hidden shadow-2xl shrink-0 will-change-transform"
             >
               {/* Background Mock Image */}
-              <img 
-                src={mockImages[i % mockImages.length]} 
-                alt={e.nama}
-                className="absolute inset-0 w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-              />
+              <div className="absolute inset-0 w-full h-full">
+                <Image 
+                  src={mockImages[i % mockImages.length]} 
+                  alt={e.nama}
+                  fill
+                  className="object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 will-change-transform"
+                  sizes="(max-width: 768px) 100vw, 440px"
+                />
+              </div>
               
               {/* Dark Gradient Overlay for text readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal-ink via-charcoal-ink/60 to-transparent opacity-90 group-hover:opacity-80 transition-opacity duration-500" />
