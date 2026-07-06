@@ -244,8 +244,10 @@ export const Navbar = () => {
                content.style.pointerEvents = 'none';
                isAnimating.current = false;
                
-               // Force check theme directly without relying on scroll events
-               if (typeof (window as any).__checkNavbarTheme === 'function') {
+               // Bypassing radar for GatePage since it might pierce through fading elements
+               if (isReturnToTop) {
+                 setTheme('dark');
+               } else if (typeof (window as any).__checkNavbarTheme === 'function') {
                  (window as any).__checkNavbarTheme();
                }
             } : undefined
