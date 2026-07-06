@@ -9,15 +9,30 @@ import { IslamicPattern } from '@/components/ui/IslamicPattern';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const navLinks = [
-  { label: 'Visi', href: '#visi' },
-  { label: 'Fasilitas', href: '#fasilitas' },
-  { label: 'Guru', href: '#guru' },
-  { label: 'Akademik', href: '#kurikulum' },
-  { label: 'Unggulan', href: '#unggulan' },
-  { label: 'Ekskul', href: '#ekskul' },
-  { label: 'Alumni', href: '#alumni' },
-  { label: 'Artikel', href: '#artikel' },
+const navMenus = [
+  {
+    label: 'Profil',
+    children: [
+      { label: 'Visi & Misi', href: '#visi' },
+      { label: 'Fasilitas', href: '#fasilitas' },
+      { label: 'Profil Guru', href: '#guru' }
+    ]
+  },
+  {
+    label: 'Program',
+    children: [
+      { label: 'Akademik', href: '#kurikulum' },
+      { label: 'Program Unggulan', href: '#unggulan' },
+      { label: 'Ekstrakurikuler', href: '#ekskul' }
+    ]
+  },
+  {
+    label: 'Informasi',
+    children: [
+      { label: 'Alumni', href: '#alumni' },
+      { label: 'Artikel', href: '#artikel' }
+    ]
+  }
 ];
 
 export const Navbar = () => {
@@ -116,7 +131,6 @@ export const Navbar = () => {
       
       const content = contentRef.current;
       const logoWrapper = content.querySelector('.logo-wrapper');
-      const sheen = content.querySelector('.sheen-layer');
       const pulseRing = content.querySelector('.pulse-ring');
       
       content.style.pointerEvents = 'auto'; // Block clicks
@@ -129,7 +143,6 @@ export const Navbar = () => {
       // 1. Initial State
       tl.set(svg, { autoAlpha: 1 });
       tl.set(content, { autoAlpha: 0 });
-      tl.set(sheen, { left: '-150%' });
       tl.set(pulseRing, { scale: 1, opacity: 0 });
       paths.forEach(p => p?.setAttribute("d", "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z"));
       
@@ -155,7 +168,6 @@ export const Navbar = () => {
       
       // 4. Centerpiece Micro-interactions
       const contentReadyTime = duration + staggerDelay; 
-      tl.to(sheen, { left: '150%', duration: 0.8, ease: "power2.inOut" }, contentReadyTime);
       tl.to(pulseRing, {
          scale: 2, opacity: 0, duration: 0.8, ease: "power2.out", startAt: { scale: 1, opacity: 0.8 }
       }, contentReadyTime);
@@ -293,17 +305,11 @@ export const Navbar = () => {
         <div className="logo-wrapper relative flex flex-col items-center justify-center">
           <div className="relative flex items-center justify-center">
             {/* Elegant radar pulse */}
-            <div className="pulse-ring absolute inset-0 rounded-full border border-accent-gold/50 opacity-0" />
+            <div className="pulse-ring absolute w-48 h-48 rounded-full border border-accent-gold/50 opacity-0" />
             
-            {/* Core Emblem Container */}
-            <div className="relative flex items-center justify-center w-24 h-24 rounded-full border border-accent-gold/40 shadow-[0_0_60px_rgba(199,154,69,0.25)] bg-charcoal-ink/80 backdrop-blur-md overflow-hidden">
-              <img src="/logo.svg" alt="TJ Logo" className="relative z-10 w-16 h-16 object-contain drop-shadow-[0_0_20px_rgba(199,154,69,0.8)]" />
-              
-              {/* Glossy Sheen Sweep (Mengkilap) */}
-              <div 
-                className="sheen-layer absolute top-0 w-full h-full skew-x-[-25deg] z-20 mix-blend-overlay"
-                style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent)', left: '-150%' }}
-              />
+            {/* Core Emblem Container (Best Practice: Free floating, no caged borders) */}
+            <div className="relative flex items-center justify-center">
+              <img src="/logo.svg" alt="TJ Logo" className="relative z-10 h-32 w-auto object-contain drop-shadow-[0_0_30px_rgba(199,154,69,0.6)]" />
             </div>
           </div>
         </div>
@@ -339,54 +345,60 @@ export const Navbar = () => {
           {/* Left: Logo */}
           <a 
             href="#" 
-            className="pointer-events-auto relative flex shrink-0 w-10 h-10 rounded-full items-center justify-center transition-all duration-500 z-20 group"
-            style={{
-              color: textColor,
-              border: `1px solid ${isDarkBg ? 'rgba(253, 246, 236, 0.25)' : 'rgba(42, 32, 26, 0.15)'}`,
-              textShadow: isDarkBg ? '0 0 12px rgba(253, 246, 236, 0.4)' : '0 2px 4px rgba(0,0,0,0.1)'
-            }}
+            className="pointer-events-auto relative flex shrink-0 items-center justify-center transition-all duration-500 z-20 group"
           >
-            <img src="/logo.svg" alt="TJ Logo" className="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
+            <img src="/logo.svg" alt="TJ Logo" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform" />
           </a>
 
           {/* Center: Tight Navigation Links */}
           <nav 
-            className="absolute left-1/2 -translate-x-1/2 h-full hidden md:flex items-center gap-0 z-10 transition-all duration-500"
+            className="absolute left-1/2 -translate-x-1/2 h-full hidden md:flex items-center gap-6 z-10 transition-all duration-500"
           >
-            {navLinks.map((link) => {
-              return (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => handleNav(e, link.href)}
-                  className="pointer-events-auto relative px-[11px] py-2 text-sm font-heading font-bold uppercase tracking-wider rounded-full transition-all duration-300 group overflow-hidden"
+            {navMenus.map((menu) => (
+              <div key={menu.label} className="relative group pointer-events-auto h-full flex items-center">
+                <button
+                  className="relative px-3 py-2 text-sm font-heading font-bold uppercase tracking-wider rounded-full transition-all duration-300 flex items-center gap-1.5"
                   style={{ 
                     color: textColor,
                     textShadow: isDarkBg ? '0 2px 10px rgba(0,0,0,0.5)' : 'none'
                   }}
                 >
-                  {/* Premium Hover Background */}
-                  <div 
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"
-                    style={{ backgroundColor: isDarkBg ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.04)' }}
-                  />
-                  
-                  {/* Text Content */}
                   <span className="relative z-10 opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                    {link.label}
+                    {menu.label}
                   </span>
-                  
-                  {/* Premium Gold Dot Indicator */}
-                  <span 
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100 translate-y-2 group-hover:-translate-y-1.5 transition-all duration-300 ease-out"
-                    style={{ 
-                      backgroundColor: '#c79a45',
-                      boxShadow: '0 0 10px rgba(199,154,69,0.8)'
+                  <svg className="w-3.5 h-3.5 opacity-75 group-hover:opacity-100 transition-transform duration-300 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {/* Dropdown Panel */}
+                <div className="absolute top-[80%] left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                  <div 
+                    className="flex flex-col py-2 rounded-2xl border backdrop-blur-md shadow-2xl min-w-[200px] overflow-hidden"
+                    style={{
+                      background: isDarkBg ? 'rgba(26, 26, 46, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+                      borderColor: isDarkBg ? 'rgba(253, 246, 236, 0.15)' : 'rgba(42, 32, 26, 0.1)',
                     }}
-                  />
-                </a>
-              );
-            })}
+                  >
+                    {menu.children.map(child => (
+                      <a
+                        key={child.href}
+                        href={child.href}
+                        onClick={(e) => handleNav(e, child.href)}
+                        className="group/child px-5 py-3 text-sm font-heading font-semibold transition-colors duration-200"
+                        style={{
+                          color: isDarkBg ? '#FDF6EC' : '#1A1A2E'
+                        }}
+                      >
+                        <span className="opacity-70 group-hover/child:opacity-100 group-hover/child:text-accent-gold transition-colors">
+                          {child.label}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
           </nav>
 
           {/* Right: Solid CTA */}
