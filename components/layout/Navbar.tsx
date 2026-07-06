@@ -191,13 +191,12 @@ export const Navbar = () => {
             router.push(href);
           } else if (href === '/' || href === currentPath) {
             window.scrollTo({ top: 0, behavior: 'auto' });
-           ScrollTrigger.refresh();
-           skipAnimations();
-         } else if (target) {
-           target.scrollIntoView({ behavior: 'auto', block: 'start' });
-           ScrollTrigger.refresh();
-           skipAnimations();
-         }
+            ScrollTrigger.refresh();
+          } else if (target) {
+            target.scrollIntoView({ behavior: 'auto', block: 'start' });
+            ScrollTrigger.refresh();
+            skipAnimations();
+          }
       }, contentReadyTime + 0.2);
       
       // 6. Liquid Lift (OUT)
@@ -224,6 +223,9 @@ export const Navbar = () => {
                gsap.set(svg, { autoAlpha: 0 });
                content.style.pointerEvents = 'none';
                isAnimating.current = false;
+               
+               // Force ScrollTrigger to re-check the theme underneath now that the curtain is gone
+               window.dispatchEvent(new Event('scroll'));
             } : undefined
          }, liftStartTime + (index * staggerDelay));
       });
