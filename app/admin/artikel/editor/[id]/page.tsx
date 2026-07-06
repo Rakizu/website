@@ -135,7 +135,7 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
       <div className="flex justify-between items-center mb-10 pb-4 border-b border-slate-200">
         <button 
           onClick={() => router.push('/admin/artikel')}
-          className="text-slate-500 hover:text-slate-900 hover:-translate-x-1 transition-all duration-300 flex items-center gap-2 text-sm font-semibold"
+          className="text-muted-steel hover:text-charcoal-ink hover:-translate-x-1 transition-all duration-300 flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           Kembali
@@ -143,7 +143,7 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
         <button 
           onClick={handleSave}
           disabled={isSaving}
-          className="px-6 py-2.5 rounded-lg bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 hover:-translate-y-0.5 hover:shadow-md hover:shadow-slate-900/20 active:scale-95 transition-all duration-300 ease-out disabled:opacity-50 disabled:hover:translate-y-0 shadow-sm flex items-center gap-2"
+          className="px-8 py-3 rounded-full bg-sage text-cream font-bold text-sm tracking-widest uppercase hover:bg-sage-deep hover:-translate-y-1 hover:shadow-lg hover:shadow-sage/20 active:scale-95 transition-all duration-300 ease-out disabled:opacity-50 disabled:hover:translate-y-0 shadow-sm flex items-center gap-3"
         >
           {isSaving ? (
             <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
@@ -159,10 +159,10 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
         <div className="flex flex-col md:flex-row gap-6 md:items-center justify-between">
           <input
             type="text"
-            placeholder="Judul Artikel Baru..."
+            placeholder="Ketik Judul Artikel di Sini..."
             value={formData.judul}
             onChange={(e) => setFormData({ ...formData, judul: e.target.value })}
-            className="flex-1 bg-transparent border-none outline-none font-heading font-semibold text-4xl md:text-5xl text-slate-900 placeholder-slate-300"
+            className="flex-1 bg-transparent border-none outline-none font-heading font-bold text-4xl md:text-5xl lg:text-7xl tracking-tighter text-charcoal-ink placeholder-muted/60 transition-all"
           />
           <div className="flex items-center gap-3 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200">
             <span className="text-xs font-semibold text-slate-500">Status:</span>
@@ -179,18 +179,18 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
         </div>
 
         {/* Metadata Grid (Author, Tags, etc) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 rounded-xl bg-slate-50 border border-slate-200 shadow-sm">
-          <div className="space-y-3 md:col-span-2">
-            <label className="text-xs font-bold text-slate-500">Kategori Artikel</label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8 md:p-10 rounded-[2rem] bg-canvas-white border border-whisper-border shadow-[0_4px_30px_rgb(0,0,0,0.02)]">
+          <div className="space-y-4 md:col-span-2">
+            <label className="text-xs font-bold text-muted-steel uppercase tracking-widest">Kategori Artikel</label>
             <div className="flex flex-wrap gap-2">
               {predefinedCategories.map(cat => (
                 <button
                   key={cat}
                   onClick={() => setFormData({ ...formData, kategori: cat })}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 ease-out border active:scale-95 ${
+                  className={`px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 ease-out border active:scale-95 ${
                     formData.kategori === cat 
-                      ? 'bg-slate-900 text-white border-slate-900 shadow-md shadow-slate-900/20' 
-                      : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                      ? 'bg-sage text-cream border-sage shadow-lg shadow-sage/20' 
+                      : 'bg-cream text-charcoal-ink border-whisper-border hover:border-gold-soft hover:bg-gold-soft/10'
                   }`}
                 >
                   {cat}
@@ -250,14 +250,14 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
         </div>
 
         {/* Content Editor */}
-        <div className="space-y-2 group">
-          <label className="text-xs font-bold text-slate-500 ml-2 group-focus-within:text-slate-900 transition-colors">Isi Artikel (Markdown Supported)</label>
+        <div className="space-y-4 group mt-10">
+          <label className="text-sm font-bold text-muted-steel uppercase tracking-widest ml-4 group-focus-within:text-gold transition-colors">Isi Artikel (Markdown Supported)</label>
           <textarea
             ref={textareaRef}
-            placeholder="Mulai menulis artikel Anda di sini..."
+            placeholder="Mulai menulis cerita Anda..."
             value={formData.content}
             onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-            className="w-full bg-white border border-slate-200 rounded-xl p-6 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-900/5 hover:border-slate-300 transition-all duration-300 ease-out font-body text-lg leading-relaxed resize-none min-h-[400px] placeholder-slate-300"
+            className="w-full bg-canvas-white border border-whisper-border rounded-[2.5rem] p-8 md:p-12 outline-none text-charcoal-ink focus:border-gold-soft focus:ring-4 focus:ring-gold-soft/10 hover:border-gold-soft transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] font-accent text-xl md:text-2xl leading-[1.8] resize-none min-h-[500px] placeholder-muted-steel shadow-[0_4px_40px_rgb(0,0,0,0.03)]"
           />
         </div>
       </div>
