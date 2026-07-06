@@ -337,7 +337,7 @@ export const Navbar = () => {
             
             {/* Core Emblem Container */}
             <div className="relative flex items-center justify-center">
-              <img src="/logo.svg" alt="TJ Logo" className="relative z-10 h-32 w-auto object-contain drop-shadow-[0_0_30px_rgba(199,154,69,0.6)]" />
+              <img src="/logo.png" alt="TJ Logo" className="relative z-10 h-32 w-auto object-contain drop-shadow-[0_0_30px_rgba(199,154,69,0.6)]" />
             </div>
           </div>
         </div>
@@ -376,7 +376,7 @@ export const Navbar = () => {
             onClick={(e) => handleNav(e, '/')}
             className="pointer-events-auto relative flex shrink-0 items-center justify-center transition-all duration-500 z-20 group"
           >
-            <img src="/logo.svg" alt="TJ Logo" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform" />
+            <img src="/logo.png" alt="TJ Logo" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform" />
           </a>
 
           {/* Center: Tight Navigation Links */}
