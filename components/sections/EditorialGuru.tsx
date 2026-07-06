@@ -33,19 +33,20 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
       const img = section.querySelector('.guru-img');
       const textBlock = section.querySelector('.guru-text');
 
-      // Image parallax
+      // Image reveal (Lightweight, no scrub)
       if (img) {
         gsap.fromTo(img, 
-          { yPercent: -15, scale: 1.1 },
+          { y: 50, scale: 1.05, opacity: 0 },
           {
-            yPercent: 15,
+            y: 0,
             scale: 1,
-            ease: "none",
+            opacity: 1,
+            duration: 1.2,
+            ease: "power3.out",
             scrollTrigger: {
               trigger: section,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
+              start: "top 80%",
+              once: true,
             }
           }
         );
@@ -54,15 +55,16 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
       // Text reveal
       if (textBlock) {
         gsap.fromTo(textBlock,
-          { opacity: 0, x: 40 },
+          { opacity: 0, x: 30 },
           {
             opacity: 1,
             x: 0,
-            duration: 1.2,
+            duration: 1,
+            delay: 0.2,
             ease: "power3.out",
             scrollTrigger: {
               trigger: section,
-              start: "top 70%",
+              start: "top 80%",
               once: true,
             }
           }
@@ -99,14 +101,14 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
                 className={`guru-row flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-16 md:gap-24`}
               >
                 {/* Image Side */}
-                <div className="w-full md:w-5/12 aspect-[3/4] overflow-hidden rounded-sm relative">
+                <div className="w-full md:w-5/12 aspect-[3/4] overflow-hidden rounded-sm relative bg-sage/20">
                   <div className="absolute inset-0 bg-sage-deep z-10 opacity-10 mix-blend-multiply pointer-events-none" />
                   <Image 
                     src={g.image} 
                     alt={g.nama} 
                     fill
-                    className="guru-img object-cover grayscale hover:grayscale-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="guru-img object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out will-change-transform"
+                    sizes="(max-width: 768px) 100vw, 40vw"
                   />
                 </div>
 
