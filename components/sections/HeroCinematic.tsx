@@ -61,7 +61,7 @@ export const HeroCinematic = () => {
   return (
     <section
       ref={container}
-      data-theme="dark"
+      data-theme="light"
       className="cinematic-grain vignette relative min-h-[100dvh] flex flex-col justify-center px-6 md:px-16 overflow-hidden pt-24 pb-12"
       style={{ background: 'var(--background)' }}
     >

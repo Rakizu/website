@@ -224,9 +224,6 @@ export const Navbar = () => {
                gsap.set(svg, { autoAlpha: 0 });
                content.style.pointerEvents = 'none';
                isAnimating.current = false;
-               
-               // Force ScrollTrigger to re-check the theme underneath now that the curtain is gone
-               window.dispatchEvent(new Event('scroll'));
             } : undefined
          }, liftStartTime + (index * staggerDelay));
       });
