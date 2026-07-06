@@ -12,160 +12,138 @@ interface ProgramUnggulanProps {
 }
 
 const mockPhotos = [
-  "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop", // IPA (0)
-  "https://images.unsplash.com/photo-1632516643720-e7f5d7d6eca8?q=80&w=800&auto=format&fit=crop", // Math (1)
-  "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=800&auto=format&fit=crop", // English (2)
-  "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?q=80&w=800&auto=format&fit=crop", // Arabic (3)
-  "https://images.unsplash.com/photo-1590082729930-b3b44b80eec9?q=80&w=800&auto=format&fit=crop"  // Tahfidz (4)
+  "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1632516643720-e7f5d7d6eca8?q=80&w=1600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=1600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?q=80&w=1600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1590082729930-b3b44b80eec9?q=80&w=1600&auto=format&fit=crop"  
+];
+
+const programDetails = [
+  "Eksplorasi sains tingkat lanjut dengan fasilitas laboratorium modern dan kurikulum riset terapan.",
+  "Pendekatan analitis dan pemecahan masalah komprehensif berstandar olimpiade internasional.",
+  "Program imersi intensif untuk kefasihan global dan persiapan sertifikasi TOEFL/IELTS.",
+  "Penguasaan bahasa Al-Qur'an dan sastra timur tengah dengan penutur asli (native speaker).",
+  "Program karantina dan sertifikasi hafalan 30 Juz dengan sanad bersambung."
 ];
 
 export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) => {
-  const containerRef = useRef<HTMLElement>(null);
-  const leftRef = useRef<HTMLDivElement>(null);
-  const rightRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (!containerRef.current || !leftRef.current || !rightRef.current) return;
-
+    if (!containerRef.current) return;
+    
+    // Desktop only for intense GSAP Z-Axis physics, mobile degrades gracefully to native sticky stack
     const isMobile = window.innerWidth < 768;
-
-    if (isMobile) {
-      const items = gsap.utils.toArray('.mobile-item') as HTMLElement[];
-      items.forEach(item => {
-        gsap.fromTo(item,
-          { y: 50, opacity: 0 },
-          {
-            y: 0, opacity: 1, duration: 1, ease: "power3.out",
-            scrollTrigger: { trigger: item, start: "top 80%" }
+    
+    const cardEls = gsap.utils.toArray<HTMLElement>('.stack-card');
+    cardEls.forEach((card, i) => {
+      // Internal image parallax (subtle zoom out as you scroll down)
+      const img = card.querySelector('.parallax-img');
+      if (img && !isMobile) {
+        gsap.fromTo(img, 
+          { scale: 1.15 },
+          { 
+            scale: 1, 
+            ease: "none", 
+            scrollTrigger: {
+               trigger: card,
+               start: "top bottom",
+               end: "top top",
+               scrub: true
+            } 
           }
         );
-      });
-      return;
-    }
-
-    const rightList = rightRef.current;
-    const totalItems = programs.length;
-    
-    // Exact height per item ensures perfect centering math
-    const itemHeight = window.innerHeight;
-    const scrollDistance = (totalItems - 1) * itemHeight;
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: `+=${scrollDistance}`,
-        scrub: 1, 
-        pin: true,
-        anticipatePin: 1,
       }
-    });
 
-    // Scroll the list (must be exactly duration 1 to sync with absolute timeline math)
-    tl.to(rightList, {
-      y: -scrollDistance,
-      ease: "none",
-      duration: 1
-    }, 0);
-
-    const images = leftRef.current.querySelectorAll('.program-img');
-    const textItems = rightList.querySelectorAll('.program-item');
-
-    images.forEach((img, i) => {
-      if (i === 0) return; 
+      if (i === cardEls.length - 1) return; // Last card doesn't scale away
       
-      // Image crossfade starts halfway from previous item and finishes exactly when this item is centered
-      const start = (i - 0.5) / (totalItems - 1);
-      const end = i / (totalItems - 1);
-      
-      tl.fromTo(img, 
-        { opacity: 0, scale: 1.1 },
-        { 
-          opacity: 1, 
-          scale: 1,
-          ease: "power2.inOut",
-          duration: end - start,
-        },
-        start
-      );
-    });
-
-    textItems.forEach((item, i) => {
-      const activePoint = i / (totalItems - 1);
-      
-      if (i !== 0) gsap.set(item, { opacity: 0.15, x: 20 });
-      else gsap.set(item, { opacity: 1, x: 0 });
-
-      if (i > 0) {
-        tl.to(item, { opacity: 1, x: 0, duration: 0.2, ease: "power2.out" }, activePoint - 0.2);
-      }
-      if (i < totalItems - 1) {
-        tl.to(item, { opacity: 0.15, x: 20, duration: 0.2, ease: "power2.in" }, activePoint + 0.1);
+      if (!isMobile) {
+        // The Z-Axis scale down (pushed into the background)
+        gsap.to(card, {
+          scale: 0.9,
+          opacity: 0.3,
+          y: -50, // Slight upward drift as it gets buried
+          ease: "none",
+          scrollTrigger: {
+            trigger: cardEls[i + 1], // Triggered by the arrival of the NEXT card
+            start: "top bottom",     // When next card touches bottom of viewport
+            end: "top top",          // When next card reaches top and pins
+            scrub: true,
+          },
+        });
       }
     });
 
   }, { scope: containerRef });
 
   return (
-    <section 
-      ref={containerRef}
-      className="relative bg-charcoal-ink text-pure-surface overflow-hidden md:h-screen"
-      id="unggulan"
-    >
-      <div className="flex flex-col md:flex-row h-full">
+    <section id="unggulan" className="relative bg-warm-50">
+      
+      {/* 1. Background Sticky Title (Anticipation Builder) */}
+      <div className="sticky top-0 w-full h-[100dvh] flex flex-col items-center justify-center z-0 pointer-events-none px-6 text-center">
+         <h2 className="text-xs md:text-sm font-heading font-bold uppercase tracking-[0.4em] text-primary-700 mb-6">
+           Pilar Pendidikan
+         </h2>
+         <h3 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tighter text-warm-900 leading-[1.1]">
+           Program<br/>Unggulan
+         </h3>
+      </div>
+
+      {/* 2. The Z-Axis Cascade Container */}
+      <div ref={containerRef} className="relative z-10 w-full pb-24">
         
-        {/* Left Side: Pinned Cinematic Images */}
-        <div 
-          ref={leftRef}
-          className="hidden md:block w-1/2 h-full relative overflow-hidden"
-        >
-          {programs.map((p, i) => (
-            <div 
-              key={i} 
-              className="program-img absolute inset-0 w-full h-full"
-              style={{ zIndex: i }}
-            >
-              <img 
-                src={mockPhotos[i % mockPhotos.length]} 
-                alt={p}
-                className="w-full h-full object-cover grayscale-[30%] sepia-[0.1]"
-              />
-              <div className="absolute inset-0 bg-charcoal-ink/40 mix-blend-multiply" />
-            </div>
-          ))}
-          
-          <div className="absolute bottom-12 left-12 z-50">
-             <h2 className="text-sm font-heading font-bold uppercase tracking-[0.4em] text-pure-surface/70 drop-shadow-lg">
-              Program Unggulan Sekolah
-            </h2>
-          </div>
-        </div>
+        {/* Spacer so the user can admire the title before the first card arrives */}
+        <div className="h-[70vh] w-full pointer-events-none" />
 
-        {/* Right Side: Scrolling Typography List */}
-        <div className="w-full md:w-1/2 h-full relative">
-          
-          <div 
-            ref={rightRef}
-            className="flex flex-col"
+        {programs.map((p, i) => (
+          <div
+            key={i}
+            className="stack-card sticky top-0 min-h-[100dvh] flex flex-col items-center justify-center p-4 md:p-8 origin-top will-change-transform"
           >
-            {programs.map((p, i) => (
-              <div key={i} className="program-item mobile-item flex flex-col justify-center min-h-[50vh] md:h-screen px-8 md:px-16 lg:px-24">
+            {/* Double-Bezel Massive Card */}
+            <div className="w-full max-w-[1400px] h-[85vh] md:h-[90vh] rounded-[2rem] md:rounded-[2.5rem] bg-charcoal-ink p-2 md:p-3 shadow-[0_20px_50px_rgba(0,0,0,0.4)] relative overflow-hidden ring-1 ring-charcoal-ink/10">
+              
+              {/* Inner Core */}
+              <div className="relative w-full h-full rounded-[calc(2rem-0.5rem)] md:rounded-[calc(2.5rem-0.75rem)] overflow-hidden bg-charcoal-ink group">
                 
-                <div className="md:hidden w-full aspect-[4/3] rounded-2xl overflow-hidden mb-8">
-                  <img src={mockPhotos[i % mockPhotos.length]} alt={p} className="w-full h-full object-cover" />
+                {/* Parallax Image */}
+                <img 
+                   src={mockPhotos[i % mockPhotos.length]} 
+                   alt={p}
+                   className="parallax-img w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]"
+                />
+                
+                {/* Cinematic Vignettes */}
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal-ink/95 via-charcoal-ink/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-charcoal-ink/80 via-transparent to-transparent opacity-80" />
+                
+                {/* Content Overlay */}
+                <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-16 lg:p-20">
+                   <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-12">
+                      
+                      <div className="flex flex-col">
+                        <span className="font-accent italic text-4xl md:text-6xl lg:text-7xl text-gold-300 mb-2 md:mb-4 drop-shadow-md">
+                          0{i + 1}
+                        </span>
+                        <h4 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold uppercase tracking-tighter text-pure-surface drop-shadow-lg leading-[0.9]">
+                          {p}
+                        </h4>
+                      </div>
+
+                      <div className="md:w-1/3 shrink-0">
+                        <p className="text-pure-surface/80 text-sm md:text-lg leading-relaxed font-body border-l border-gold-300/30 pl-4 md:pl-6 py-2">
+                          {programDetails[i % programDetails.length]}
+                        </p>
+                      </div>
+
+                   </div>
                 </div>
 
-                <div className="flex items-center">
-                  <h3 className="text-4xl md:text-5xl lg:text-7xl font-heading font-bold tracking-tighter uppercase leading-[0.9]">
-                    {p}
-                  </h3>
-                </div>
               </div>
-            ))}
+            </div>
           </div>
-          
-        </div>
-
+        ))}
       </div>
     </section>
   );
