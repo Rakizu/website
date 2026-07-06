@@ -168,8 +168,19 @@ export const Navbar = () => {
              requestAnimationFrame(() => {
                ScrollTrigger.getAll().forEach(t => {
                  if (t.animation) {
-                   // Instantly sync the animation to the exact scroll progress, bypassing scrub lag
                    t.animation.progress(t.progress);
+                 }
+               });
+             });
+           });
+         };
+         
+         const resetToTopAnimations = () => {
+           requestAnimationFrame(() => {
+             requestAnimationFrame(() => {
+               ScrollTrigger.getAll().forEach(t => {
+                 if (t.animation) {
+                   t.animation.progress(0);
                  }
                });
              });
@@ -193,8 +204,9 @@ export const Navbar = () => {
           } else if (href === '/' || href === currentPath) {
             window.scrollTo({ top: 0, behavior: 'auto' });
             setTheme('dark');
+            setIsScrolled(false);
             ScrollTrigger.refresh();
-            syncAnimations();
+            resetToTopAnimations();
           } else if (target) {
             target.scrollIntoView({ behavior: 'auto', block: 'start' });
             ScrollTrigger.refresh();
