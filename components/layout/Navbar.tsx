@@ -51,26 +51,34 @@ export const Navbar = () => {
     ScrollTrigger.create({
       start: `top -${shrinkOffset}`,
       end: "max",
-      onEnter: () => setIsScrolled(true),
-      onLeaveBack: () => setIsScrolled(false),
+      onEnter: () => {
+        setIsScrolled(true);
+        if (pathname === '/') setTheme('light'); // Sinkronisasi presisi saat GatePage hilang
+      },
+      onLeaveBack: () => {
+        setIsScrolled(false);
+        if (pathname === '/') setTheme('dark');
+      },
     });
 
-    // 3. Real-time Intelligence Scanner for pixel-perfect theme detection
-    ScrollTrigger.create({
-      start: 0,
-      end: "max",
-      onUpdate: () => {
-        // Sample a point directly behind the center of the Navbar
-        const elements = document.elementsFromPoint(window.innerWidth / 2, 28);
-        const themeElement = elements.find(el => el.hasAttribute('data-theme'));
-        
-        if (themeElement) {
-          const detectedTheme = themeElement.getAttribute('data-theme');
-          if (detectedTheme === 'light' || detectedTheme === 'dark') {
-            setTheme(detectedTheme);
-          }
+    // 3. Robust Section-Based Theme Detection (replaces the unreliable scanner)
+    const themeSections = document.querySelectorAll('[data-theme]');
+    themeSections.forEach(section => {
+      if (section.tagName.toLowerCase() === 'main') return; // abaikan tag main
+      
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 56px", 
+        end: "bottom 56px",
+        onEnter: () => {
+          const t = section.getAttribute('data-theme');
+          if (t === 'light' || t === 'dark') setTheme(t);
+        },
+        onEnterBack: () => {
+          const t = section.getAttribute('data-theme');
+          if (t === 'light' || t === 'dark') setTheme(t);
         }
-      }
+      });
     });
 
     // Initialize curtain safely out of sight
