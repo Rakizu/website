@@ -61,9 +61,9 @@ export const HeroCinematic = () => {
   return (
     <section
       ref={container}
-      data-theme="dark"
+      data-theme="light"
       className="cinematic-grain vignette relative min-h-[100dvh] flex flex-col justify-center px-6 md:px-16 overflow-hidden pt-24 pb-12"
-      style={{ background: 'var(--ink)' }}
+      style={{ background: 'var(--background)' }}
     >
       {/* Radial warm glow (from referensi GateHero pattern) */}
       <div
@@ -83,8 +83,8 @@ export const HeroCinematic = () => {
           <p
             className="font-accent italic text-lg leading-relaxed border-l pl-6"
             style={{
-              color: 'var(--muted)',
-              borderColor: 'rgba(253, 246, 236, 0.15)'
+              color: 'var(--muted-fg)',
+              borderColor: 'var(--border-clr)'
             }}
           >
             Membangun generasi yang tidak hanya unggul dalam akademik, tetapi juga berakar kuat pada nilai-nilai spiritual.
@@ -94,14 +94,14 @@ export const HeroCinematic = () => {
         {/* Massive Headline */}
         <h1
           className="font-heading font-bold text-5xl md:text-8xl lg:text-[8rem] leading-[1.1] md:leading-[0.95] tracking-tighter uppercase flex flex-wrap items-center gap-x-4 gap-y-6"
-          style={{ color: 'var(--cream)' }}
+          style={{ color: 'var(--foreground)' }}
         >
           <span className="overflow-hidden inline-block relative h-[1.1em]">
             <span ref={(el) => setWordRef(el, 0)} className="inline-block">Generasi</span>
           </span>
 
           <span className="inline-img relative w-20 h-16 md:w-36 md:h-24 lg:w-48 lg:h-32 rounded-full overflow-hidden inline-block shrink-0"
-            style={{ border: '1px solid rgba(253, 246, 236, 0.15)' }}>
+            style={{ border: '1px solid var(--border-clr)' }}>
             <img
               src="https://images.unsplash.com/photo-1544717302-de2939b7ef71?q=80&w=400&auto=format&fit=crop"
               alt="Portrait"
@@ -133,7 +133,7 @@ export const HeroCinematic = () => {
 
         {/* Bottom row */}
         <div className="hero-subtext flex flex-col md:flex-row items-start md:items-end justify-between w-full gap-12 self-end">
-          <div className="text-sm font-body uppercase tracking-[0.25em] font-semibold" style={{ color: 'var(--cream)' }}>
+          <div className="text-sm font-body uppercase tracking-[0.25em] font-semibold" style={{ color: 'var(--foreground)' }}>
             SMPIT Thoriqul Jannah
           </div>
 
