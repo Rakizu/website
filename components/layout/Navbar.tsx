@@ -125,7 +125,6 @@ export const Navbar = () => {
       
       tl.set(svg, { autoAlpha: 1 });
       tl.set(content, { autoAlpha: 0 });
-      tl.set(logoWrapper, { yPercent: -150, y: 0 }); // Posisi di tengah atas layar
       tl.set(sheen, { left: '-150%' });
       tl.set(pulseRing, { scale: 1, opacity: 0 });
       
@@ -149,15 +148,8 @@ export const Navbar = () => {
          }, index * 0.12); // Stagger
       });
       
-      // Fade in pattern/vignette gently
-      tl.to(content, { autoAlpha: 1, duration: 0.4 }, 0.1);
-      
-      // Slide down logo wrapper (jeda sedikit setelah tirai gold turun)
-      tl.to(logoWrapper, {
-         yPercent: 0,
-         duration: 0.9,
-         ease: "power3.inOut"
-      }, 0.15);
+      // Jeda sedikit untuk memunculkan konten (termasuk logo) agar tirai sudah cukup turun
+      tl.to(content, { autoAlpha: 1, duration: 0.5 }, 0.2);
       
       // Ink wave finishes at 0.12 + 0.9 = 1.02s
       tl.addLabel("covered", 0.9);
@@ -210,15 +202,8 @@ export const Navbar = () => {
       
       tl.addLabel("liftStart", "sheenDone+=0.1");
       
-      tl.to(content, { autoAlpha: 0, duration: 0.6 }, "liftStart");
-      
-      // Slide logo down to exit (parallax)
-      tl.to(logoWrapper, {
-         yPercent: 150,
-         y: 0,
-         duration: 0.9,
-         ease: "power3.inOut"
-      }, "liftStart");
+      // Logo dan konten tetap diam di tempat, hanya memudar (fade out)
+      tl.to(content, { autoAlpha: 0, duration: 0.5 }, "liftStart");
       
       reversePaths.forEach((path, index) => {
          if (!path) return;
