@@ -208,7 +208,7 @@ export const Navbar = () => {
             router.push(href);
           } else if (href === '/' || href === currentPath) {
             window.scrollTo({ top: 0, behavior: 'auto' });
-            setTheme('light');
+            setTheme('dark');
             setIsScrolled(false);
             ScrollTrigger.refresh();
             resetToTopAnimations();
@@ -284,7 +284,7 @@ export const Navbar = () => {
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     if (href === '/') {
-      setTheme('light');
+      setTheme('dark');
       setIsScrolled(false);
     }
     const isRoute = href.startsWith('/') && href !== pathname;
