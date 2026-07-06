@@ -47,8 +47,9 @@ export const Navbar = () => {
 
   useGSAP(() => {
     // Global shrink/expand based on scroll position
+    const shrinkOffset = pathname === '/' ? window.innerHeight * 2.8 : 100;
     ScrollTrigger.create({
-      start: "top -100",
+      start: `top -${shrinkOffset}`,
       end: "max",
       onEnter: () => setIsScrolled(true),
       onLeaveBack: () => setIsScrolled(false),

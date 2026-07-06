@@ -23,7 +23,7 @@ export default function Home() {
   const data = getData();
 
   return (
-    <main className="bg-canvas-white text-charcoal-ink min-h-screen">
+    <main className="bg-canvas-white text-charcoal-ink min-h-screen" data-theme="light">
       <div data-theme="dark">
         <GatePage />
       </div>
