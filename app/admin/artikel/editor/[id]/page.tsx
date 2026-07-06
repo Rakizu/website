@@ -127,44 +127,49 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
   };
 
   if (isLoading) {
-    return <div className="flex-1 flex items-center justify-center min-h-screen bg-slate-100 text-slate-500 animate-pulse font-body">Memuat Dokumen...</div>;
+    return <div className="h-screen w-full flex items-center justify-center bg-gray-50 text-gray-500 animate-pulse text-sm font-medium">Memuat Data...</div>;
   }
 
   return (
-    <div className="flex-1 w-full min-h-screen bg-[#F3F4F6] flex flex-col font-body">
-      {/* Ribbon / Toolbar Header (Office Style) */}
-      <div className="w-full bg-white border-b border-slate-300 shadow-sm flex items-center justify-between px-4 py-2 sticky top-0 z-50">
+    <div className="h-screen w-full bg-white flex flex-col font-sans text-gray-900 overflow-hidden">
+      {/* Unified Full-Width Header */}
+      <header className="flex-shrink-0 h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 z-10">
         <div className="flex items-center gap-4">
           <button 
             onClick={() => router.push('/admin/artikel')}
-            className="p-2 text-slate-600 hover:bg-slate-100 rounded-md transition-colors flex items-center gap-2"
-            title="Kembali"
+            className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            <span className="text-sm font-semibold hidden md:block">Beranda</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Kembali
           </button>
           
-          <div className="h-6 w-px bg-slate-300 mx-2"></div>
+          <div className="h-5 w-px bg-gray-300"></div>
           
-          <button
-            disabled={userRole === 'writer'}
-            onClick={() => setFormData({ ...formData, status: formData.status === 'Published' ? 'Draft' : 'Published' })}
-            className={`px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-2 border transition-all ${
-              formData.status === 'Published' 
-                ? 'bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100' 
-                : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200'
-            } ${userRole === 'writer' ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            <span className={`w-2 h-2 rounded-full ${formData.status === 'Published' ? 'bg-blue-600' : 'bg-slate-400'}`}></span>
-            {userRole === 'writer' ? 'DRAFT (Terkunci)' : formData.status}
-          </button>
+          <div className="text-sm font-medium text-gray-400">
+            {isNew ? 'Membuat Artikel Baru' : 'Mengedit Artikel'}
+          </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-500">Status:</span>
+            <button
+              disabled={userRole === 'writer'}
+              onClick={() => setFormData({ ...formData, status: formData.status === 'Published' ? 'Draft' : 'Published' })}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-md border transition-colors ${
+                formData.status === 'Published' 
+                  ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100' 
+                  : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
+              } ${userRole === 'writer' ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              {userRole === 'writer' ? 'DRAFT (Terkunci)' : formData.status}
+            </button>
+          </div>
+
           <button 
             onClick={handleSave}
             disabled={isSaving}
-            className="px-4 py-1.5 bg-[#005A9E] text-white text-sm font-semibold rounded hover:bg-[#004578] active:bg-[#003359] transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm"
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors shadow-sm disabled:opacity-50"
           >
             {isSaving ? (
               <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
@@ -174,21 +179,21 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
             {isSaving ? 'Menyimpan...' : 'Simpan'}
           </button>
         </div>
-      </div>
+      </header>
 
-      {/* Workspace Area */}
-      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
+      {/* Main Workspace: 2 Columns */}
+      <div className="flex-1 flex overflow-hidden">
         
-        {/* Document Canvas (A4 format) */}
-        <div className="flex-1 overflow-y-auto p-6 md:p-12 pb-32 flex justify-center bg-[#F3F4F6]">
-          <div className="w-full max-w-[210mm] min-h-[297mm] bg-white shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-slate-200 px-10 py-16 md:px-16 md:py-20 flex flex-col">
-            {/* Title */}
+        {/* Left Column: Document Canvas */}
+        <div className="flex-1 overflow-y-auto bg-white flex justify-center pb-32">
+          <div className="w-full max-w-3xl px-8 py-12 md:py-16">
+            
             <textarea
               rows={1}
-              placeholder="Judul Dokumen"
+              placeholder="Judul Artikel..."
               value={formData.judul}
               onChange={(e) => setFormData({ ...formData, judul: e.target.value })}
-              className="w-full bg-transparent border-none outline-none font-heading font-bold text-3xl md:text-4xl text-slate-900 placeholder-slate-300 resize-none overflow-hidden leading-tight mb-6"
+              className="w-full bg-transparent border-none outline-none font-bold text-4xl text-gray-900 placeholder-gray-300 resize-none overflow-hidden leading-tight mb-6"
               onInput={(e) => {
                 const target = e.target as HTMLTextAreaElement;
                 target.style.height = 'auto';
@@ -196,34 +201,30 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
               }}
             />
             
-            {/* Divider */}
-            <hr className="border-slate-100 mb-8" />
-
-            {/* Content Editor */}
             <textarea
               ref={textareaRef}
-              placeholder="Mulai mengetik isi dokumen di sini..."
+              placeholder="Ketik konten utama di sini..."
               value={formData.content}
               onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-              className="flex-1 w-full bg-transparent border-none outline-none text-slate-800 font-body text-base leading-relaxed resize-none placeholder-slate-300"
+              className="w-full bg-transparent border-none outline-none text-gray-800 text-lg leading-relaxed resize-none min-h-[500px] placeholder-gray-300"
             />
           </div>
         </div>
 
-        {/* Properties Sidebar (Office Style) */}
-        <div className="w-full lg:w-[320px] bg-white border-l border-slate-300 shadow-sm overflow-y-auto h-auto lg:h-[calc(100vh-53px)] shrink-0">
-          <div className="p-4 bg-slate-50 border-b border-slate-200">
-            <h3 className="text-sm font-semibold text-slate-700">Properti Dokumen</h3>
+        {/* Right Column: Properties Sidebar */}
+        <aside className="w-80 flex-shrink-0 bg-gray-50 border-l border-gray-200 overflow-y-auto hidden lg:block">
+          <div className="p-4 border-b border-gray-200 bg-gray-100/50">
+            <h2 className="text-sm font-semibold text-gray-700">Pengaturan Dokumen</h2>
           </div>
           
-          <div className="p-5 space-y-6">
+          <div className="p-5 space-y-5">
             {/* Kategori */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-600">Kategori</label>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Kategori</label>
               <select
                 value={formData.kategori}
                 onChange={(e) => setFormData({ ...formData, kategori: e.target.value })}
-                className="w-full bg-white border border-slate-300 rounded px-3 py-1.5 text-sm outline-none focus:border-[#005A9E] focus:ring-1 focus:ring-[#005A9E] text-slate-800"
+                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
               >
                 {predefinedCategories.map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
@@ -232,66 +233,71 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
             </div>
 
             {/* Excerpt */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-600">Ringkasan (Excerpt)</label>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Ringkasan Singkat</label>
               <textarea
-                placeholder="Ringkasan singkat..."
+                placeholder="Deskripsi singkat..."
                 value={formData.excerpt}
                 onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                className="w-full bg-white border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-[#005A9E] focus:ring-1 focus:ring-[#005A9E] resize-none h-20 text-slate-800"
+                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow resize-none h-24"
               />
             </div>
 
             {/* Cover Image */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-600">URL Gambar Cover</label>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Gambar Sampul (URL)</label>
               <input
                 type="text"
                 placeholder="https://..."
                 value={formData.image}
                 onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                className="w-full bg-white border border-slate-300 rounded px-3 py-1.5 text-sm outline-none focus:border-[#005A9E] focus:ring-1 focus:ring-[#005A9E] text-slate-800"
+                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
               />
             </div>
+
+            <hr className="border-gray-200" />
 
             {/* Penulis */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-600">Penulis</label>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Nama Penulis</label>
               <input
                 type="text"
-                placeholder="Nama Penulis"
+                placeholder="Contoh: Budi Santoso"
                 value={formData.penulis}
                 onChange={(e) => setFormData({ ...formData, penulis: e.target.value })}
-                className="w-full bg-white border border-slate-300 rounded px-3 py-1.5 text-sm outline-none focus:border-[#005A9E] focus:ring-1 focus:ring-[#005A9E] text-slate-800"
+                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
               />
             </div>
 
-            {/* Peran */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-600">Peran Penulis</label>
+            {/* Peran Penulis */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Peran Penulis</label>
               <input
                 type="text"
-                placeholder="Peran"
+                placeholder="Contoh: Editor Utama"
                 value={formData.author_role}
                 onChange={(e) => setFormData({ ...formData, author_role: e.target.value })}
-                className="w-full bg-white border border-slate-300 rounded px-3 py-1.5 text-sm outline-none focus:border-[#005A9E] focus:ring-1 focus:ring-[#005A9E] text-slate-800"
+                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
               />
             </div>
 
+            <hr className="border-gray-200" />
+
             {/* Tags */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-600">Tags</label>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Tags</label>
               <input
                 type="text"
-                placeholder="Tag1, Tag2..."
+                placeholder="Pendidikan, Sekolah..."
                 value={formData.tags}
                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                className="w-full bg-white border border-slate-300 rounded px-3 py-1.5 text-sm outline-none focus:border-[#005A9E] focus:ring-1 focus:ring-[#005A9E] text-slate-800"
+                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
               />
+              <p className="mt-1.5 text-xs text-gray-500">Pisahkan dengan koma.</p>
             </div>
             
           </div>
-        </div>
+        </aside>
       </div>
     </div>
   );
