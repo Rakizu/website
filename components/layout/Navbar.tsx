@@ -56,22 +56,27 @@ export const Navbar = () => {
     });
 
     // 3. Real-time Intelligence Scanner for pixel-perfect theme detection
-    ScrollTrigger.create({
-      start: 0,
-      end: "max",
-      onUpdate: () => {
-        // Sample a point directly behind the center of the Navbar
-        const elements = document.elementsFromPoint(window.innerWidth / 2, 28);
-        const themeElement = elements.find(el => el.hasAttribute('data-theme'));
-        
-        if (themeElement) {
-          const detectedTheme = themeElement.getAttribute('data-theme');
-          if (detectedTheme === 'light' || detectedTheme === 'dark') {
-            setTheme(detectedTheme);
-          }
+    const checkTheme = () => {
+      const elements = document.elementsFromPoint(window.innerWidth / 2, 28);
+      const themeElement = elements.find(el => el.hasAttribute('data-theme'));
+      
+      if (themeElement) {
+        const detectedTheme = themeElement.getAttribute('data-theme');
+        if (detectedTheme === 'light' || detectedTheme === 'dark') {
+          setTheme(detectedTheme);
         }
       }
+    };
+
+    ScrollTrigger.create({
+      trigger: document.body,
+      start: 0,
+      end: "max",
+      onUpdate: checkTheme
     });
+
+    // Simpan checkTheme di window agar bisa dipanggil manual dari luar ScrollTrigger
+    (window as any).__checkNavbarTheme = checkTheme;
 
     // Initialize curtain safely out of sight
     if (curtainRef.current) {
@@ -238,6 +243,11 @@ export const Navbar = () => {
                gsap.set(svg, { autoAlpha: 0 });
                content.style.pointerEvents = 'none';
                isAnimating.current = false;
+               
+               // Force check theme directly without relying on scroll events
+               if (typeof (window as any).__checkNavbarTheme === 'function') {
+                 (window as any).__checkNavbarTheme();
+               }
             } : undefined
          }, liftStartTime + (index * staggerDelay));
       });
