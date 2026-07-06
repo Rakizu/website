@@ -374,7 +374,7 @@ export const Navbar = () => {
 
           {/* Center: Tight Navigation Links */}
           <nav 
-            className="absolute left-1/2 -translate-x-1/2 h-full hidden md:flex items-center gap-1 z-10 transition-all duration-500"
+            className="absolute left-1/2 -translate-x-1/2 h-full hidden md:flex items-center gap-0 z-10 transition-all duration-500"
           >
             {navLinks.map((link) => {
               return (
@@ -382,7 +382,7 @@ export const Navbar = () => {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNav(e, link.href)}
-                  className="pointer-events-auto relative px-4 py-2.5 text-[13px] font-heading font-bold uppercase tracking-widest rounded-full transition-all duration-300 group overflow-hidden"
+                  className="pointer-events-auto relative px-[11px] py-2 text-sm font-heading font-bold uppercase tracking-wider rounded-full transition-all duration-300 group overflow-hidden"
                   style={{ 
                     color: textColor,
                     textShadow: isDarkBg ? '0 2px 10px rgba(0,0,0,0.5)' : 'none'
@@ -416,17 +416,19 @@ export const Navbar = () => {
           <a
             href="#daftar"
             onClick={(e) => handleNav(e, '#daftar')}
-            className="pointer-events-auto relative px-7 h-[42px] rounded-full overflow-hidden group shrink-0 flex items-center justify-center transition-all duration-500 z-20 hover:scale-105 hover:shadow-[0_0_20px_rgba(199,154,69,0.3)]"
+            className="pointer-events-auto relative px-6 h-[40px] rounded-full overflow-hidden group shrink-0 flex items-center justify-center transition-all duration-500 z-20 hover:scale-105 hover:shadow-[0_0_20px_rgba(199,154,69,0.3)]"
             style={{
-              background: isDarkBg ? 'rgba(255, 255, 255, 0.1)' : 'var(--ink)',
-              border: `1px solid ${isDarkBg ? 'rgba(255, 255, 255, 0.25)' : 'var(--ink)'}`,
-              color: isDarkBg ? '#FFFFFF' : '#FDF6EC',
+              background: isScrolled ? (isDarkBg ? 'rgba(253, 246, 236, 0.12)' : 'var(--sage-deep)') : (isDarkBg ? 'rgba(253, 246, 236, 0.12)' : 'var(--sage)'),
+              border: `1px solid ${isDarkBg ? 'rgba(253, 246, 236, 0.25)' : 'var(--sage-deep)'}`,
+              color: '#FDF6EC',
             }}
           >
             <span 
-              className="relative z-10 text-[13px] font-heading font-bold uppercase tracking-[0.2em] transition-all duration-500"
+              className="relative z-10 text-sm font-heading font-bold uppercase tracking-widest transition-all duration-500"
               style={{
-                textShadow: isDarkBg ? '0 2px 10px rgba(0,0,0,0.5)' : 'none'
+                textShadow: isScrolled 
+                  ? '0 0 10px rgba(253, 246, 236, 0.4)' 
+                  : (isDarkBg ? '0 0 10px rgba(253, 246, 236, 0.4)' : '0 1px 3px rgba(0,0,0,0.1)')
               }}
             >
               Daftar
