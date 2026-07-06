@@ -122,42 +122,45 @@ export const Navbar = () => {
       content.style.pointerEvents = 'auto'; // Block clicks
       
       const tl = gsap.timeline();
+      const easeInOut = "power4.inOut";
+      const duration = 1.0;
+      const staggerDelay = 0.12;
       
+      // 1. Initial State
       tl.set(svg, { autoAlpha: 1 });
       tl.set(content, { autoAlpha: 0 });
       tl.set(sheen, { left: '-150%' });
       tl.set(pulseRing, { scale: 1, opacity: 0 });
-      
       paths.forEach(p => p?.setAttribute("d", "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z"));
       
-      // 1. Drop down cascaded liquid waves
+      // 2. Liquid Drop (IN)
       paths.forEach((path, index) => {
          if (!path) return;
          const progress = { value: 0 };
          tl.to(progress, {
             value: 100,
-            duration: 0.9,
-            ease: "power3.inOut",
+            duration: duration,
+            ease: easeInOut,
             onUpdate: () => {
-               // ORGANIC PHYSICS: Use Math.pow(x, 3) to move the peak of the sine wave to ~80% of the animation.
-               // This means the liquid drags and bulges massively right before it hits the bottom, then snaps flat!
+               // AWWWARDS STANDARD: Pure sine wave for perfect symmetrical liquid sweep
                const x = progress.value / 100;
-               const bow = Math.sin(Math.pow(x, 3) * Math.PI) * 60;
+               const bow = Math.sin(x * Math.PI) * 150; // Deep elegant curve
                path.setAttribute("d", `M 0 0 L 100 0 L 100 ${progress.value} Q 50 ${progress.value + bow} 0 ${progress.value} Z`);
             }
-         }, index * 0.12); // Stagger
+         }, index * staggerDelay);
       });
       
-      // Jeda sedikit untuk memunculkan konten (termasuk logo) agar tirai sudah cukup turun
-      tl.to(content, { autoAlpha: 1, duration: 0.5 }, 0.2);
+      // 3. Reveal Content (Logo & Vignette fade in as the curtain covers the screen)
+      tl.to(content, { autoAlpha: 1, duration: 0.5, ease: "power2.out" }, duration * 0.4);
       
-      // Ink wave finishes at 0.12 + 0.9 = 1.02s
-      tl.addLabel("covered", 0.9);
+      // 4. Centerpiece Micro-interactions
+      const contentReadyTime = duration + staggerDelay; 
+      tl.to(sheen, { left: '150%', duration: 0.8, ease: "power2.inOut" }, contentReadyTime);
+      tl.to(pulseRing, {
+         scale: 2, opacity: 0, duration: 0.8, ease: "power2.out", startAt: { scale: 1, opacity: 0.8 }
+      }, contentReadyTime);
       
-      // Centerpiece Animations
-      tl.to(sheen, { left: '150%', duration: 0.75, ease: "power2.inOut" }, "covered");
-      tl.addLabel("sheenDone");
-      
+      // 5. Trigger Routing / Scrolling in the background
       tl.add(() => {
          const skipAnimations = () => {
            requestAnimationFrame(() => {
@@ -174,7 +177,6 @@ export const Navbar = () => {
          if (isCrossPageHash) {
            sessionStorage.setItem('skipNextReveal', 'true');
            router.push('/');
-           // Wait for Next.js soft navigation and GSAP ScrollTrigger to initialize GatePage
            setTimeout(() => {
              const t = document.querySelector(href);
              if (t) {
@@ -191,32 +193,26 @@ export const Navbar = () => {
            ScrollTrigger.refresh();
            skipAnimations();
          }
-      }, "sheenDone-=0.2");
+      }, contentReadyTime + 0.2);
       
-      tl.to(pulseRing, {
-         scale: 2, opacity: 0, duration: 0.8, ease: "power2.out", startAt: { scale: 1, opacity: 0.8 }
-      }, "sheenDone");
-      
-      // 3. Lift up cascaded liquid waves (Reverse order)
+      // 6. Liquid Lift (OUT)
       const reversePaths = [...paths].reverse();
+      const liftStartTime = contentReadyTime + 0.8;
       
-      tl.addLabel("liftStart", "sheenDone+=0.1");
-      
-      // Logo dan konten tetap diam di tempat, hanya memudar (fade out)
-      tl.to(content, { autoAlpha: 0, duration: 0.5 }, "liftStart");
+      // Fade out content perfectly seamlessly as the lift begins
+      tl.to(content, { autoAlpha: 0, duration: 0.5, ease: "power2.inOut" }, liftStartTime);
       
       reversePaths.forEach((path, index) => {
          if (!path) return;
          const liftProgress = { value: 0 };
          tl.to(liftProgress, {
             value: 100,
-            duration: 0.9,
-            ease: "power3.inOut",
+            duration: duration,
+            ease: easeInOut,
             onUpdate: () => {
-               // ORGANIC PHYSICS: Use Math.pow(x, 0.33) to move the peak to ~12% of the animation.
-               // This means gravity resists the lift, causing a sudden heavy sag at the start, which smoothly resolves.
                const x = liftProgress.value / 100;
-               const bow = Math.sin(Math.pow(x, 0.33) * Math.PI) * 60;
+               const bow = Math.sin(x * Math.PI) * 150; 
+               // Lift animation: The liquid drains downwards seamlessly
                path.setAttribute("d", `M 0 ${liftProgress.value} Q 50 ${liftProgress.value + bow} 100 ${liftProgress.value} L 100 100 L 0 100 Z`);
             },
             onComplete: index === 1 ? () => {
@@ -224,7 +220,7 @@ export const Navbar = () => {
                content.style.pointerEvents = 'none';
                isAnimating.current = false;
             } : undefined
-         }, `liftStart+=${index * 0.12}`);
+         }, liftStartTime + (index * staggerDelay));
       });
     } else if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
