@@ -108,6 +108,7 @@ export const HeroCinematic = () => {
               alt="Portrait"
               fill
               className="object-cover"
+              sizes="(max-width: 768px) 30vw, 15vw"
             />
           </span>
 
@@ -126,6 +127,7 @@ export const HeroCinematic = () => {
               fill
               className="object-cover"
               style={{ filter: 'sepia(0.3)' }}
+              sizes="(max-width: 768px) 30vw, 15vw"
             />
           </span>
 

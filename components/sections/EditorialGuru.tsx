@@ -106,6 +106,7 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
                     alt={g.nama} 
                     fill
                     className="guru-img object-cover grayscale hover:grayscale-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
 

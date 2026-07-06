@@ -62,6 +62,7 @@ export const StoryVisiMisi = () => {
               alt="Perpustakaan Digital" 
               fill
               className="object-cover scale-110 sepia-[0.2] contrast-[1.1]"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
         </div>
