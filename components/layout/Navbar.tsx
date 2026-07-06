@@ -90,7 +90,9 @@ export const Navbar = () => {
     const isArticleToArticle = currentPath.startsWith('/artikel') && href === '#artikel';
     const isCrossPageHash = currentPath !== '/' && href.startsWith('#') && !isArticleToArticle;
     
-    const target = (!isRoute && !isCrossPageHash) ? document.querySelector(href) : null;
+    // Cegah error "not a valid selector" jika href adalah '/'
+    const isValidSelector = href.startsWith('#');
+    const target = (!isRoute && !isCrossPageHash && isValidSelector) ? document.querySelector(href) : null;
     
     // Cek apakah pengunjung sudah berada di section tersebut (rect.top berada di dekat area pandang)
     let isAlreadyInSection = false;
@@ -104,8 +106,9 @@ export const Navbar = () => {
     }
     
     // Tirai dipicu jika: rute berubah, lompat dari halaman lain, target valid TAPI belum dilihat, atau kembali ke atas (klik logo)
-    const isReturnToTop = href === '/' && pathname === '/';
-    const shouldRunCurtain = (target && !isArticleToArticle && !isAlreadyInSection) || isRoute || isCrossPageHash || isReturnToTop;
+    const computedIsRoute = isRoute || (href.startsWith('/') && href !== currentPath);
+    const isReturnToTop = href === '/' && currentPath === '/';
+    const shouldRunCurtain = (target && !isArticleToArticle && !isAlreadyInSection) || computedIsRoute || isCrossPageHash || isReturnToTop;
     
     if (shouldRunCurtain && curtainRef.current && contentRef.current) {
       isAnimating.current = true;
@@ -183,11 +186,11 @@ export const Navbar = () => {
                skipAnimations();
              }
            }, 600);
-         } else if (isRoute) {
-           sessionStorage.setItem('skipNextReveal', 'true');
-           router.push(href);
-         } else if (href === '/' || href === pathname) {
-           window.scrollTo({ top: 0, behavior: 'auto' });
+          } else if (computedIsRoute) {
+            sessionStorage.setItem('skipNextReveal', 'true');
+            router.push(href);
+          } else if (href === '/' || href === currentPath) {
+            window.scrollTo({ top: 0, behavior: 'auto' });
            ScrollTrigger.refresh();
            skipAnimations();
          } else if (target) {
@@ -236,6 +239,8 @@ export const Navbar = () => {
           t.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }, 600);
+    } else if (computedIsRoute) {
+      router.push(href);
     } else if (isReturnToTop) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -254,7 +259,8 @@ export const Navbar = () => {
 
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    executeTransition(href);
+    const isRoute = href.startsWith('/') && href !== pathname;
+    executeTransition(href, isRoute);
   };
 
   const isDarkBg = theme === 'dark';
