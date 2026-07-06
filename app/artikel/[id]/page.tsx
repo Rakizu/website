@@ -5,6 +5,7 @@ import { IslamicPattern } from '@/components/ui/IslamicPattern';
 import { CurtainLink } from '@/components/ui/CurtainLink';
 import { ArticleContent } from '@/components/sections/ArticleContent';
 import { ArticleExplore } from '@/components/sections/ArticleExplore';
+import Image from 'next/image';
 
 // Simulate CMS fetch for a single article and its successor
 function getArtikelData(id: string) {
@@ -84,26 +85,31 @@ export default async function ArtikelPage({ params }: { params: Promise<{ id: st
         {/* Professional Byline */}
         <div className="flex items-center gap-4 pt-6 border-t border-charcoal-ink/10">
           {artikel.author_avatar ? (
-            <img src={artikel.author_avatar} alt={artikel.penulis} className="w-12 h-12 rounded-full object-cover border border-accent-gold/30" />
+            <div className="w-12 h-12 rounded-full relative overflow-hidden border border-accent-gold/30">
+              <Image src={artikel.author_avatar} alt={artikel.penulis} fill className="object-cover" sizes="48px" />
+            </div>
           ) : (
-            <div className="w-12 h-12 rounded-full bg-sage-light text-sage-deep flex items-center justify-center font-heading font-bold text-lg">
+            <div className="w-12 h-12 rounded-full bg-charcoal-ink text-accent-gold flex items-center justify-center font-heading font-bold text-lg">
               {artikel.penulis?.charAt(0) || 'T'}
             </div>
           )}
           <div className="flex flex-col">
             <span className="text-charcoal-ink font-heading font-semibold tracking-wide">{artikel.penulis || 'Tim Redaksi'}</span>
-            <span className="text-sage text-xs uppercase tracking-widest font-bold">{artikel.author_role || 'Editor Utama'}</span>
+            <span className="text-accent-gold text-xs uppercase tracking-widest font-bold">{artikel.author_role || 'Editor Utama'}</span>
           </div>
         </div>
       </div>
 
       {/* Unobstructed Hero Image */}
       <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 mb-16">
-        <div className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden rounded-3xl shadow-2xl group">
-          <img 
+        <div className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden rounded-3xl shadow-2xl group bg-charcoal-ink/5">
+          <Image 
             src={artikel.image} 
             alt={artikel.judul} 
-            className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-[2s] ease-[cubic-bezier(0.19,1,0.22,1)]"
+            fill
+            priority
+            className="object-cover scale-100 group-hover:scale-105 transition-transform duration-[2s] ease-[cubic-bezier(0.19,1,0.22,1)] will-change-transform"
+            sizes="(max-width: 1400px) 100vw, 1400px"
           />
         </div>
       </div>
@@ -129,11 +135,13 @@ export default async function ArtikelPage({ params }: { params: Promise<{ id: st
             isRoute={true}
             className="group block w-full md:w-1/2 relative h-[40vh] md:h-[50vh] overflow-hidden flex items-center justify-center border-b md:border-b-0 md:border-r border-charcoal-ink/10"
           >
-            <div className="absolute inset-0 z-0">
-              <img 
+            <div className="absolute inset-0 z-0 bg-charcoal-ink/5">
+              <Image 
                 src={prevArtikel.image} 
                 alt={prevArtikel.judul} 
-                className="w-full h-full object-cover grayscale opacity-20 group-hover:scale-110 group-hover:opacity-40 transition-all duration-[1.5s] ease-[cubic-bezier(0.19,1,0.22,1)]"
+                fill
+                className="object-cover grayscale opacity-20 group-hover:scale-110 group-hover:opacity-40 transition-all duration-[1.5s] ease-[cubic-bezier(0.19,1,0.22,1)] will-change-transform"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
             <div className="absolute inset-0 bg-charcoal-ink/80 group-hover:bg-charcoal-ink/60 transition-colors duration-[1s] z-10" />
@@ -156,11 +164,13 @@ export default async function ArtikelPage({ params }: { params: Promise<{ id: st
             isRoute={true}
             className="group block w-full md:w-1/2 relative h-[40vh] md:h-[50vh] overflow-hidden flex items-center justify-center"
           >
-            <div className="absolute inset-0 z-0">
-              <img 
+            <div className="absolute inset-0 z-0 bg-charcoal-ink/5">
+              <Image 
                 src={nextArtikel.image} 
                 alt={nextArtikel.judul} 
-                className="w-full h-full object-cover grayscale opacity-20 group-hover:scale-110 group-hover:opacity-40 transition-all duration-[1.5s] ease-[cubic-bezier(0.19,1,0.22,1)]"
+                fill
+                className="object-cover grayscale opacity-20 group-hover:scale-110 group-hover:opacity-40 transition-all duration-[1.5s] ease-[cubic-bezier(0.19,1,0.22,1)] will-change-transform"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
             <div className="absolute inset-0 bg-charcoal-ink/80 group-hover:bg-charcoal-ink/60 transition-colors duration-[1s] z-10" />

@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { CurtainLink } from '@/components/ui/CurtainLink';
+import Image from 'next/image';
 
 interface Artikel {
   id: string;
@@ -88,10 +89,12 @@ export const ArticleExplore: React.FC<ArticleExploreProps> = ({ articles }) => {
               >
                 <div className="w-full aspect-[4/3] rounded-lg overflow-hidden mb-6 relative">
                   <div className="absolute inset-0 bg-charcoal-ink/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                  <img 
+                  <Image 
                     src={a.image} 
                     alt={a.judul}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-[1s] ease-[cubic-bezier(0.19,1,0.22,1)]"
+                    fill
+                    className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-[1s] ease-[cubic-bezier(0.19,1,0.22,1)] will-change-transform"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
                 <div className="flex items-center gap-3 mb-4">
