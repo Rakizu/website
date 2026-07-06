@@ -61,6 +61,7 @@ export const GatePage = () => {
   return (
     <section
       ref={container}
+      data-theme="dark"
       className="cinematic-grain vignette relative w-full h-screen flex items-center justify-center z-[999] overflow-hidden"
       style={{ background: 'var(--ink)' }}
     >

@@ -24,9 +24,7 @@ export default function Home() {
 
   return (
     <main className="bg-canvas-white text-charcoal-ink min-h-screen" data-theme="light">
-      <div data-theme="dark">
-        <GatePage />
-      </div>
+      <GatePage />
       <HeroCinematic />
       <section id="visi" data-theme="light">
         <StoryVisiMisi />
