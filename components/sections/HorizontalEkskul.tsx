@@ -14,10 +14,10 @@ interface Ekskul {
 }
 
 const mockImages = [
-  "https://images.unsplash.com/photo-1508933220556-9b986ee0626b?q=80&w=800&auto=format&fit=crop", // Pramuka
-  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop", // PMR
-  "https://images.unsplash.com/photo-1475721025870-2440ed1836ba?q=80&w=800&auto=format&fit=crop", // Public Speaking
-  "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800&auto=format&fit=crop", // Nasyid
+  "https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?q=80&w=800&auto=format&fit=crop", // Pramuka
+  "https://images.unsplash.com/photo-1609599006353-e629aaab315d?q=80&w=800&auto=format&fit=crop", // Klub Tahfidz
+  "https://images.unsplash.com/photo-1546410531-bea518040081?q=80&w=800&auto=format&fit=crop", // English Club
+  "https://images.unsplash.com/photo-1564069114553-7215e1ff1890?q=80&w=800&auto=format&fit=crop", // Science Club
   "https://images.unsplash.com/photo-1518605368461-1e12d6a5674d?q=80&w=800&auto=format&fit=crop"  // Olahraga
 ];
 

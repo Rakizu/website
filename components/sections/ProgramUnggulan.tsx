@@ -13,11 +13,11 @@ interface ProgramUnggulanProps {
 }
 
 const mockPhotos = [
-  "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1600&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1427504494785-389a05b509d6?q=80&w=1600&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=1600&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?q=80&w=1600&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1590082729930-b3b44b80eec9?q=80&w=1600&auto=format&fit=crop"  
+  "https://images.unsplash.com/photo-1564069114553-7215e1ff1890?q=80&w=1600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1632516643720-e7f5d7d6eca9?q=80&w=1600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1546410531-bea518040081?q=80&w=1600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1609599006353-e629aaab315d?q=80&w=1600&auto=format&fit=crop"  
 ];
 
 const programDetails = [
