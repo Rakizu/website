@@ -103,8 +103,9 @@ export const Navbar = () => {
       }
     }
     
-    // Tirai dipicu jika: rute berubah, lompat dari halaman lain, atau target valid TAPI belum dilihat
-    const shouldRunCurtain = (target && !isArticleToArticle && !isAlreadyInSection) || isRoute || isCrossPageHash;
+    // Tirai dipicu jika: rute berubah, lompat dari halaman lain, target valid TAPI belum dilihat, atau kembali ke atas (klik logo)
+    const isReturnToTop = href === '/' && pathname === '/';
+    const shouldRunCurtain = (target && !isArticleToArticle && !isAlreadyInSection) || isRoute || isCrossPageHash || isReturnToTop;
     
     if (shouldRunCurtain && curtainRef.current && contentRef.current) {
       isAnimating.current = true;
@@ -235,6 +236,8 @@ export const Navbar = () => {
           t.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }, 600);
+    } else if (isReturnToTop) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
