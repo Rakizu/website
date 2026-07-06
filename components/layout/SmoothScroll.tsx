@@ -22,11 +22,6 @@ export const SmoothScroll = () => {
 
     gsap.ticker.lagSmoothing(0);
 
-    // Normalize scroll to fix jank on heavy desktop trackpads/mice
-    ScrollTrigger.normalizeScroll({
-      allowNestedScroll: true,
-      type: "wheel,touch" // smooths out wheel events natively
-    });
     ScrollTrigger.config({ ignoreMobileResize: true });
 
     return () => {
