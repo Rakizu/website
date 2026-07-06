@@ -190,7 +190,9 @@ export const Navbar = () => {
             sessionStorage.setItem('skipNextReveal', 'true');
             router.push(href);
           } else if (href === '/' || href === currentPath) {
-            window.location.href = '/';
+            window.scrollTo({ top: 0, behavior: 'auto' });
+            setTheme('dark');
+            ScrollTrigger.refresh();
           } else if (target) {
             target.scrollIntoView({ behavior: 'auto', block: 'start' });
             ScrollTrigger.refresh();
