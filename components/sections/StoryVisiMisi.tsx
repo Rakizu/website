@@ -63,6 +63,7 @@ export const StoryVisiMisi = () => {
               src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=800&auto=format&fit=crop" 
               alt="Perpustakaan Digital" 
               fill
+              priority
               className="object-cover scale-110 sepia-[0.2] contrast-[1.1]"
               sizes="(max-width: 768px) 100vw, 50vw"
             />

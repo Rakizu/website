@@ -111,6 +111,7 @@ export const HorizontalEkskul: React.FC<HorizontalEkskulProps> = ({ ekskul }) =>
                   src={mockImages[i % mockImages.length]} 
                   alt={e.nama}
                   fill
+                  priority
                   className="object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 will-change-transform"
                   sizes="(max-width: 768px) 100vw, 440px"
                 />

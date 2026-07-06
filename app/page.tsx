@@ -2,17 +2,15 @@ import fs from 'fs';
 import path from 'path';
 import { GatePage } from '@/components/sections/GatePage';
 import { HeroCinematic } from '@/components/sections/HeroCinematic';
-import dynamic from 'next/dynamic';
-
-const StoryVisiMisi = dynamic(() => import('@/components/sections/StoryVisiMisi').then(mod => mod.StoryVisiMisi));
-const FasilitasGrid = dynamic(() => import('@/components/sections/FasilitasGrid').then(mod => mod.FasilitasGrid));
-const EditorialGuru = dynamic(() => import('@/components/sections/EditorialGuru').then(mod => mod.EditorialGuru));
-const KurikulumTree = dynamic(() => import('@/components/sections/KurikulumTree').then(mod => mod.KurikulumTree));
-const HorizontalEkskul = dynamic(() => import('@/components/sections/HorizontalEkskul').then(mod => mod.HorizontalEkskul));
-const ProgramUnggulan = dynamic(() => import('@/components/sections/ProgramUnggulan').then(mod => mod.ProgramUnggulan));
-const AlumniGallery = dynamic(() => import('@/components/sections/AlumniGallery').then(mod => mod.AlumniGallery));
-const ArtikelHighlight = dynamic(() => import('@/components/sections/ArtikelHighlight').then(mod => mod.ArtikelHighlight));
-const FormSPMB = dynamic(() => import('@/components/sections/FormSPMB').then(mod => mod.FormSPMB));
+import { StoryVisiMisi } from '@/components/sections/StoryVisiMisi';
+import { FasilitasGrid } from '@/components/sections/FasilitasGrid';
+import { EditorialGuru } from '@/components/sections/EditorialGuru';
+import { KurikulumTree } from '@/components/sections/KurikulumTree';
+import { HorizontalEkskul } from '@/components/sections/HorizontalEkskul';
+import { ProgramUnggulan } from '@/components/sections/ProgramUnggulan';
+import { AlumniGallery } from '@/components/sections/AlumniGallery';
+import { ArtikelHighlight } from '@/components/sections/ArtikelHighlight';
+import { FormSPMB } from '@/components/sections/FormSPMB';
 
 // Simulate CMS fetch
 function getData() {

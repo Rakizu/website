@@ -109,6 +109,7 @@ export const HeroCinematic = () => {
               src="https://images.unsplash.com/photo-1544717302-de2939b7ef71?q=80&w=400&auto=format&fit=crop"
               alt="Portrait"
               fill
+              priority
               className="object-cover"
               sizes="(max-width: 768px) 30vw, 15vw"
             />
@@ -127,6 +128,7 @@ export const HeroCinematic = () => {
               src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=400&auto=format&fit=crop"
               alt="Education"
               fill
+              priority
               className="object-cover"
               style={{ filter: 'sepia(0.3)' }}
               sizes="(max-width: 768px) 30vw, 15vw"

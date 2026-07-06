@@ -83,6 +83,7 @@ export const FasilitasGrid: React.FC<FasilitasGridProps> = ({ fasilitas }) => {
                   src={f.image} 
                   alt={f.nama} 
                   fill
+                  priority
                   className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.2s] ease-[cubic-bezier(0.19,1,0.22,1)] will-change-transform"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
