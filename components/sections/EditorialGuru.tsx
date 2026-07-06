@@ -33,20 +33,19 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
       const img = section.querySelector('.guru-img');
       const textBlock = section.querySelector('.guru-text');
 
-      // Image reveal (Lightweight, no scrub)
+      // Lightweight Image Parallax (Translate Y only, no scale)
       if (img) {
         gsap.fromTo(img, 
-          { y: 50, scale: 1.05, opacity: 0 },
+          { yPercent: -10 },
           {
-            y: 0,
-            scale: 1,
-            opacity: 1,
-            duration: 1.2,
-            ease: "power3.out",
+            yPercent: 10,
+            ease: "none",
+            force3D: true,
             scrollTrigger: {
               trigger: section,
-              start: "top 80%",
-              once: true,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
             }
           }
         );
@@ -107,7 +106,7 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
                     src={g.image} 
                     alt={g.nama} 
                     fill
-                    className="guru-img object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out will-change-transform"
+                    className="guru-img object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out will-change-transform scale-[1.15]"
                     sizes="(max-width: 768px) 100vw, 40vw"
                   />
                 </div>
