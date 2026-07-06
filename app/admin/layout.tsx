@@ -15,7 +15,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       `}</style>
       
       {/* Slim Enterprise Topbar */}
-      <header className="sticky top-0 w-full px-8 py-4 border-b border-slate-200 bg-white/80 backdrop-blur-md flex justify-between items-center z-50">
+      <header id="admin-global-header" className="sticky top-0 w-full px-8 py-4 border-b border-slate-200 bg-white/80 backdrop-blur-md flex justify-between items-center z-50">
         <div className="flex items-center gap-4">
           <div className="w-9 h-9 rounded-lg bg-slate-900 flex items-center justify-center shadow-sm">
             <span className="font-heading font-bold text-xs text-white tracking-widest">TJ</span>

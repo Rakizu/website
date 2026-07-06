@@ -132,6 +132,7 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
 
   return (
     <div className="h-screen w-full bg-white flex flex-col font-sans text-gray-900 overflow-hidden">
+      <style>{`#admin-global-header { display: none !important; }`}</style>
       {/* Unified Full-Width Header */}
       <header className="flex-shrink-0 h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 z-10">
         <div className="flex items-center gap-4">
