@@ -289,8 +289,8 @@ export const Navbar = () => {
           style={{ background: 'radial-gradient(circle at center, transparent 20%, rgba(0,0,0,0.85) 100%)' }} 
         />
 
-        {/* 3. Center Emblem (Optically centered via -translate-y to compensate for deleted text) */}
-        <div className="logo-wrapper relative flex flex-col items-center justify-center -translate-y-6">
+        {/* 3. Center Emblem */}
+        <div className="logo-wrapper relative flex flex-col items-center justify-center">
           <div className="relative flex items-center justify-center">
             {/* Elegant radar pulse */}
             <div className="pulse-ring absolute inset-0 rounded-full border border-accent-gold/50 opacity-0" />
