@@ -169,6 +169,7 @@ export default function AdminArtikelList() {
           </div>
         )}
       </div>
+      </div>
     </div>
   );
 }
