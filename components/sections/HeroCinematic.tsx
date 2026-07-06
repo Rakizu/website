@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import Image from 'next/image';
 import { IslamicPattern } from '@/components/ui/IslamicPattern';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -102,10 +103,11 @@ export const HeroCinematic = () => {
 
           <span className="inline-img relative w-20 h-16 md:w-36 md:h-24 lg:w-48 lg:h-32 rounded-full overflow-hidden inline-block shrink-0"
             style={{ border: '1px solid var(--border-clr)' }}>
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1544717302-de2939b7ef71?q=80&w=400&auto=format&fit=crop"
               alt="Portrait"
-              className="object-cover w-full h-full"
+              fill
+              className="object-cover"
             />
           </span>
 
@@ -118,10 +120,11 @@ export const HeroCinematic = () => {
           </span>
 
           <span className="inline-img relative w-16 h-16 md:w-28 md:h-24 lg:w-36 lg:h-32 rounded-[2rem] overflow-hidden inline-block shrink-0">
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=400&auto=format&fit=crop"
               alt="Education"
-              className="object-cover w-full h-full"
+              fill
+              className="object-cover"
               style={{ filter: 'sepia(0.3)' }}
             />
           </span>

@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -56,10 +57,11 @@ export const StoryVisiMisi = () => {
         {/* Left Side: Editorial Image */}
         <div className="w-full lg:w-5/12 aspect-[3/4] relative overflow-hidden rounded-[2rem] bg-canvas-white">
           <div className="visi-image absolute inset-[-10%] w-[120%] h-[120%]">
-            <img 
+            <Image 
               src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=800&auto=format&fit=crop" 
               alt="Perpustakaan Digital" 
-              className="object-cover w-full h-full sepia-[0.2] contrast-[1.1]"
+              fill
+              className="object-cover scale-110 sepia-[0.2] contrast-[1.1]"
             />
           </div>
         </div>

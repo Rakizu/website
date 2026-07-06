@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -108,10 +109,11 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
               <div className="relative w-full h-full rounded-[calc(2rem-0.5rem)] md:rounded-[calc(2.5rem-0.75rem)] overflow-hidden bg-charcoal-ink group">
                 
                 {/* Parallax Image */}
-                <img 
+                <Image 
                    src={mockPhotos[i % mockPhotos.length]} 
                    alt={p}
-                   className="parallax-img w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]"
+                   fill
+                   className="parallax-img object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]"
                 />
                 
                 {/* Cinematic Vignettes */}

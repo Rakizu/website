@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import Image from 'next/image';
 import { IslamicPattern } from '@/components/ui/IslamicPattern';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -100,10 +101,11 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
                 {/* Image Side */}
                 <div className="w-full md:w-5/12 aspect-[3/4] overflow-hidden rounded-sm relative">
                   <div className="absolute inset-0 bg-sage-deep z-10 opacity-10 mix-blend-multiply pointer-events-none" />
-                  <img 
+                  <Image 
                     src={g.image} 
                     alt={g.nama} 
-                    className="guru-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]"
+                    fill
+                    className="guru-img object-cover grayscale hover:grayscale-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]"
                   />
                 </div>
 
