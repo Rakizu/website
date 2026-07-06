@@ -324,11 +324,6 @@ export const Navbar = () => {
                 style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent)', left: '-150%' }}
               />
             </div>
-          </div>
-          
-          <span className="mt-8 font-accent italic text-accent-gold/70 text-xs md:text-sm tracking-[0.4em] uppercase animate-pulse">
-            Memuat Ruang
-          </span>
         </div>
       </div>
 
