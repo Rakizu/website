@@ -131,66 +131,80 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
   }
 
   return (
-    <div className="flex-1 w-full max-w-4xl mx-auto px-6 py-8 md:py-12 bg-white min-h-screen">
-      <div className="flex justify-between items-center mb-10 pb-4 border-b border-slate-200">
+    <div className="flex-1 w-full min-h-screen bg-chapter-cream cinematic-grain relative pb-32">
+      <div className="max-w-4xl mx-auto px-6 pt-12 md:pt-20">
+      <div className="flex justify-between items-center mb-16 pb-6 border-b border-whisper-border">
         <button 
           onClick={() => router.push('/admin/artikel')}
-          className="text-muted-steel hover:text-charcoal-ink hover:-translate-x-1 transition-all duration-300 flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
+          className="group text-muted-steel hover:text-charcoal-ink transition-all duration-300 flex items-center gap-3 text-xs md:text-sm font-heading font-bold uppercase tracking-[0.2em]"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          Kembali
+          <span className="p-2 rounded-full border border-whisper-border group-hover:border-charcoal-ink group-hover:-translate-x-1 transition-all">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </span>
+          Kembali ke Studio
         </button>
         <button 
           onClick={handleSave}
           disabled={isSaving}
-          className="px-8 py-3 rounded-full bg-sage text-cream font-bold text-sm tracking-widest uppercase hover:bg-sage-deep hover:-translate-y-1 hover:shadow-lg hover:shadow-sage/20 active:scale-95 transition-all duration-300 ease-out disabled:opacity-50 disabled:hover:translate-y-0 shadow-sm flex items-center gap-3"
+          className="group relative px-6 md:px-10 py-3 rounded-full bg-sage text-cream font-heading font-bold text-xs md:text-sm tracking-[0.2em] uppercase hover:shadow-[0_10px_40px_rgba(107,142,35,0.3)] hover:-translate-y-1 active:scale-95 transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] disabled:opacity-50 disabled:hover:translate-y-0 flex items-center gap-3 overflow-hidden"
         >
-          {isSaving ? (
-            <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
-          ) : (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-          )}
-          {isSaving ? 'Menyimpan...' : (isNew ? 'Simpan Baru' : 'Simpan Perubahan')}
+          <span className="relative z-10 flex items-center gap-3">
+            {isSaving ? (
+              <svg className="animate-spin h-4 w-4 text-cream" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            )}
+            {isSaving ? 'Menyimpan...' : (isNew ? 'Publish' : 'Simpan')}
+          </span>
+          <div className="absolute inset-0 bg-sage-deep transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]" />
         </button>
       </div>
 
-      <div className="space-y-10 pb-32">
+      <div className="space-y-16">
         {/* Status Toggle & Title */}
-        <div className="flex flex-col md:flex-row gap-6 md:items-center justify-between">
-          <input
-            type="text"
-            placeholder="Ketik Judul Artikel di Sini..."
-            value={formData.judul}
-            onChange={(e) => setFormData({ ...formData, judul: e.target.value })}
-            className="flex-1 bg-transparent border-none outline-none font-heading font-bold text-4xl md:text-5xl lg:text-7xl tracking-tighter text-charcoal-ink placeholder-muted/60 transition-all"
-          />
-          <div className="flex items-center gap-3 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200">
-            <span className="text-xs font-semibold text-slate-500">Status:</span>
+        <div className="flex flex-col gap-8 relative">
+          {/* Status Badge floating */}
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-heading font-bold uppercase tracking-widest text-muted-steel">Status Publikasi:</span>
             <button
               disabled={userRole === 'writer'}
               onClick={() => setFormData({ ...formData, status: formData.status === 'Published' ? 'Draft' : 'Published' })}
-              className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all ${
-                formData.status === 'Published' ? 'bg-green-100 text-green-700' : 'bg-slate-200 text-slate-600'
-              } ${userRole === 'writer' ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 shadow-sm'}`}
+              className={`px-4 py-1.5 rounded-full text-[10px] font-heading font-bold uppercase tracking-widest transition-all duration-300 ${
+                formData.status === 'Published' ? 'bg-gold text-ink border border-gold-soft' : 'bg-canvas-white text-muted-steel border border-whisper-border'
+              } ${userRole === 'writer' ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 shadow-[0_4px_20px_rgb(0,0,0,0.05)]'}`}
             >
               {userRole === 'writer' ? 'DRAFT (Terkunci)' : formData.status}
             </button>
           </div>
+
+          <textarea
+            rows={2}
+            placeholder="Ketik Judul Raksasa Di Sini..."
+            value={formData.judul}
+            onChange={(e) => setFormData({ ...formData, judul: e.target.value })}
+            className="w-full bg-transparent border-none outline-none font-heading font-bold text-5xl md:text-6xl lg:text-7xl xl:text-[5rem] tracking-tighter text-charcoal-ink placeholder-muted-steel/40 transition-all resize-none overflow-hidden leading-[1.05]"
+            onInput={(e) => {
+              const target = e.target as HTMLTextAreaElement;
+              target.style.height = 'auto';
+              target.style.height = `${target.scrollHeight}px`;
+            }}
+          />
         </div>
 
-        {/* Metadata Grid (Author, Tags, etc) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8 md:p-10 rounded-[2rem] bg-canvas-white border border-whisper-border shadow-[0_4px_30px_rgb(0,0,0,0.02)]">
-          <div className="space-y-4 md:col-span-2">
-            <label className="text-xs font-bold text-muted-steel uppercase tracking-widest">Kategori Artikel</label>
-            <div className="flex flex-wrap gap-2">
+        {/* Bento Grid Metadata */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-8 md:p-10 rounded-[2.5rem] bg-pure-surface border border-whisper-border shadow-[0_4px_30px_rgb(0,0,0,0.02)]">
+          
+          <div className="md:col-span-12 space-y-4 border-b border-whisper-border pb-8">
+            <label className="text-[10px] font-heading font-bold text-muted-steel uppercase tracking-[0.2em]">Kategori Artikel</label>
+            <div className="flex flex-wrap gap-3">
               {predefinedCategories.map(cat => (
                 <button
                   key={cat}
                   onClick={() => setFormData({ ...formData, kategori: cat })}
-                  className={`px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 ease-out border active:scale-95 ${
+                  className={`px-6 py-2.5 rounded-full text-xs font-heading font-bold tracking-widest uppercase transition-all duration-300 ease-out border active:scale-95 ${
                     formData.kategori === cat 
-                      ? 'bg-sage text-cream border-sage shadow-lg shadow-sage/20' 
-                      : 'bg-cream text-charcoal-ink border-whisper-border hover:border-gold-soft hover:bg-gold-soft/10'
+                      ? 'bg-ink text-cream border-ink shadow-[0_4px_20px_rgb(0,0,0,0.15)]' 
+                      : 'bg-canvas-white text-charcoal-ink border-whisper-border hover:border-gold-soft hover:bg-gold-soft/10'
                   }`}
                 >
                   {cat}
@@ -198,66 +212,70 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
               ))}
             </div>
           </div>
-          <div className="col-span-1 md:col-span-2 space-y-2">
-            <label className="text-xs font-bold text-slate-500">Cover Image URL</label>
+          
+          <div className="md:col-span-12 space-y-2 pt-2">
+            <label className="text-[10px] font-heading font-bold text-muted-steel uppercase tracking-[0.2em]">Ringkasan (Excerpt)</label>
+            <textarea
+              placeholder="Tulis ringkasan tajam untuk memancing pembaca..."
+              value={formData.excerpt}
+              onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
+              className="w-full bg-transparent border-b border-whisper-border py-4 outline-none text-charcoal-ink focus:border-gold-soft hover:border-gold-soft transition-all duration-500 ease-out resize-none h-16 font-accent italic text-xl placeholder-muted-steel/50"
+            />
+          </div>
+
+          <div className="md:col-span-12 space-y-2 mt-4">
+            <label className="text-[10px] font-heading font-bold text-muted-steel uppercase tracking-[0.2em]">Cover Image URL</label>
             <input
               type="text"
               placeholder="https://images.unsplash.com/..."
               value={formData.image}
               onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-              className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-900/5 focus:-translate-y-0.5 hover:border-slate-300 transition-all duration-300 ease-out text-sm"
+              className="w-full bg-canvas-white border border-whisper-border rounded-xl px-6 py-4 outline-none text-charcoal-ink focus:border-gold-soft focus:ring-4 focus:ring-gold-soft/10 hover:border-gold-soft transition-all duration-300 font-body text-sm"
             />
           </div>
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-slate-500">Ringkasan (Excerpt)</label>
-            <textarea
-              placeholder="Tulis ringkasan singkat untuk memancing pembaca..."
-              value={formData.excerpt}
-              onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-              className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-900/5 focus:-translate-y-0.5 hover:border-slate-300 transition-all duration-300 ease-out resize-none h-12 text-sm"
-            />
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-slate-500">Penulis (Author)</label>
+
+          <div className="md:col-span-4 space-y-2 mt-4">
+            <label className="text-[10px] font-heading font-bold text-muted-steel uppercase tracking-[0.2em]">Penulis</label>
             <input
               type="text"
               placeholder="Contoh: Ustadz H. Fulan"
               value={formData.penulis}
               onChange={(e) => setFormData({ ...formData, penulis: e.target.value })}
-              className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-900/5 focus:-translate-y-0.5 hover:border-slate-300 transition-all duration-300 ease-out text-sm"
+              className="w-full bg-canvas-white border border-whisper-border rounded-xl px-6 py-4 outline-none text-charcoal-ink focus:border-gold-soft focus:ring-4 focus:ring-gold-soft/10 hover:border-gold-soft transition-all duration-300 font-body text-sm"
             />
           </div>
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-slate-500">Peran Penulis</label>
+
+          <div className="md:col-span-4 space-y-2 mt-4">
+            <label className="text-[10px] font-heading font-bold text-muted-steel uppercase tracking-[0.2em]">Peran Penulis</label>
             <input
               type="text"
-              placeholder="Contoh: Kepala Sekolah / Editor"
+              placeholder="Contoh: Editor Utama"
               value={formData.author_role}
               onChange={(e) => setFormData({ ...formData, author_role: e.target.value })}
-              className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-900/5 focus:-translate-y-0.5 hover:border-slate-300 transition-all duration-300 ease-out text-sm"
+              className="w-full bg-canvas-white border border-whisper-border rounded-xl px-6 py-4 outline-none text-charcoal-ink focus:border-gold-soft focus:ring-4 focus:ring-gold-soft/10 hover:border-gold-soft transition-all duration-300 font-body text-sm"
             />
           </div>
-          <div className="col-span-1 md:col-span-2 space-y-2">
-            <label className="text-xs font-bold text-slate-500">Tags (Pisahkan dengan koma)</label>
+
+          <div className="md:col-span-4 space-y-2 mt-4">
+            <label className="text-[10px] font-heading font-bold text-muted-steel uppercase tracking-[0.2em]">Tags (Pisahkan koma)</label>
             <input
               type="text"
-              placeholder="Pendidikan, Agama, Prestasi..."
+              placeholder="Pendidikan, Agama..."
               value={formData.tags}
               onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-              className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-900/5 focus:-translate-y-0.5 hover:border-slate-300 transition-all duration-300 ease-out text-sm"
+              className="w-full bg-canvas-white border border-whisper-border rounded-xl px-6 py-4 outline-none text-charcoal-ink focus:border-gold-soft focus:ring-4 focus:ring-gold-soft/10 hover:border-gold-soft transition-all duration-300 font-body text-sm"
             />
           </div>
         </div>
 
-        {/* Content Editor */}
-        <div className="space-y-4 group mt-10">
-          <label className="text-sm font-bold text-muted-steel uppercase tracking-widest ml-4 group-focus-within:text-gold transition-colors">Isi Artikel (Markdown Supported)</label>
+        {/* Pure Canvas Content Editor */}
+        <div className="space-y-4 group mt-16 pb-32">
           <textarea
             ref={textareaRef}
-            placeholder="Mulai menulis cerita Anda..."
+            placeholder="Mulai menggoreskan pena Anda di sini..."
             value={formData.content}
             onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-            className="w-full bg-canvas-white border border-whisper-border rounded-[2.5rem] p-8 md:p-12 outline-none text-charcoal-ink focus:border-gold-soft focus:ring-4 focus:ring-gold-soft/10 hover:border-gold-soft transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] font-accent text-xl md:text-2xl leading-[1.8] resize-none min-h-[500px] placeholder-muted-steel shadow-[0_4px_40px_rgb(0,0,0,0.03)]"
+            className="w-full bg-transparent border-none outline-none text-charcoal-ink transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] font-accent text-2xl md:text-[1.75rem] leading-[1.8] resize-none min-h-[600px] placeholder-muted-steel/30"
           />
         </div>
       </div>
