@@ -324,6 +324,7 @@ export const Navbar = () => {
                 style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent)', left: '-150%' }}
               />
             </div>
+          </div>
         </div>
       </div>
 
