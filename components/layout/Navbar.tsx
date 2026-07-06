@@ -163,12 +163,13 @@ export const Navbar = () => {
       
       // 5. Trigger Routing / Scrolling in the background
       tl.add(() => {
-         const skipAnimations = () => {
+         const syncAnimations = () => {
            requestAnimationFrame(() => {
              requestAnimationFrame(() => {
                ScrollTrigger.getAll().forEach(t => {
-                 if (t.isActive && t.animation) {
-                   t.animation.progress(1);
+                 if (t.animation) {
+                   // Instantly sync the animation to the exact scroll progress, bypassing scrub lag
+                   t.animation.progress(t.progress);
                  }
                });
              });
@@ -183,7 +184,7 @@ export const Navbar = () => {
              if (t) {
                t.scrollIntoView({ behavior: 'auto', block: 'start' });
                ScrollTrigger.refresh();
-               skipAnimations();
+               syncAnimations();
              }
            }, 600);
           } else if (computedIsRoute) {
@@ -193,10 +194,11 @@ export const Navbar = () => {
             window.scrollTo({ top: 0, behavior: 'auto' });
             setTheme('dark');
             ScrollTrigger.refresh();
+            syncAnimations();
           } else if (target) {
             target.scrollIntoView({ behavior: 'auto', block: 'start' });
             ScrollTrigger.refresh();
-            skipAnimations();
+            syncAnimations();
           }
       }, contentReadyTime + 0.2);
       
