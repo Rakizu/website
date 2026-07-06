@@ -280,7 +280,7 @@ export const Navbar = () => {
   return (
     <header
       ref={navRef}
-      className="fixed top-4 left-0 w-full z-[1000] px-[58px] pointer-events-none flex justify-center"
+      className="fixed top-3 left-0 w-full z-[1000] px-[58px] pointer-events-none flex justify-center"
     >
       {/* Cinematic Liquid Color Cascade (SVG) */}
       <svg 
