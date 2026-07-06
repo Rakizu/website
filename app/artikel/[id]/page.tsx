@@ -54,11 +54,11 @@ export default async function ArtikelPage({ params }: { params: Promise<{ id: st
       <IslamicPattern color="#2a201a" opacity={0.03} />
       
       {/* Navigation (Floating Back Button) */}
-      <nav className="fixed top-0 left-0 w-full p-6 md:p-12 z-50 pointer-events-none">
+      <nav className="fixed top-24 left-0 w-full p-6 md:p-12 z-50 pointer-events-none hidden md:block">
         <CurtainLink 
-          href="#artikel" 
-          isRoute={false}
-          className="inline-flex items-center gap-3 hover:gap-5 transition-all duration-500 text-sm tracking-widest uppercase font-semibold text-pure-surface mix-blend-difference pointer-events-auto"
+          href="/#artikel" 
+          isRoute={true}
+          className="inline-flex items-center gap-3 hover:gap-5 transition-all duration-500 text-sm tracking-widest uppercase font-semibold text-charcoal-ink/60 hover:text-charcoal-ink pointer-events-auto"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round"/>
@@ -67,49 +67,44 @@ export default async function ArtikelPage({ params }: { params: Promise<{ id: st
         </CurtainLink>
       </nav>
 
-      {/* Cinematic Hero Image */}
-      <div data-theme="dark" className="w-full h-[60vh] md:h-[80vh] relative overflow-hidden group">
-        <div className="absolute inset-0 bg-charcoal-ink/40 z-10" />
-        <img 
-          src={artikel.image} 
-          alt={artikel.judul} 
-          className="w-full h-full object-cover grayscale-[0.3] scale-105 group-hover:scale-100 group-hover:grayscale-0 transition-transform duration-[2s] ease-[cubic-bezier(0.19,1,0.22,1)]"
-        />
+      {/* Classic Editorial Header (Below Navbar) */}
+      <div className="w-full max-w-4xl mx-auto px-6 md:px-12 pt-32 md:pt-40 pb-12 relative z-20">
+        <div className="flex items-center gap-4 text-charcoal-ink/60 text-xs tracking-widest uppercase font-semibold mb-8">
+          <span>{artikel.kategori}</span>
+          <span className="w-1 h-1 rounded-full bg-accent-gold" />
+          <span>{artikel.tanggal}</span>
+          <span className="w-1 h-1 rounded-full bg-accent-gold" />
+          <span>{artikel.waktu_baca || '5 Menit Baca'}</span>
+        </div>
         
-        {/* Title Overlay */}
-        <div className="absolute bottom-0 left-0 w-full p-6 md:p-16 z-20 bg-gradient-to-t from-charcoal-ink via-charcoal-ink/80 to-transparent pt-40">
-          <div className="max-w-4xl mx-auto flex flex-col gap-8">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-medium text-pure-surface tracking-tighter leading-[1.05]">
-              {artikel.judul}
-            </h1>
-            
-            {/* Professional Byline */}
-            <div className="flex flex-col md:flex-row md:items-center gap-6 pt-6 border-t border-white/20">
-              <div className="flex items-center gap-4">
-                {artikel.author_avatar ? (
-                  <img src={artikel.author_avatar} alt={artikel.penulis} className="w-12 h-12 rounded-full object-cover border border-accent-gold/30" />
-                ) : (
-                  <div className="w-12 h-12 rounded-full bg-accent-gold flex items-center justify-center text-charcoal-ink font-heading font-bold text-lg">
-                    {artikel.penulis?.charAt(0) || 'T'}
-                  </div>
-                )}
-                <div className="flex flex-col">
-                  <span className="text-pure-surface font-heading font-medium tracking-wide">{artikel.penulis || 'Tim Redaksi'}</span>
-                  <span className="text-accent-gold text-xs uppercase tracking-widest font-bold">{artikel.author_role || 'Editor Utama'}</span>
-                </div>
-              </div>
-              
-              <div className="hidden md:block w-px h-8 bg-white/20" />
-              
-              <div className="flex items-center gap-4 text-white/50 text-xs tracking-widest uppercase font-semibold">
-                <span>{artikel.kategori}</span>
-                <span className="w-1 h-1 rounded-full bg-accent-gold" />
-                <span>{artikel.tanggal}</span>
-                <span className="w-1 h-1 rounded-full bg-accent-gold" />
-                <span>{artikel.waktu_baca || '5 Menit Baca'}</span>
-              </div>
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-charcoal-ink tracking-tight leading-[1.1] mb-10">
+          {artikel.judul}
+        </h1>
+        
+        {/* Professional Byline */}
+        <div className="flex items-center gap-4 pt-6 border-t border-charcoal-ink/10">
+          {artikel.author_avatar ? (
+            <img src={artikel.author_avatar} alt={artikel.penulis} className="w-12 h-12 rounded-full object-cover border border-accent-gold/30" />
+          ) : (
+            <div className="w-12 h-12 rounded-full bg-sage-light text-sage-deep flex items-center justify-center font-heading font-bold text-lg">
+              {artikel.penulis?.charAt(0) || 'T'}
             </div>
+          )}
+          <div className="flex flex-col">
+            <span className="text-charcoal-ink font-heading font-semibold tracking-wide">{artikel.penulis || 'Tim Redaksi'}</span>
+            <span className="text-sage text-xs uppercase tracking-widest font-bold">{artikel.author_role || 'Editor Utama'}</span>
           </div>
+        </div>
+      </div>
+
+      {/* Unobstructed Hero Image */}
+      <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 mb-16">
+        <div className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden rounded-3xl shadow-2xl group">
+          <img 
+            src={artikel.image} 
+            alt={artikel.judul} 
+            className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-[2s] ease-[cubic-bezier(0.19,1,0.22,1)]"
+          />
         </div>
       </div>
 
