@@ -9,30 +9,15 @@ import { IslamicPattern } from '@/components/ui/IslamicPattern';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const navMenus = [
-  {
-    label: 'Profil',
-    children: [
-      { label: 'Visi & Misi', href: '#visi' },
-      { label: 'Fasilitas', href: '#fasilitas' },
-      { label: 'Profil Guru', href: '#guru' }
-    ]
-  },
-  {
-    label: 'Program',
-    children: [
-      { label: 'Akademik', href: '#kurikulum' },
-      { label: 'Program Unggulan', href: '#unggulan' },
-      { label: 'Ekstrakurikuler', href: '#ekskul' }
-    ]
-  },
-  {
-    label: 'Informasi',
-    children: [
-      { label: 'Alumni', href: '#alumni' },
-      { label: 'Artikel', href: '#artikel' }
-    ]
-  }
+const navLinks = [
+  { label: 'Visi', href: '#visi' },
+  { label: 'Fasilitas', href: '#fasilitas' },
+  { label: 'Guru', href: '#guru' },
+  { label: 'Akademik', href: '#kurikulum' },
+  { label: 'Unggulan', href: '#unggulan' },
+  { label: 'Ekskul', href: '#ekskul' },
+  { label: 'Alumni', href: '#alumni' },
+  { label: 'Artikel', href: '#artikel' },
 ];
 
 export const Navbar = () => {
@@ -200,6 +185,10 @@ export const Navbar = () => {
          } else if (isRoute) {
            sessionStorage.setItem('skipNextReveal', 'true');
            router.push(href);
+         } else if (href === '/' || href === pathname) {
+           window.scrollTo({ top: 0, behavior: 'auto' });
+           ScrollTrigger.refresh();
+           skipAnimations();
          } else if (target) {
            target.scrollIntoView({ behavior: 'auto', block: 'start' });
            ScrollTrigger.refresh();
@@ -307,7 +296,7 @@ export const Navbar = () => {
             {/* Elegant radar pulse */}
             <div className="pulse-ring absolute w-48 h-48 rounded-full border border-accent-gold/50 opacity-0" />
             
-            {/* Core Emblem Container (Best Practice: Free floating, no caged borders) */}
+            {/* Core Emblem Container */}
             <div className="relative flex items-center justify-center">
               <img src="/logo.svg" alt="TJ Logo" className="relative z-10 h-32 w-auto object-contain drop-shadow-[0_0_30px_rgba(199,154,69,0.6)]" />
             </div>
@@ -353,53 +342,42 @@ export const Navbar = () => {
 
           {/* Center: Tight Navigation Links */}
           <nav 
-            className="absolute left-1/2 -translate-x-1/2 h-full hidden md:flex items-center gap-6 z-10 transition-all duration-500"
+            className="absolute left-1/2 -translate-x-1/2 h-full hidden md:flex items-center gap-0 z-10 transition-all duration-500"
           >
-            {navMenus.map((menu) => (
-              <div key={menu.label} className="relative group pointer-events-auto h-full flex items-center">
-                <button
-                  className="relative px-3 py-2 text-sm font-heading font-bold uppercase tracking-wider rounded-full transition-all duration-300 flex items-center gap-1.5"
+            {navLinks.map((link) => {
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleNav(e, link.href)}
+                  className="pointer-events-auto relative px-[11px] py-2 text-sm font-heading font-bold uppercase tracking-wider rounded-full transition-all duration-300 group overflow-hidden"
                   style={{ 
                     color: textColor,
                     textShadow: isDarkBg ? '0 2px 10px rgba(0,0,0,0.5)' : 'none'
                   }}
                 >
-                  <span className="relative z-10 opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                    {menu.label}
-                  </span>
-                  <svg className="w-3.5 h-3.5 opacity-75 group-hover:opacity-100 transition-transform duration-300 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                
-                {/* Dropdown Panel */}
-                <div className="absolute top-[80%] left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                  {/* Premium Hover Background */}
                   <div 
-                    className="flex flex-col py-2 rounded-2xl border backdrop-blur-md shadow-2xl min-w-[200px] overflow-hidden"
-                    style={{
-                      background: isDarkBg ? 'rgba(26, 26, 46, 0.95)' : 'rgba(255, 255, 255, 0.95)',
-                      borderColor: isDarkBg ? 'rgba(253, 246, 236, 0.15)' : 'rgba(42, 32, 26, 0.1)',
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"
+                    style={{ backgroundColor: isDarkBg ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.04)' }}
+                  />
+                  
+                  {/* Text Content */}
+                  <span className="relative z-10 opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                    {link.label}
+                  </span>
+                  
+                  {/* Premium Gold Dot Indicator */}
+                  <span 
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100 translate-y-2 group-hover:-translate-y-1.5 transition-all duration-300 ease-out"
+                    style={{ 
+                      backgroundColor: '#c79a45',
+                      boxShadow: '0 0 10px rgba(199,154,69,0.8)'
                     }}
-                  >
-                    {menu.children.map(child => (
-                      <a
-                        key={child.href}
-                        href={child.href}
-                        onClick={(e) => handleNav(e, child.href)}
-                        className="group/child px-5 py-3 text-sm font-heading font-semibold transition-colors duration-200"
-                        style={{
-                          color: isDarkBg ? '#FDF6EC' : '#1A1A2E'
-                        }}
-                      >
-                        <span className="opacity-70 group-hover/child:opacity-100 group-hover/child:text-accent-gold transition-colors">
-                          {child.label}
-                        </span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
+                  />
+                </a>
+              );
+            })}
           </nav>
 
           {/* Right: Solid CTA */}
