@@ -105,9 +105,9 @@ export const Navbar = () => {
       }
     }
     
-    // Tirai dipicu jika: rute berubah, lompat dari halaman lain, target valid TAPI belum dilihat, atau kembali ke atas (klik logo)
+    // Tirai dipicu jika: rute berubah, lompat dari halaman lain, target valid TAPI belum dilihat, atau kembali ke atas (klik logo jika belum di atas)
     const computedIsRoute = isRoute || (href.startsWith('/') && href !== currentPath);
-    const isReturnToTop = href === '/' && currentPath === '/';
+    const isReturnToTop = href === '/' && currentPath === '/' && window.scrollY > 0;
     const shouldRunCurtain = (target && !isArticleToArticle && !isAlreadyInSection) || computedIsRoute || isCrossPageHash || isReturnToTop;
     
     if (shouldRunCurtain && curtainRef.current && contentRef.current) {
@@ -191,6 +191,7 @@ export const Navbar = () => {
             router.push(href);
           } else if (href === '/' || href === currentPath) {
             window.scrollTo({ top: 0, behavior: 'auto' });
+            setTheme('dark'); // Paksa Navbar menjadi tema gelap (teks terang/putih) untuk GatePage
             ScrollTrigger.refresh();
           } else if (target) {
             target.scrollIntoView({ behavior: 'auto', block: 'start' });
