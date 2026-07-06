@@ -297,7 +297,7 @@ export const Navbar = () => {
             
             {/* Core Emblem Container */}
             <div className="relative flex items-center justify-center w-24 h-24 rounded-full border border-accent-gold/40 shadow-[0_0_60px_rgba(199,154,69,0.25)] bg-charcoal-ink/80 backdrop-blur-md overflow-hidden">
-              <span className="relative z-10 font-heading font-bold text-4xl tracking-tighter text-accent-gold drop-shadow-[0_0_20px_rgba(199,154,69,0.8)]">TJ</span>
+              <img src="/logo.svg" alt="TJ Logo" className="relative z-10 w-16 h-16 object-contain drop-shadow-[0_0_20px_rgba(199,154,69,0.8)]" />
               
               {/* Glossy Sheen Sweep (Mengkilap) */}
               <div 
@@ -346,7 +346,7 @@ export const Navbar = () => {
               textShadow: isDarkBg ? '0 0 12px rgba(253, 246, 236, 0.4)' : '0 2px 4px rgba(0,0,0,0.1)'
             }}
           >
-            <span className="font-heading font-bold text-sm tracking-tighter group-hover:scale-110 transition-transform">TJ</span>
+            <img src="/logo.svg" alt="TJ Logo" className="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
           </a>
 
           {/* Center: Tight Navigation Links */}
