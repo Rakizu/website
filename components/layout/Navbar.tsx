@@ -190,9 +190,7 @@ export const Navbar = () => {
             sessionStorage.setItem('skipNextReveal', 'true');
             router.push(href);
           } else if (href === '/' || href === currentPath) {
-            window.scrollTo({ top: 0, behavior: 'auto' });
-            setTheme('dark'); // Paksa Navbar menjadi tema gelap (teks terang/putih) untuk GatePage
-            ScrollTrigger.refresh();
+            window.location.href = '/';
           } else if (target) {
             target.scrollIntoView({ behavior: 'auto', block: 'start' });
             ScrollTrigger.refresh();
