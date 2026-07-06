@@ -344,7 +344,8 @@ export const Navbar = () => {
         >
           {/* Left: Logo */}
           <a 
-            href="#" 
+            href="/" 
+            onClick={(e) => handleNav(e, '/')}
             className="pointer-events-auto relative flex shrink-0 items-center justify-center transition-all duration-500 z-20 group"
           >
             <img src="/logo.svg" alt="TJ Logo" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform" />
