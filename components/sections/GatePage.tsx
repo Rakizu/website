@@ -54,8 +54,7 @@ export const GatePage = () => {
       }
     });
 
-    tl.to(container.current, { autoAlpha: 0, duration: 1, ease: "power2.inOut" });
-
+    // Removed the autoAlpha: 0 fade out on the container so it doesn't reveal the white body background
   }, { scope: container });
 
   return (
