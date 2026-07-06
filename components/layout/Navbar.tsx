@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { IslamicPattern } from '@/components/ui/IslamicPattern';
+import { Menu, X } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,6 +27,7 @@ export const Navbar = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const isAnimating = useRef(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const pathname = usePathname();
   const router = useRouter();
@@ -419,35 +421,116 @@ export const Navbar = () => {
             })}
           </nav>
 
-          {/* Right: Solid CTA */}
-          <a
-            href="#daftar"
-            onClick={(e) => handleNav(e, '#daftar')}
-            className="pointer-events-auto relative px-6 h-[40px] rounded-full overflow-hidden group shrink-0 flex items-center justify-center transition-all duration-500 z-20 hover:scale-105 hover:shadow-[0_0_20px_rgba(199,154,69,0.3)]"
-            style={{
-              background: isScrolled ? (isDarkBg ? 'rgba(253, 246, 236, 0.12)' : 'var(--sage-deep)') : (isDarkBg ? 'rgba(253, 246, 236, 0.12)' : 'var(--sage)'),
-              border: `1px solid ${isDarkBg ? 'rgba(253, 246, 236, 0.25)' : 'var(--sage-deep)'}`,
-              color: '#FDF6EC',
-            }}
-          >
-            <span 
-              className="relative z-10 text-sm font-heading font-bold uppercase tracking-widest transition-all duration-500"
+          {/* Right: Solid CTA & Mobile Toggle */}
+          <div className="flex items-center gap-2 z-20">
+            <a
+              href="#daftar"
+              onClick={(e) => handleNav(e, '#daftar')}
+              className="pointer-events-auto relative hidden md:flex px-6 h-[40px] rounded-full overflow-hidden group shrink-0 items-center justify-center transition-all duration-500 z-20 hover:scale-105 hover:shadow-[0_0_20px_rgba(199,154,69,0.3)]"
               style={{
-                textShadow: isScrolled 
-                  ? '0 0 10px rgba(253, 246, 236, 0.4)' 
-                  : (isDarkBg ? '0 0 10px rgba(253, 246, 236, 0.4)' : '0 1px 3px rgba(0,0,0,0.1)')
+                background: isScrolled ? (isDarkBg ? 'rgba(253, 246, 236, 0.12)' : 'var(--sage-deep)') : (isDarkBg ? 'rgba(253, 246, 236, 0.12)' : 'var(--sage)'),
+                border: `1px solid ${isDarkBg ? 'rgba(253, 246, 236, 0.25)' : 'var(--sage-deep)'}`,
+                color: '#FDF6EC',
               }}
             >
-              Daftar
-            </span>
-            {/* Glossy Sheen Effect */}
-            <div 
-              className="absolute top-0 -left-[150%] w-full h-full skew-x-[-25deg] transition-all duration-700 ease-in-out group-hover:left-[150%]" 
-              style={{ background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent)' }}
-            />
-          </a>
+              <span 
+                className="relative z-10 text-sm font-heading font-bold uppercase tracking-widest transition-all duration-500"
+                style={{
+                  textShadow: isScrolled 
+                    ? '0 0 10px rgba(253, 246, 236, 0.4)' 
+                    : (isDarkBg ? '0 0 10px rgba(253, 246, 236, 0.4)' : '0 1px 3px rgba(0,0,0,0.1)')
+                }}
+              >
+                Daftar
+              </span>
+              {/* Glossy Sheen Effect */}
+              <div 
+                className="absolute top-0 -left-[150%] w-full h-full skew-x-[-25deg] transition-all duration-700 ease-in-out group-hover:left-[150%]" 
+                style={{ background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent)' }}
+              />
+            </a>
+
+            {/* Mobile Hamburger Toggle */}
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden pointer-events-auto relative w-[40px] h-[40px] flex items-center justify-center rounded-full transition-all duration-300 z-[9999]"
+              style={{
+                color: textColor,
+              }}
+              aria-label="Toggle Menu"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Full-Screen Mobile Menu Overlay */}
+      <div 
+        className={`fixed inset-0 z-[9990] flex flex-col justify-center items-center pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.85,0,0.15,1)] md:hidden ${
+          isMobileMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 translate-y-[-100%]'
+        }`}
+        style={{ background: 'var(--ink)' }}
+      >
+        <IslamicPattern color="var(--gold)" opacity={0.05} />
+        <nav className="flex flex-col items-center gap-8 w-full px-8 relative z-10">
+          {navLinks.map((link, i) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={(e) => {
+                setIsMobileMenuOpen(false);
+                handleNav(e, link.href);
+              }}
+              className="text-3xl sm:text-4xl font-heading font-bold text-cream uppercase tracking-widest relative"
+              style={{
+                transitionDelay: isMobileMenuOpen ? `${100 + (i * 50)}ms` : '0ms',
+                transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(30px)',
+                opacity: isMobileMenuOpen ? 1 : 0,
+                transitionProperty: 'transform, opacity',
+                transitionDuration: '600ms',
+                transitionTimingFunction: 'cubic-bezier(0.2, 0.8, 0.2, 1)'
+              }}
+            >
+              {link.label}
+            </a>
+          ))}
+          
+          <div 
+            className="w-1/2 h-px my-4 origin-center" 
+            style={{
+              background: 'linear-gradient(90deg, transparent, var(--gold), transparent)',
+              transitionDelay: isMobileMenuOpen ? '500ms' : '0ms',
+              transform: isMobileMenuOpen ? 'scaleX(1)' : 'scaleX(0)',
+              opacity: isMobileMenuOpen ? 1 : 0,
+              transitionProperty: 'transform, opacity',
+              transitionDuration: '700ms'
+            }} 
+          />
+          
+          <a
+            href="#daftar"
+            onClick={(e) => {
+              setIsMobileMenuOpen(false);
+              handleNav(e, '#daftar');
+            }}
+            className="px-10 py-4 rounded-full font-heading font-bold uppercase tracking-widest shadow-[0_0_30px_rgba(107,142,35,0.4)]"
+            style={{
+              background: 'var(--sage)',
+              color: 'var(--cream)',
+              transitionDelay: isMobileMenuOpen ? '600ms' : '0ms',
+              transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(30px)',
+              opacity: isMobileMenuOpen ? 1 : 0,
+              transitionProperty: 'transform, opacity',
+              transitionDuration: '600ms',
+              transitionTimingFunction: 'cubic-bezier(0.2, 0.8, 0.2, 1)'
+            }}
+          >
+            Daftar Sekarang
+          </a>
+        </nav>
+      </div>
+
     </header>
   );
 };
