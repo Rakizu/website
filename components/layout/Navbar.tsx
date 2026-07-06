@@ -123,10 +123,9 @@ export const Navbar = () => {
       
       const tl = gsap.timeline();
       
-      // Initialize states
       tl.set(svg, { autoAlpha: 1 });
       tl.set(content, { autoAlpha: 0 });
-      tl.set(logoWrapper, { yPercent: -150 });
+      tl.set(logoWrapper, { y: "-60vh" }); // Start completely off-screen top
       tl.set(sheen, { left: '-150%' });
       tl.set(pulseRing, { scale: 1, opacity: 0 });
       
@@ -153,12 +152,12 @@ export const Navbar = () => {
       // Fade in pattern/vignette gently
       tl.to(content, { autoAlpha: 1, duration: 0.4 }, 0.1);
       
-      // Slide down logo wrapper synced with Ink wave (now index 1)
+      // Slide down logo wrapper synced with Gold wave (index 0)
       tl.to(logoWrapper, {
-         yPercent: 0,
+         y: "0vh",
          duration: 0.9,
          ease: "power3.inOut"
-      }, 0.12);
+      }, 0);
       
       // Ink wave finishes at 0.12 + 0.9 = 1.02s
       tl.addLabel("covered", 0.9);
@@ -213,9 +212,9 @@ export const Navbar = () => {
       
       tl.to(content, { autoAlpha: 0, duration: 0.6 }, "liftStart");
       
-      // Slide logo down to exit (parallax)
+      // Slide logo down to exit, completely swept away by the draining wave
       tl.to(logoWrapper, {
-         yPercent: 150,
+         y: "60vh", // swept completely off-screen bottom
          duration: 0.9,
          ease: "power3.inOut"
       }, "liftStart");
