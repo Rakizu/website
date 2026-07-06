@@ -30,6 +30,7 @@ const programDetails = [
 
 export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const bgTextRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     if (!containerRef.current) return;
@@ -76,13 +77,29 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
       }
     });
 
+    // Fade out background text as first card arrives
+    if (bgTextRef.current && cardEls[0]) {
+      gsap.to(bgTextRef.current, {
+        opacity: 0,
+        y: -50,
+        scale: 0.95,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: cardEls[0],
+          start: "top 80%",
+          end: "top 30%",
+          scrub: true
+        }
+      });
+    }
+
   }, { scope: containerRef });
 
   return (
     <section id="unggulan" className="relative bg-warm-50">
       
       {/* 1. Background Sticky Title (Anticipation Builder) */}
-      <div className="sticky top-0 w-full h-[100dvh] flex flex-col items-center justify-center z-0 pointer-events-none px-6 text-center">
+      <div ref={bgTextRef} className="sticky top-0 w-full h-[100dvh] flex flex-col items-center justify-center z-0 pointer-events-none px-6 text-center will-change-transform">
          <h2 className="text-xs md:text-sm font-heading font-bold uppercase tracking-[0.4em] text-primary-700 mb-6">
            Pilar Pendidikan
          </h2>
