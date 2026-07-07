@@ -19,7 +19,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="flex items-center gap-5">
           {/* Studio Badge */}
           <div className="flex items-center gap-3 pr-5 border-r border-slate-200/60">
-            <div className="w-8 h-8 rounded-[8px] bg-gradient-to-tr from-slate-900 to-slate-800 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/10">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-slate-900 to-slate-800 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/10">
               <span className="font-heading font-bold text-xs text-white tracking-widest leading-none">TJ</span>
             </div>
             <span className="font-sans font-bold text-sm tracking-tight text-slate-800">Studio</span>
@@ -35,7 +35,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <nav className="flex items-center gap-2">
           <a 
             href="/admin/artikel" 
-            className="px-4 py-2 rounded-lg text-[11px] font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all tracking-wider uppercase"
+            className="px-5 py-2 rounded-full text-[11px] font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all tracking-widest uppercase"
           >
             Dashboard
           </a>
@@ -43,7 +43,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <form action="/api/auth/logout" method="POST" className="m-0 p-0">
             <button 
               type="submit" 
-              className="px-4 py-2 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-red-600 hover:bg-red-50 transition-all tracking-wider uppercase"
+              className="px-5 py-2 rounded-full text-[11px] font-bold text-slate-500 hover:text-white hover:bg-red-500 transition-all tracking-widest uppercase shadow-sm"
             >
               Log Out
             </button>

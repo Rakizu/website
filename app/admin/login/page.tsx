@@ -67,7 +67,7 @@ export default function AdminLogin() {
               placeholder="admin / writer"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-3.5 py-2.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm font-medium placeholder-slate-400 shadow-sm"
+              className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-5 py-3 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm font-medium placeholder-slate-400 shadow-sm"
               required
             />
           </div>
@@ -79,7 +79,7 @@ export default function AdminLogin() {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-3.5 py-2.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm tracking-widest font-medium placeholder-slate-400 shadow-sm"
+              className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-5 py-3 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm tracking-widest font-medium placeholder-slate-400 shadow-sm"
               required
             />
           </div>
@@ -93,7 +93,7 @@ export default function AdminLogin() {
           <button
             type="submit"
             disabled={isLoading}
-            className="relative w-full py-2.5 mt-2 rounded-xl bg-slate-900 text-white font-medium text-sm hover:bg-slate-800 transition-all disabled:opacity-50 shadow-[0_4px_12px_rgba(0,0,0,0.1)] active:scale-[0.98] group overflow-hidden border border-slate-900/50"
+            className="relative w-full py-3 mt-2 rounded-full bg-slate-900 text-white font-bold tracking-wide text-sm hover:bg-slate-800 transition-all disabled:opacity-50 shadow-[0_4px_12px_rgba(0,0,0,0.1)] active:scale-[0.98] group overflow-hidden border border-slate-900/50"
           >
             <span className="relative z-10 flex items-center justify-center gap-2">
               {isLoading ? (
