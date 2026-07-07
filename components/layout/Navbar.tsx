@@ -331,31 +331,27 @@ export const Navbar = () => {
       </div>
 
       <div 
-        className={`relative flex items-center justify-between h-[56px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] w-full ${isScrolled ? 'max-w-[960px]' : 'max-w-full'} ${
+        className={`relative flex items-center justify-between h-[64px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] w-full mx-auto ${isScrolled ? 'max-w-[1000px]' : 'max-w-full'} ${
           shouldHideNav ? 'opacity-0 -translate-y-full' : 'opacity-100 translate-y-0'
         }`}
       >
-        {/* Layer 1: The Single Fluid Glass Pill Background */}
-        <div 
-          className={`absolute inset-0 rounded-full border pointer-events-auto transition-all duration-[600ms] ${glassBgClass} ${glassBorderClass} ${glassBlurClass} ${glassShadowClass}`}
-        />
-
-        {/* Layer 2: The Content */}
-        <div 
-          className="absolute inset-0 flex items-center justify-between pointer-events-none transition-all duration-[600ms] px-2"
-        >
-          {/* Left: Logo */}
+        {/* LEFT: Standalone Logo */}
+        <div className="flex-1 flex justify-start z-20 pointer-events-none">
           <a 
             href="/" 
             onClick={(e) => handleNav(e, '/')}
-            className="pointer-events-auto relative flex shrink-0 items-center justify-center transition-all duration-500 z-20 group"
+            className="pointer-events-auto relative flex shrink-0 items-center justify-center transition-all duration-500 hover:scale-105 group"
           >
-            <img src="/logo.png" alt="TJ Logo" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform" />
+            {/* Optional subtle glass circle behind logo for readability if needed, but a drop shadow works well */}
+            <div className={`absolute inset-0 rounded-full md:hidden ${glassBgClass} ${glassBlurClass} ${glassBorderClass} scale-125 -z-10`} />
+            <img src="/logo.png" alt="TJ Logo" className="h-10 md:h-12 w-auto object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] group-hover:drop-shadow-[0_0_15px_rgba(199,154,69,0.8)] transition-all" />
           </a>
+        </div>
 
-          {/* Center: Tight Navigation Links */}
+        {/* CENTER: The Main Glass Navigation Pill */}
+        <div className="flex items-center justify-center z-20 pointer-events-none hidden md:flex">
           <nav 
-            className="absolute left-1/2 -translate-x-1/2 h-full hidden md:flex items-center gap-0 z-10 transition-all duration-500"
+            className={`pointer-events-auto flex items-center gap-1 h-[48px] px-1.5 rounded-full transition-all duration-[600ms] border ${glassBgClass} ${glassBorderClass} ${glassBlurClass} ${glassShadowClass}`}
           >
             {navLinks.map((link) => {
               return (
@@ -363,54 +359,40 @@ export const Navbar = () => {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNav(e, link.href)}
-                  className={`pointer-events-auto relative px-[11px] py-2 text-sm font-heading font-bold uppercase tracking-wider rounded-full transition-all duration-300 group overflow-hidden text-white drop-shadow-md`}
+                  className={`relative px-4 py-2 text-sm font-heading font-bold uppercase tracking-wider rounded-full transition-all duration-300 group overflow-hidden text-white drop-shadow-md`}
                 >
-                  {/* Premium Hover Background */}
-                  <div 
-                    className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white/10`}
-                  />
-                  
-                  {/* Text Content */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white/10" />
                   <span className="relative z-10 opacity-75 group-hover:opacity-100 transition-opacity duration-300">
                     {link.label}
                   </span>
-                  
-                  {/* Premium Gold Dot Indicator */}
-                  <span 
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100 translate-y-2 group-hover:-translate-y-1.5 transition-all duration-300 ease-out bg-gold shadow-[0_0_10px_rgba(199,154,69,0.8)]"
-                  />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100 translate-y-2 group-hover:-translate-y-1.5 transition-all duration-300 ease-out bg-gold shadow-[0_0_10px_rgba(199,154,69,0.8)]" />
                 </a>
               );
             })}
           </nav>
+        </div>
 
-          {/* Right: Solid CTA & Mobile Toggle */}
-          <div className="flex items-center gap-2 z-20">
-            <a
-              href="#daftar"
-              onClick={(e) => handleNav(e, '#daftar')}
-              className={`pointer-events-auto relative hidden md:flex px-6 h-[40px] rounded-full overflow-hidden group shrink-0 items-center justify-center transition-all duration-500 z-20 hover:scale-105 hover:shadow-[0_0_20px_rgba(199,154,69,0.3)] ${ctaBgClass} ${ctaBorderClass} text-[#FDF6EC]`}
-            >
-              <span 
-                className={`relative z-10 text-sm font-heading font-bold uppercase tracking-widest transition-all duration-500 ${ctaTextShadowClass}`}
-              >
-                Daftar
-              </span>
-              {/* Glossy Sheen Effect */}
-              <div 
-                className="absolute top-0 -left-[150%] w-full h-full skew-x-[-25deg] transition-all duration-700 ease-in-out group-hover:left-[150%] bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.6),transparent)]" 
-              />
-            </a>
+        {/* RIGHT: CTA Capsule & Mobile Toggle */}
+        <div className="flex-1 flex items-center justify-end gap-3 z-20 pointer-events-none">
+          <a
+            href="#daftar"
+            onClick={(e) => handleNav(e, '#daftar')}
+            className={`pointer-events-auto relative hidden md:flex px-6 h-[48px] rounded-full overflow-hidden group shrink-0 items-center justify-center transition-all duration-500 hover:scale-105 hover:shadow-[0_0_20px_rgba(199,154,69,0.4)] ${ctaBgClass} ${ctaBorderClass} text-[#FDF6EC]`}
+          >
+            <span className={`relative z-10 text-sm font-heading font-bold uppercase tracking-widest transition-all duration-500 ${ctaTextShadowClass}`}>
+              Daftar
+            </span>
+            <div className="absolute top-0 -left-[150%] w-full h-full skew-x-[-25deg] transition-all duration-700 ease-in-out group-hover:left-[150%] bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.6),transparent)]" />
+          </a>
 
-            {/* Mobile Hamburger Toggle */}
-            <button 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`md:hidden pointer-events-auto relative w-[40px] h-[40px] flex items-center justify-center rounded-full transition-all duration-300 z-[9999] text-white`}
-              aria-label="Toggle Menu"
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+          {/* Mobile Hamburger Toggle (given its own glass background to match) */}
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className={`md:hidden pointer-events-auto relative w-[44px] h-[44px] flex items-center justify-center rounded-full transition-all duration-300 text-white border ${glassBgClass} ${glassBorderClass} ${glassBlurClass} ${glassShadowClass}`}
+            aria-label="Toggle Menu"
+          >
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
       </div>
 
