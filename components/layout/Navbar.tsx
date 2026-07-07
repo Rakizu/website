@@ -132,7 +132,6 @@ export const Navbar = () => {
       
       const content = contentRef.current;
       const logoWrapper = content.querySelector('.logo-wrapper');
-      const sheen = content.querySelector('.sheen-layer');
       const pulseRing = content.querySelector('.pulse-ring');
       
       content.style.pointerEvents = 'auto'; // Block clicks
@@ -143,7 +142,6 @@ export const Navbar = () => {
       tl.set(svg, { autoAlpha: 1 });
       tl.set(content, { autoAlpha: 0 });
       tl.set(logoWrapper, { yPercent: -150 });
-      tl.set(sheen, { left: '-150%' });
       tl.set(pulseRing, { scale: 1, opacity: 0 });
       paths.forEach(p => p?.setAttribute("d", "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z"));
       
@@ -174,8 +172,7 @@ export const Navbar = () => {
       tl.addLabel("covered", 0.9);
       
       // 2. Centerpiece Animations
-      tl.to(sheen, { left: '150%', duration: 0.75, ease: "power2.inOut" }, "covered");
-      tl.addLabel("sheenDone");
+      tl.addLabel("sheenDone", "covered+=0.2");
       
       // 5. Trigger Routing / Scrolling in the background
       tl.add(() => {
@@ -361,22 +358,13 @@ export const Navbar = () => {
         <div className="logo-wrapper relative flex flex-col items-center justify-center">
           <div className="relative flex items-center justify-center">
             {/* Elegant radar pulse */}
-            <div className="pulse-ring absolute inset-0 rounded-full border border-accent-gold/50 opacity-0" />
+            <div className="pulse-ring absolute w-48 h-48 rounded-full border border-accent-gold/50 opacity-0" />
             
             {/* Core Emblem Container */}
-            <div className="relative flex items-center justify-center w-24 h-24 rounded-full border border-accent-gold/40 shadow-[0_0_60px_rgba(199,154,69,0.25)] bg-charcoal-ink/80 backdrop-blur-md overflow-hidden">
-              <span className="relative z-10 font-heading font-bold text-4xl tracking-tighter text-accent-gold drop-shadow-[0_0_20px_rgba(199,154,69,0.8)]">TJ</span>
-              
-              {/* Glossy Sheen Sweep (Mengkilap) */}
-              <div 
-                className="sheen-layer absolute top-0 w-full h-full skew-x-[-25deg] z-20 mix-blend-overlay -left-[150%] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.9),transparent)]"
-              />
+            <div className="relative flex items-center justify-center">
+              <img src="/logo.png" alt="TJ Logo" className="relative z-10 h-32 w-auto object-contain drop-shadow-[0_0_30px_rgba(199,154,69,0.6)]" />
             </div>
           </div>
-          
-          <span className="mt-8 font-accent italic text-accent-gold/70 text-xs md:text-sm tracking-[0.4em] uppercase animate-pulse">
-            Memuat Ruang
-          </span>
         </div>
       </div>
 
