@@ -63,9 +63,8 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
       if (!isMobile) {
         // The Z-Axis scale down (pushed into the background)
         gsap.to(card, {
-          scale: 0.9,
-          opacity: 0.3,
-          y: -50, // Slight upward drift as it gets buried
+          scale: 0.95,
+          y: -30,
           ease: "none",
           scrollTrigger: {
             trigger: cardEls[i + 1], // Triggered by the arrival of the NEXT card
@@ -120,7 +119,7 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
             className="stack-card sticky top-0 min-h-[100dvh] flex flex-col items-center justify-center p-4 md:p-8 origin-top"
           >
             {/* Double-Bezel Massive Card */}
-            <div className="w-full max-w-[1400px] h-[85vh] md:h-[90vh] rounded-[2rem] md:rounded-[2.5rem] bg-charcoal-ink p-2 md:p-3 shadow-[0_20px_50px_rgba(0,0,0,0.4)] relative overflow-hidden ring-1 ring-charcoal-ink/10">
+            <div className="w-full max-w-[1400px] h-[85vh] md:h-[90vh] rounded-[2rem] md:rounded-[2.5rem] bg-charcoal-ink p-2 md:p-3 shadow-xl relative overflow-hidden ring-1 ring-charcoal-ink/10">
               
               {/* Inner Core */}
               <div className="relative w-full h-full rounded-[calc(2rem-0.5rem)] md:rounded-[calc(2.5rem-0.75rem)] overflow-hidden bg-charcoal-ink group">
@@ -131,7 +130,7 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
                      src={mockPhotos[i % mockPhotos.length]} 
                      alt={p}
                      fill
-                     className="parallax-img object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]"
+                     className="parallax-img object-cover"
                      sizes="(max-width: 1400px) 100vw, 1400px"
                   />
                 </div>
