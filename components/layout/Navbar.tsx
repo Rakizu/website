@@ -386,11 +386,7 @@ export const Navbar = () => {
             onClick={(e) => handleNav(e, '/')}
             className="pointer-events-auto relative flex shrink-0 items-center justify-center transition-all duration-500 z-20 group"
           >
-            <img 
-              src="/logo.png" 
-              alt="TJ Logo" 
-              className={`h-10 w-auto object-contain group-hover:scale-105 transition-all duration-500 ${!isDarkBg ? 'brightness-0 opacity-90' : ''}`} 
-            />
+            <img src="/logo.png" alt="TJ Logo" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform" />
           </a>
 
           {/* Center: Tight Navigation Links */}
