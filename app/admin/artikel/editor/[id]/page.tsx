@@ -287,40 +287,45 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
             </div>
 
             {/* Input Group: Image */}
-            <div className="space-y-1">
-              <div className="flex items-center justify-between">
-                <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Gambar Sampul</label>
-                <div className="flex items-center gap-1.5">
-                  <span className="text-[9px] font-medium text-slate-400">URL</span>
-                  <span className="text-[9px] font-medium text-slate-300">|</span>
-                  <button 
-                    onClick={() => fileInputRef.current?.click()}
-                    disabled={isUploading}
-                    className="text-[9px] font-bold text-blue-600 hover:text-blue-800 disabled:opacity-50 transition-colors uppercase tracking-widest cursor-pointer"
-                  >
-                    {isUploading ? 'Uploading...' : 'Upload'}
-                  </button>
-                  <input 
-                    type="file" 
-                    accept="image/*" 
-                    className="hidden" 
-                    ref={fileInputRef}
-                    onChange={handleUploadImage}
+            <div className="space-y-1.5">
+              <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Gambar Sampul</label>
+              
+              <div className="flex items-center gap-2">
+                <div className="relative flex-1">
+                  <div className="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
+                    <svg className="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Atau paste URL..."
+                    value={formData.image}
+                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                    className="w-full bg-slate-50 border border-slate-200/80 rounded-full pl-7 pr-3 py-1.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-xs font-medium placeholder-slate-400 shadow-sm"
                   />
                 </div>
-              </div>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-                </div>
-                <input
-                  type="text"
-                  placeholder="Tempel tautan gambar..."
-                  value={formData.image}
-                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  className="w-full bg-slate-50 border border-slate-200/80 rounded-full pl-8 pr-3 py-1.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-xs font-medium placeholder-slate-400 shadow-sm"
+                
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={isUploading}
+                  className="flex-shrink-0 flex items-center justify-center w-[30px] h-[30px] rounded-full bg-slate-900 text-white hover:bg-slate-800 transition-colors shadow-sm disabled:opacity-50"
+                  title="Unggah dari perangkat"
+                >
+                  {isUploading ? (
+                    <svg className="animate-spin w-3.5 h-3.5" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
+                  ) : (
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  )}
+                </button>
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  className="hidden" 
+                  ref={fileInputRef}
+                  onChange={handleUploadImage}
                 />
               </div>
+
               {formData.image && (
                 <div className="mt-2 w-full h-20 rounded-lg bg-slate-100 border border-slate-200/80 overflow-hidden relative shadow-inner">
                   <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
