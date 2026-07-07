@@ -36,31 +36,36 @@ export const GatePage = () => {
     });
 
     wordElements.forEach((word, i) => {
+      // Overlap sequence: skip for the first word, overlap others by 0.6s
+      const position = i === 0 ? undefined : "-=0.6";
+
       tl.fromTo(word,
-        { opacity: 0, y: 50, scale: 0.9, filter: "blur(10px)" },
-        { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1, ease: "power2.out" }
+        { opacity: 0, y: 60, scale: 0.9, filter: "blur(15px)" },
+        { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.2, ease: "expo.out" },
+        position
       );
 
       if (i < wordElements.length - 1) {
         tl.to(word,
-          { opacity: 0, y: -50, scale: 1.1, filter: "blur(10px)", duration: 1, ease: "power2.in" },
-          "+=0.5"
+          { opacity: 0, y: -60, scale: 1.1, filter: "blur(15px)", duration: 1, ease: "power2.in" },
+          "+=0.2" // much shorter dead space before next word overlaps
         );
       } else {
         tl.to(word,
-          { opacity: 0, scale: 1.5, filter: "blur(20px)", duration: 1.5, ease: "power3.in" },
-          "+=1"
+          { opacity: 0, scale: 2, filter: "blur(20px)", duration: 1.5, ease: "power3.in" },
+          "+=0.8"
         );
       }
     });
 
-    // Animate clouds over the entire duration of the pinning
+    // Cloud Parallax (Spread and fly through)
     tl.to('.cloud-layer', {
-      scale: 2.5,
+      scale: 3.5,
+      y: (index) => (index % 2 === 0 ? -250 : 250), // Split vertically
+      x: (index) => (index === 0 || index === 3 ? -150 : 150), // Split horizontally
       opacity: 0,
       duration: tl.duration(), // span the entire timeline
-      ease: "power2.in",
-      stagger: 0.2
+      ease: "none", // strictly linear mapping to scrollbar
     }, 0); // Start at the very beginning (0)
 
   }, { scope: container });
