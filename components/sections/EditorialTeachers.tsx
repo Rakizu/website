@@ -73,6 +73,8 @@ export const EditorialTeachers: React.FC<EditorialTeachersProps> = ({ guru }) =>
 
   return (
     <section 
+      id="guru"
+      data-theme="dark"
       ref={container}
       className="py-24 md:py-32 bg-chapter-sage text-cream relative overflow-hidden"
     >

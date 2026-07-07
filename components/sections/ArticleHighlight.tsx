@@ -70,6 +70,7 @@ export const ArticleHighlight: React.FC<ArticleHighlightProps> = ({ artikel }) =
     <section
       ref={container}
       id="artikel"
+      data-theme="dark"
       className="py-32 md:py-48 bg-charcoal-ink text-pure-surface"
     >
       <div className="max-w-[1400px] mx-auto px-6 md:px-16">

@@ -31,43 +31,21 @@ export default function Home() {
       <HeroCinematic />
       
       {/* 1. TENTANG KAMI (Profil) */}
-      <section id="visi" data-theme="light">
-        <StoryVisionMission />
-      </section>
-      <section id="guru" data-theme="dark">
-        <EditorialTeachers guru={data.guru} />
-      </section>
-      <section id="alumni" data-theme="light">
-        <AlumniGallery alumni={data.alumni} />
-      </section>
+      <StoryVisionMission />
+      <EditorialTeachers guru={data.guru} />
+      <AlumniGallery alumni={data.alumni} />
 
       {/* 2. PROGRAM */}
-      <section id="kurikulum" data-theme="light">
-        <CurriculumTree kurikulum={data.kurikulum} />
-      </section>
-      
-      {/* FeaturedPrograms is light (bg-warm-50) */}
-      <section id="unggulan" data-theme="light">
-        <FeaturedPrograms programs={data.kurikulum.programUnggulan} />
-      </section>
-
-      {/* HorizontalExtracurriculars is dark (bg-charcoal-ink) */}
-      <section id="ekskul" data-theme="dark">
-        <HorizontalExtracurriculars ekskul={data.ekskul} />
-      </section>
+      <CurriculumTree kurikulum={data.kurikulum} />
+      <FeaturedPrograms programs={data.kurikulum.programUnggulan} />
+      <HorizontalExtracurriculars ekskul={data.ekskul} />
 
       {/* 3. FASILITAS */}
-      <section id="fasilitas" data-theme="light">
-        <FacilityGrid fasilitas={data.fasilitas} />
-      </section>
+      <FacilityGrid fasilitas={data.fasilitas} />
 
       {/* 4. BERITA & DAFTAR */}
-      <section id="artikel" data-theme="dark">
-        <ArticleHighlight artikel={data.artikel} />
-      </section>
-      <section id="daftar" data-theme="dark">
-        <AdmissionForm />
-      </section>
+      <ArticleHighlight artikel={data.artikel} />
+      <AdmissionForm />
     </main>
   );
 }

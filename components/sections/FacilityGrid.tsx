@@ -49,6 +49,8 @@ export const FacilityGrid: React.FC<FacilityGridProps> = ({ fasilitas }) => {
 
   return (
     <section 
+      id="fasilitas"
+      data-theme="light"
       ref={container}
       className="py-24 md:py-32 bg-canvas-white relative z-10"
     >

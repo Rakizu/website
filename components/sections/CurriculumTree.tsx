@@ -64,6 +64,8 @@ export const CurriculumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
 
   return (
     <section 
+      id="kurikulum"
+      data-theme="light"
       ref={container}
       className="py-32 md:py-48 bg-canvas-white relative overflow-hidden"
     >

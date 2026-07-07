@@ -49,6 +49,8 @@ export const StoryVisionMission = () => {
 
   return (
     <section 
+      id="visi"
+      data-theme="light"
       ref={container}
       className="relative py-32 md:py-48 bg-pure-surface overflow-hidden"
     >

@@ -79,6 +79,8 @@ export const HorizontalExtracurriculars: React.FC<HorizontalExtracurricularsProp
 
   return (
     <section 
+      id="ekskul"
+      data-theme="dark"
       ref={sectionRef} 
       className="relative bg-charcoal-ink text-pure-surface overflow-hidden"
     >

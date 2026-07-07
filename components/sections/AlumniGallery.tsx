@@ -50,9 +50,10 @@ export const AlumniGallery: React.FC<AlumniGalleryProps> = ({ alumni }) => {
 
   return (
     <section 
+      id="alumni"
+      data-theme="light"
       ref={sectionRef} 
       className="py-32 md:py-48 bg-canvas-white relative overflow-hidden"
-      id="alumni"
     >
       <div className="max-w-[1400px] mx-auto px-6 md:px-16">
         

@@ -52,6 +52,8 @@ export const AdmissionForm = () => {
 
   return (
     <section 
+      id="daftar"
+      data-theme="dark"
       ref={container}
       className="py-32 md:py-48 bg-chapter-sage text-pure-surface relative overflow-hidden"
     >

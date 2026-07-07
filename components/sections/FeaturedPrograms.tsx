@@ -80,7 +80,7 @@ export const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ programs }) 
   }, { scope: containerRef });
 
   return (
-    <section id="unggulan" className="relative bg-warm-50">
+    <section id="unggulan" data-theme="light" className="relative bg-warm-50">
       
       {/* 1. Background Sticky Title (Anticipation Builder) */}
       <div ref={bgTextRef} className="sticky top-0 w-full h-[100dvh] flex flex-col items-center justify-center z-0 pointer-events-none px-6 text-center">
