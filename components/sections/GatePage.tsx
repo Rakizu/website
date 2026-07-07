@@ -1,12 +1,9 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { IslamicPattern } from '@/components/ui/IslamicPattern';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const wordsData = [
   { text: "Sholeh", className: "font-heading font-bold" },
@@ -18,53 +15,115 @@ const wordsData = [
 export const GatePage = () => {
   const container = useRef<HTMLElement>(null);
   const textContainer = useRef<HTMLDivElement>(null);
+  const counterRef = useRef<HTMLSpanElement>(null);
+  const [isCompleted, setIsCompleted] = useState(false);
+
+  useEffect(() => {
+    // Check if we've already shown the preloader in this session
+    const hasPreloaded = sessionStorage.getItem('hasPreloaded');
+    if (hasPreloaded === 'true') {
+      setIsCompleted(true);
+      return;
+    }
+    
+    // Lock scrolling while preloader is active
+    document.body.style.overflow = 'hidden';
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
 
   useGSAP(() => {
-    if (!container.current || !textContainer.current) return;
+    if (isCompleted || !container.current || !textContainer.current || !counterRef.current) return;
 
     const wordElements = textContainer.current.querySelectorAll('.gate-word');
+    const counterElement = counterRef.current.parentElement;
+    const progressObj = { value: 0 };
+
+    // Set initial state
+    gsap.set(wordElements, { opacity: 0, scale: 0.9, filter: "blur(20px)" });
 
     const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: container.current,
-        start: "top top",
-        end: "+=300%",
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1,
+      onComplete: () => {
+        sessionStorage.setItem('hasPreloaded', 'true');
+        document.body.style.overflow = '';
+        setIsCompleted(true);
       }
     });
 
+    // 1. Loading Counter (0 to 100%)
+    tl.to(progressObj, {
+      value: 100,
+      duration: 2.5, // Immersive delay
+      ease: "power3.inOut", // Smooth acceleration/deceleration
+      onUpdate: () => {
+        if (counterRef.current) {
+          // Format with leading zero if needed, but plain numbers feel raw and editorial
+          counterRef.current.innerText = Math.round(progressObj.value).toString();
+        }
+      }
+    });
+
+    // 2. Fade out counter
+    tl.to(counterElement, {
+      opacity: 0,
+      y: -20,
+      duration: 0.5,
+      ease: "power2.in"
+    }, "-=0.3");
+
+    // 3. Cinematic Word Flash Sequence
     wordElements.forEach((word, i) => {
-      // Overlap sequence: skip for the first word, overlap others by 0.6s
-      const position = i === 0 ? undefined : "-=0.6";
+      const isLast = i === wordElements.length - 1;
+      
+      // Flash in
+      tl.to(word, { 
+        opacity: 1, 
+        scale: 1, 
+        filter: "blur(0px)", 
+        duration: 0.8, 
+        ease: "expo.out" 
+      }, i === 0 ? "-=0.1" : "-=0.6");
 
-      tl.fromTo(word,
-        { opacity: 0, y: 60, scale: 0.9, filter: "blur(15px)" },
-        { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.2, ease: "expo.out" },
-        position
-      );
-
-      if (i < wordElements.length - 1) {
-        tl.to(word,
-          { opacity: 0, y: -60, scale: 1.1, filter: "blur(15px)", duration: 1, ease: "power2.in" },
-          "+=0.2" // much shorter dead space before next word overlaps
-        );
+      // Flash out (unless it's the very last word, we let it linger a tiny bit)
+      if (!isLast) {
+        tl.to(word, { 
+          opacity: 0, 
+          scale: 1.1, 
+          filter: "blur(15px)", 
+          duration: 0.6, 
+          ease: "power2.in" 
+        }, "+=0.1"); // Very brief hold
       } else {
-        tl.to(word,
-          { opacity: 0, scale: 2, filter: "blur(20px)", duration: 1.5, ease: "power3.in" },
-          "+=0.8"
-        );
+        // Last word explosive fade out
+        tl.to(word, { 
+          opacity: 0, 
+          scale: 1.5, 
+          filter: "blur(20px)", 
+          duration: 1.2, 
+          ease: "power3.in" 
+        }, "+=0.4");
       }
     });
 
-  }, { scope: container });
+    // 4. Slide up the entire gate page like a theater curtain
+    tl.to(container.current, {
+      yPercent: -100,
+      duration: 1.5,
+      ease: "cubic-bezier(0.85, 0, 0.15, 1)", // Premium awwwards easing
+    }, "-=0.6");
+
+  }, { scope: container, dependencies: [isCompleted] });
+
+  // If already completed, render nothing to save DOM nodes and immediately reveal Hero
+  if (isCompleted) return null;
 
   return (
     <section
       ref={container}
       data-theme="dark"
-      className="relative w-full h-screen flex items-center justify-center z-[999] overflow-hidden bg-ink"
+      className="fixed inset-0 w-full h-[100dvh] flex items-center justify-center z-[99999] overflow-hidden bg-ink"
     >
       {/* Warm cinematic light leak */}
       <div
@@ -82,31 +141,26 @@ export const GatePage = () => {
         />
       </div>
 
+      {/* Percentage Loading Counter */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
+        <div className="text-[#FDF6EC] font-accent italic text-2xl md:text-3xl tracking-widest flex items-end gap-1">
+          <span ref={counterRef} className="text-5xl md:text-7xl font-light">0</span>
+          <span className="text-xl md:text-2xl mb-1 md:mb-2 opacity-50">%</span>
+        </div>
+      </div>
+
       {/* Text Container */}
-      <div ref={textContainer} className="relative z-10 w-full h-full flex items-center justify-center">
+      <div ref={textContainer} className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none">
         {wordsData.map((w, i) => (
           <div
             key={i}
-            className={`gate-word absolute text-6xl md:text-8xl lg:text-[9rem] tracking-tighter whitespace-nowrap transform-gpu opacity-0 drop-shadow-[0_10px_40px_rgba(231,193,121,0.3)] ${w.className} ${w.className.includes('text-accent-gold') ? '' : 'text-[#FDF6EC]'}`}
+            className={`gate-word absolute text-5xl md:text-8xl lg:text-[9rem] tracking-tighter whitespace-nowrap transform-gpu opacity-0 drop-shadow-[0_10px_40px_rgba(231,193,121,0.3)] ${w.className} ${w.className.includes('text-accent-gold') ? '' : 'text-[#FDF6EC]'}`}
           >
             {w.text}
           </div>
         ))}
       </div>
 
-      {/* Scroll cue */}
-      <div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#f6efe2]/50"
-      >
-        <span className="text-[10px] uppercase tracking-[0.35em]">Gulir</span>
-        <span className="relative block h-10 w-px overflow-hidden bg-white/20">
-          <span className="absolute left-0 top-0 h-4 w-px animate-[scrollcue_1.8s_ease-in-out_infinite] bg-gold-soft" />
-        </span>
-      </div>
-
-      <style>{`
-        @keyframes scrollcue{0%{transform:translateY(-100%)}100%{transform:translateY(300%)}}
-      `}</style>
     </section>
   );
 };
