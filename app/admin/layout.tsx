@@ -15,35 +15,35 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       `}</style>
       
       {/* Premium SaaS Enterprise Ribbon */}
-      <header id="admin-global-header" className="sticky top-0 w-full px-6 py-3 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_4px_24px_rgba(0,0,0,0.02)] flex justify-between items-center z-50">
-        <div className="flex items-center gap-5">
+      <header id="admin-global-header" className="sticky top-0 w-full px-3 md:px-6 py-2.5 md:py-3 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_4px_24px_rgba(0,0,0,0.02)] flex justify-between items-center z-50">
+        <div className="flex items-center gap-2 md:gap-5">
           {/* Studio Badge */}
-          <div className="flex items-center gap-3 pr-5 border-r border-slate-200/60">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-slate-900 to-slate-800 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/10">
-              <span className="font-heading font-bold text-xs text-white tracking-widest leading-none">TJ</span>
+          <div className="flex items-center gap-2 md:gap-3 pr-2 md:pr-5 md:border-r border-slate-200/60">
+            <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-gradient-to-tr from-slate-900 to-slate-800 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/10">
+              <span className="font-heading font-bold text-[10px] md:text-xs text-white tracking-widest leading-none">TJ</span>
             </div>
-            <span className="font-sans font-bold text-sm tracking-tight text-slate-800">Studio</span>
+            <span className="font-sans font-bold text-xs md:text-sm tracking-tight text-slate-800 hidden sm:block">Studio</span>
           </div>
 
           {/* Role Indicator */}
-          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 px-2.5 py-1 rounded-full shadow-sm">
-            <span className={`w-1.5 h-1.5 rounded-full ${isWriter ? 'bg-blue-500 shadow-[0_0_6px_rgba(59,130,246,0.6)]' : 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.6)]'}`} />
-            <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-widest">{role}</span>
+          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 px-2 md:px-2.5 py-1 rounded-full shadow-sm">
+            <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${isWriter ? 'bg-blue-500 shadow-[0_0_6px_rgba(59,130,246,0.6)]' : 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.6)]'}`} />
+            <span className="text-[9px] md:text-[10px] font-semibold text-slate-600 uppercase tracking-widest hidden sm:block">{role}</span>
           </div>
         </div>
         
-        <nav className="flex items-center gap-2">
+        <nav className="flex items-center gap-1 md:gap-2">
           <a 
             href="/admin/artikel" 
-            className="px-5 py-2 rounded-full text-[11px] font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all tracking-widest uppercase"
+            className="px-3 md:px-5 py-1.5 md:py-2 rounded-full text-[9px] md:text-[11px] font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all tracking-widest uppercase"
           >
             Dashboard
           </a>
-          <div className="w-px h-4 bg-slate-200 mx-2" />
+          <div className="w-px h-3 md:h-4 bg-slate-200 mx-1 md:mx-2 hidden sm:block" />
           <form action="/api/auth/logout" method="POST" className="m-0 p-0">
             <button 
               type="submit" 
-              className="px-5 py-2 rounded-full text-[11px] font-bold text-slate-500 hover:text-white hover:bg-red-500 transition-all tracking-widest uppercase shadow-sm"
+              className="px-3 md:px-5 py-1.5 md:py-2 rounded-full text-[9px] md:text-[11px] font-bold text-slate-500 hover:text-white hover:bg-red-500 transition-all tracking-widest uppercase shadow-sm"
             >
               Log Out
             </button>

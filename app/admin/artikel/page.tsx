@@ -87,13 +87,13 @@ export default function AdminArtikelList() {
       </div>
 
       {/* Toolbar / Filters (Placeholder for Enterprise Look) */}
-      <div className="w-full bg-white border border-slate-200/80 rounded-t-[24px] p-4 flex items-center justify-between shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="relative">
+      <div className="w-full bg-white border border-slate-200/80 rounded-t-[24px] p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <div className="relative flex-1 sm:flex-none">
             <svg className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" placeholder="Cari dokumen..." className="pl-10 pr-4 py-2 text-sm font-medium bg-slate-50 border border-slate-200 rounded-full outline-none focus:ring-2 focus:ring-slate-200 w-64 placeholder-slate-400 text-slate-800 transition-all" />
+            <input type="text" placeholder="Cari dokumen..." className="w-full sm:w-64 pl-10 pr-4 py-2 text-sm font-medium bg-slate-50 border border-slate-200 rounded-full outline-none focus:ring-2 focus:ring-slate-200 placeholder-slate-400 text-slate-800 transition-all" />
           </div>
-          <button className="px-4 py-2 text-sm font-bold text-slate-600 bg-white border border-slate-200 rounded-full hover:bg-slate-50 shadow-sm flex items-center gap-2 transition-all">
+          <button className="px-4 py-2 text-sm font-bold text-slate-600 bg-white border border-slate-200 rounded-full hover:bg-slate-50 shadow-sm flex items-center justify-center gap-2 transition-all">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
             Filter
           </button>
@@ -148,7 +148,7 @@ export default function AdminArtikelList() {
                       {a.tanggal}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right">
-                      <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="flex justify-end gap-2 opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity">
                         <button 
                           onClick={() => router.push(`/admin/artikel/editor/${a.id}`)}
                           className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all border border-transparent hover:border-blue-100 shadow-sm"
