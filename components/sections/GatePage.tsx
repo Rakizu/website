@@ -88,6 +88,12 @@ export const GatePage = () => {
         
         {/* Organic Fluid Cloud System */}
         <div className="absolute inset-0 z-10 w-full h-full opacity-80 overflow-hidden">
+            {/* User SVG Cloud Asset */}
+            <div className="cloud-layer absolute inset-0 w-full h-full opacity-40 mix-blend-screen animate-[float_20s_ease-in-out_infinite]">
+              {/* Alpha Transparency applied via opacity class */}
+              <img src="/cloud.svg" alt="" className="w-full h-full object-cover object-center opacity-70" />
+            </div>
+
             {/* Cloud 1: Top Left - Warm Gold */}
             <div className="cloud-layer absolute top-[-10%] left-[-10%] w-[120vw] md:w-[60vw] aspect-square bg-[#E7C179] mix-blend-screen blur-[100px] md:blur-[140px] opacity-30 animate-[morph_15s_ease-in-out_infinite]" />
             
@@ -130,6 +136,11 @@ export const GatePage = () => {
           0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
           50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: translate3d(5%, 5%, 0) rotate(180deg) scale(1.1); }
           100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate3d(0, 0, 0) rotate(360deg) scale(1); }
+        }
+        @keyframes float {
+          0% { transform: translate3d(0, 0, 0) scale(1); }
+          50% { transform: translate3d(3%, 3%, 0) scale(1.05); }
+          100% { transform: translate3d(0, 0, 0) scale(1); }
         }
       `}</style>
     </section>
