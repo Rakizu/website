@@ -40,23 +40,7 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
     
     const cardEls = gsap.utils.toArray<HTMLElement>('.stack-card');
     cardEls.forEach((card, i) => {
-      // Internal image parallax (subtle zoom out as you scroll down)
-      const img = card.querySelector('.parallax-img');
-      if (img && !isMobile) {
-        gsap.fromTo(img, 
-          { yPercent: -15 },
-          { 
-            yPercent: 0, 
-            ease: "none", 
-            scrollTrigger: {
-               trigger: card,
-               start: "top bottom",
-               end: "top top",
-               scrub: true
-            } 
-          }
-        );
-      }
+      // Internal image parallax removed to save GPU cycles and prevent layout thrashing
 
       if (i === cardEls.length - 1) return; // Last card doesn't scale away
       
@@ -116,7 +100,7 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
         {programs.map((p, i) => (
           <div
             key={i}
-            className="stack-card sticky top-0 min-h-[100dvh] flex flex-col items-center justify-center p-4 md:p-8 origin-top"
+            className="stack-card sticky top-0 min-h-[100dvh] flex flex-col items-center justify-center p-4 md:p-8 origin-top will-change-transform transform-gpu"
           >
             {/* Double-Bezel Massive Card */}
             <div className="w-full max-w-[1400px] h-[85vh] md:h-[90vh] rounded-[2rem] md:rounded-[2.5rem] shadow-xl relative overflow-hidden">
