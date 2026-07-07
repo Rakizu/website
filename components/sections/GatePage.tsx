@@ -63,8 +63,6 @@ export const GatePage = () => {
       stagger: 0.2
     }, 0); // Start at the very beginning (0)
 
-    tl.to(container.current, { autoAlpha: 0, duration: 1, ease: "power2.inOut" });
-
   }, { scope: container });
 
   return (
