@@ -134,9 +134,9 @@ export const HeroCinematic = () => {
           </div>
 
           <button
-            className="group relative px-8 py-4 font-medium text-sm tracking-widest uppercase overflow-hidden bg-ink text-cream"
+            className="group relative px-8 py-4 font-medium text-sm tracking-widest uppercase overflow-hidden bg-ink text-cream hover:shadow-[0_20px_40px_-10px_rgba(26,26,46,0.4)] hover:-translate-y-1 active:scale-95 transition-all duration-300 rounded-sm"
           >
-            <span className="relative z-10">Mulai Perjalanan</span>
+            <span className="relative z-10 group-hover:text-ink transition-colors duration-500">Mulai Perjalanan</span>
             <div
               className="absolute inset-0 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] bg-gold"
             />

@@ -77,7 +77,7 @@ export const FacilityGrid: React.FC<FacilityGridProps> = ({ fasilitas }) => {
             return (
               <div 
                 key={f.id} 
-                className={`fasilitas-item group relative rounded-[2rem] overflow-hidden bg-charcoal-ink ${spanClass}`}
+                className={`fasilitas-item group relative rounded-[2rem] overflow-hidden bg-charcoal-ink hover:shadow-[0_20px_50px_-12px_rgba(231,193,121,0.15)] hover:-translate-y-2 transition-all duration-500 ease-out ${spanClass}`}
               >
                 {/* Image Layer with subtle scale on hover */}
                 <Image 

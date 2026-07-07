@@ -80,7 +80,7 @@ export const ArticleHighlight: React.FC<ArticleHighlightProps> = ({ artikel }) =
           <h2 className="text-5xl md:text-7xl font-heading font-medium tracking-tighter">
             Cerita &<br />Kabar Terbaru.
           </h2>
-          <button className="group flex items-center gap-3 text-sm uppercase tracking-widest text-muted-steel hover:text-accent-gold transition-colors duration-300">
+          <button className="group flex items-center gap-3 text-sm uppercase tracking-widest text-muted-steel hover:text-accent-gold hover:translate-x-2 transition-all duration-500">
             Lihat Semua Artikel
             <span className="w-12 h-px bg-muted-steel group-hover:bg-accent-gold group-hover:w-20 transition-all duration-500" />
           </button>
@@ -99,7 +99,7 @@ export const ArticleHighlight: React.FC<ArticleHighlightProps> = ({ artikel }) =
               }}
             >
               <article
-                className="artikel-item group grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-10 md:py-14 cursor-pointer"
+                className="artikel-item group grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-10 md:py-14 cursor-pointer hover:bg-pure-surface/[0.03] transition-colors duration-500 rounded-2xl md:px-8 md:-mx-8"
               >
                 {/* Index Number */}
                 <div className="hidden md:flex items-start md:col-span-1 pt-1">
@@ -127,7 +127,7 @@ export const ArticleHighlight: React.FC<ArticleHighlightProps> = ({ artikel }) =
                 </div>
 
                 {/* Thumbnail */}
-                <div className="md:col-span-3 aspect-[16/9] md:aspect-[4/3] overflow-hidden rounded-xl">
+                <div className="md:col-span-3 aspect-[16/9] md:aspect-[4/3] overflow-hidden rounded-xl group-hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-shadow duration-700">
                   <img
                     src={a.image}
                     alt={a.judul}

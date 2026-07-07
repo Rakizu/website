@@ -58,16 +58,6 @@ export const GatePage = () => {
       }
     });
 
-    // Cloud Parallax (Spread and fly through)
-    tl.to('.cloud-layer', {
-      scale: 3.5,
-      y: (index) => (index % 2 === 0 ? -250 : 250), // Split vertically
-      x: (index) => (index === 0 || index === 3 ? -150 : 150), // Split horizontally
-      opacity: 0,
-      duration: tl.duration(), // span the entire timeline
-      ease: "none", // strictly linear mapping to scrollbar
-    }, 0); // Start at the very beginning (0)
-
   }, { scope: container });
 
   return (
@@ -90,31 +80,6 @@ export const GatePage = () => {
         <div 
           className="absolute inset-0 opacity-[0.06] z-20 pointer-events-none mix-blend-overlay bg-[url('data:image/svg+xml,%3Csvg%20viewBox=%220%200%20200%20200%22%20xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter%20id=%22noiseFilter%22%3E%3CfeTurbulence%20type=%22fractalNoise%22%20baseFrequency=%220.85%22%20numOctaves=%223%22%20stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect%20width=%22100%25%22%20height=%22100%25%22%20filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')]"
         />
-        
-        {/* Organic Fluid Cloud System */}
-        <div className="absolute inset-0 z-10 w-full h-full overflow-hidden">
-            
-            {/* Cloud 1: Top Left */}
-            <div className="cloud-layer absolute top-[-10%] left-[-15%] w-[80vw] md:w-[45vw] aspect-[3/2] opacity-40 mix-blend-screen animate-[float_18s_ease-in-out_infinite]">
-              <img src="/cloud.svg" alt="" className="w-full h-full object-contain opacity-70" />
-            </div>
-            
-            {/* Cloud 2: Bottom Right (Larger, floating reverse) */}
-            <div className="cloud-layer absolute bottom-[-15%] right-[-10%] w-[100vw] md:w-[55vw] aspect-[3/2] opacity-50 mix-blend-screen animate-[float_22s_ease-in-out_infinite_reverse]">
-              <img src="/cloud.svg" alt="" className="w-full h-full object-contain opacity-60" />
-            </div>
-            
-            {/* Cloud 3: Center Ambient (Smaller, deep background) */}
-            <div className="cloud-layer absolute top-[25%] left-[30%] w-[60vw] md:w-[35vw] aspect-[3/2] opacity-25 mix-blend-screen animate-[float_25s_ease-in-out_infinite]" style={{ animationDelay: '-5s' }}>
-              <img src="/cloud.svg" alt="" className="w-full h-full object-contain opacity-50" />
-            </div>
-            
-            {/* Cloud 4: Bottom Left (Horizontally flipped for variety) */}
-            <div className="cloud-layer absolute bottom-[10%] left-[-5%] w-[70vw] md:w-[40vw] aspect-[3/2] opacity-35 mix-blend-screen animate-[float_15s_ease-in-out_infinite_reverse]" style={{ animationDelay: '-10s' }}>
-              <img src="/cloud.svg" alt="" className="w-full h-full object-contain opacity-60 scale-x-[-1]" />
-            </div>
-
-        </div>
       </div>
 
       {/* Text Container */}
@@ -141,11 +106,6 @@ export const GatePage = () => {
 
       <style>{`
         @keyframes scrollcue{0%{transform:translateY(-100%)}100%{transform:translateY(300%)}}
-        @keyframes float {
-          0% { transform: translate3d(0, 0, 0) scale(1); }
-          50% { transform: translate3d(3%, 3%, 0) scale(1.05); }
-          100% { transform: translate3d(0, 0, 0) scale(1); }
-        }
       `}</style>
     </section>
   );
