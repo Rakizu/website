@@ -65,6 +65,13 @@ export const Navbar = () => {
       onLeaveBack: () => setIsScrolled(false),
     });
 
+    // Instant theme force based on route to bypass Next.js DOM transition delays
+    if (pathname.startsWith('/artikel/')) {
+      setTheme('light');
+    } else if (pathname === '/') {
+      setTheme('dark');
+    }
+
     // Performance-optimized Theme Detection (No Layout Thrashing)
     const themeSections = document.querySelectorAll('[data-theme]');
     
