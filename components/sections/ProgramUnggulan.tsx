@@ -45,10 +45,11 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
       if (i === cardEls.length - 1) return; // Last card doesn't scale away
       
       if (!isMobile) {
-        // The Z-Axis scale down (pushed into the background)
+        // The Z-Axis scale down (pushed into the background and fades out)
         gsap.to(card, {
-          scale: 0.95,
-          y: -30,
+          scale: 0.9,
+          opacity: 0, // Fades out completely as requested
+          y: -50,
           ease: "none",
           scrollTrigger: {
             trigger: cardEls[i + 1], // Triggered by the arrival of the NEXT card
