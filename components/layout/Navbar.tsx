@@ -314,7 +314,7 @@ export const Navbar = () => {
   return (
     <header
       ref={navRef}
-      className="fixed top-3 left-0 w-full z-[1000] px-[58px] pointer-events-none flex justify-center"
+      className="fixed top-1 left-0 w-full z-[1000] px-[58px] pointer-events-none flex justify-center"
     >
       {/* Cinematic Liquid Color Cascade (SVG) */}
       <svg 
@@ -355,7 +355,7 @@ export const Navbar = () => {
       </div>
 
       <div 
-        className={`relative flex items-center justify-center gap-4 md:gap-6 h-[72px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] w-max mx-auto px-4 opacity-100 translate-y-0`}
+        className={`relative flex items-center justify-center gap-4 md:gap-6 h-[64px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] w-max mx-auto px-4 opacity-100 translate-y-0`}
       >
         {/* LEFT: Standalone Logo */}
         <div className="flex shrink-0 justify-center z-20 pointer-events-none">
@@ -373,7 +373,7 @@ export const Navbar = () => {
         {/* CENTER: The Main Glass Navigation Pill */}
         <div className="flex items-center justify-center z-20 pointer-events-none hidden md:flex">
           <nav 
-            className={`pointer-events-auto flex items-center gap-1 h-[56px] px-2 rounded-full transition-all duration-[600ms] border ${glassBgClass} ${glassBorderClass} ${glassBlurClass} ${glassShadowClass}`}
+            className={`pointer-events-auto flex items-center gap-1 h-[48px] px-1.5 rounded-full transition-all duration-[600ms] border ${glassBgClass} ${glassBorderClass} ${glassBlurClass} ${glassShadowClass}`}
           >
             {navLinks.map((link) => (
               <div key={link.label} className="relative group">
@@ -416,7 +416,7 @@ export const Navbar = () => {
           <a
             href="#daftar"
             onClick={(e) => handleNav(e, '#daftar')}
-            className={`pointer-events-auto relative hidden md:flex px-8 h-[56px] rounded-full overflow-hidden group shrink-0 items-center justify-center transition-all duration-500 hover:scale-105 hover:shadow-[0_0_25px_rgba(64,145,108,0.8)] border-0 ${ctaBgClass} ${ctaBlurClass} ${ctaShadowClass} text-[#FDF6EC]`}
+            className={`pointer-events-auto relative hidden md:flex px-6 h-[48px] rounded-full overflow-hidden group shrink-0 items-center justify-center transition-all duration-500 hover:scale-105 hover:shadow-[0_0_25px_rgba(64,145,108,0.8)] border-0 ${ctaBgClass} ${ctaBlurClass} ${ctaShadowClass} text-[#FDF6EC]`}
           >
             <span className={`relative z-10 text-sm font-heading font-bold uppercase tracking-widest transition-all duration-500 ${ctaTextShadowClass}`}>
               Daftar
@@ -427,7 +427,7 @@ export const Navbar = () => {
           {/* Mobile Hamburger Toggle (given its own glass background to match) */}
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`md:hidden pointer-events-auto relative w-[52px] h-[52px] flex items-center justify-center rounded-full transition-all duration-300 text-white border ${glassBgClass} ${glassBorderClass} ${glassBlurClass} ${glassShadowClass}`}
+            className={`md:hidden pointer-events-auto relative w-[44px] h-[44px] flex items-center justify-center rounded-full transition-all duration-300 text-white border ${glassBgClass} ${glassBorderClass} ${glassBlurClass} ${glassShadowClass}`}
             aria-label="Toggle Menu"
           >
             {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
