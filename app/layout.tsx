@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${plusJakartaSans.variable} ${outfit.variable} ${lora.variable}`}>
       <body className="antialiased selection:bg-accent-gold selection:text-white relative">
-        <div className="fixed inset-0 pointer-events-none z-40 mix-blend-multiply dark:mix-blend-screen" style={{ opacity: 0.4 }}>
+        <div className="fixed inset-0 pointer-events-none z-40" style={{ opacity: 0.2 }}>
           <IslamicPattern color="var(--gold-soft)" opacity={0.06} />
         </div>
         <div className="relative z-10">

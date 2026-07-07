@@ -8,8 +8,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 export const SmoothScroll = () => {
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.05,        // Silkier smoothing (Awwwards standard)
-      wheelMultiplier: 1.1, // Slightly faster wheel to compensate for heavy lerp
+      lerp: 0.1,        // Snappier smoothing to remove ghosting
+      wheelMultiplier: 1.0, 
       smoothWheel: true,
     });
 
