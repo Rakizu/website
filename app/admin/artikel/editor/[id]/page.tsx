@@ -252,14 +252,22 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
 
             {/* Input Group: Image */}
             <div className="space-y-1">
-              <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">URL Gambar</label>
-              <input
-                type="text"
-                placeholder="https://..."
-                value={formData.image}
-                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-3 py-1.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-xs font-medium placeholder-slate-400 shadow-sm"
-              />
+              <div className="flex items-center justify-between">
+                <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Gambar Sampul</label>
+                <span className="text-[9px] font-medium text-slate-400">Via URL</span>
+              </div>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Tempel tautan gambar..."
+                  value={formData.image}
+                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                  className="w-full bg-slate-50 border border-slate-200/80 rounded-full pl-8 pr-3 py-1.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-xs font-medium placeholder-slate-400 shadow-sm"
+                />
+              </div>
               {formData.image && (
                 <div className="mt-2 w-full h-20 rounded-lg bg-slate-100 border border-slate-200/80 overflow-hidden relative shadow-inner">
                   <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
