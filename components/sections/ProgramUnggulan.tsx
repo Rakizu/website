@@ -119,10 +119,10 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
             className="stack-card sticky top-0 min-h-[100dvh] flex flex-col items-center justify-center p-4 md:p-8 origin-top"
           >
             {/* Double-Bezel Massive Card */}
-            <div className="w-full max-w-[1400px] h-[85vh] md:h-[90vh] rounded-[2rem] md:rounded-[2.5rem] bg-charcoal-ink p-2 md:p-3 shadow-xl relative overflow-hidden ring-1 ring-charcoal-ink/10">
+            <div className="w-full max-w-[1400px] h-[85vh] md:h-[90vh] rounded-[2rem] md:rounded-[2.5rem] shadow-xl relative overflow-hidden">
               
               {/* Inner Core */}
-              <div className="relative w-full h-full rounded-[calc(2rem-0.5rem)] md:rounded-[calc(2.5rem-0.75rem)] overflow-hidden bg-charcoal-ink group">
+              <div className="relative w-full h-full overflow-hidden group">
                 
                 {/* Parallax Image */}
                 <div className="absolute inset-[-10%] w-[120%] h-[120%]">
