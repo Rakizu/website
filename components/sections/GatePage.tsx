@@ -93,18 +93,6 @@ export const GatePage = () => {
               {/* Alpha Transparency applied via opacity class */}
               <img src="/cloud.svg" alt="" className="w-full h-full object-cover object-center opacity-70" />
             </div>
-
-            {/* Cloud 1: Top Left - Warm Gold */}
-            <div className="cloud-layer absolute top-[-10%] left-[-10%] w-[120vw] md:w-[60vw] aspect-square bg-[#E7C179] mix-blend-screen blur-[100px] md:blur-[140px] opacity-30 animate-[morph_15s_ease-in-out_infinite]" />
-            
-            {/* Cloud 2: Bottom Right - Deep Amber */}
-            <div className="cloud-layer absolute bottom-[-20%] right-[-10%] w-[140vw] md:w-[70vw] aspect-square bg-[#8B5E3C] mix-blend-screen blur-[120px] md:blur-[160px] opacity-40 animate-[morph_20s_ease-in-out_infinite_reverse]" />
-            
-            {/* Cloud 3: Center Ambient - Soft Sand/Cream */}
-            <div className="cloud-layer absolute top-[20%] left-[20%] w-[100vw] md:w-[50vw] aspect-square bg-[#DAA520] mix-blend-screen blur-[90px] md:blur-[120px] opacity-20 animate-[morph_25s_ease-in-out_infinite]" style={{ animationDelay: '-5s' }} />
-            
-            {/* Cloud 4: Bottom Left - Subtle Earthy Tone */}
-            <div className="cloud-layer absolute bottom-[10%] left-[10%] w-[90vw] md:w-[45vw] aspect-square bg-[#C4956A] mix-blend-screen blur-[100px] md:blur-[130px] opacity-20 animate-[morph_18s_ease-in-out_infinite_reverse]" style={{ animationDelay: '-10s' }} />
         </div>
       </div>
 
@@ -132,11 +120,6 @@ export const GatePage = () => {
 
       <style>{`
         @keyframes scrollcue{0%{transform:translateY(-100%)}100%{transform:translateY(300%)}}
-        @keyframes morph {
-          0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
-          50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: translate3d(5%, 5%, 0) rotate(180deg) scale(1.1); }
-          100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate3d(0, 0, 0) rotate(360deg) scale(1); }
-        }
         @keyframes float {
           0% { transform: translate3d(0, 0, 0) scale(1); }
           50% { transform: translate3d(3%, 3%, 0) scale(1.05); }
