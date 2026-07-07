@@ -295,9 +295,14 @@ export const Navbar = () => {
     ? 'bg-[#1A1A2E]/90' // Solid dark blue-ink when scrolled
     : 'bg-[#1A1A2E]/50'; // Semi-transparent when at top
 
-  const glassBorderClass = 'border border-white/10';
-  const glassBlurClass = isScrolled ? 'backdrop-blur-2xl backdrop-saturate-200' : 'backdrop-blur-md backdrop-saturate-150';
-  const glassShadowClass = isScrolled ? 'shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]' : 'shadow-[0_4px_20px_-5px_rgba(0,0,0,0.2)]';
+  // We remove the basic border because the inset box-shadow handles the 3D rim lighting much better!
+  const glassBorderClass = 'border-0';
+  const glassBlurClass = isScrolled ? 'backdrop-blur-xl backdrop-saturate-200' : 'backdrop-blur-md backdrop-saturate-150';
+  
+  // Ultra-Glassmorphism 3D Layered Shadow (Aikawakenichi Style)
+  const glassShadowClass = isScrolled 
+    ? 'shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08),inset_1px_2px_0_-1px_rgba(255,255,255,0.5),inset_-1px_-1px_0_-1px_rgba(255,255,255,0.2),inset_0_-2px_4px_rgba(0,0,0,0.4),0_12px_40px_rgba(0,0,0,0.6)]'
+    : 'shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08),inset_1px_2px_0_-1px_rgba(255,255,255,0.3),inset_-1px_-1px_0_-1px_rgba(255,255,255,0.1),inset_0_-2px_4px_rgba(0,0,0,0.2),0_8px_24px_rgba(0,0,0,0.3)]';
 
   const ctaBgClass = isScrolled ? 'bg-sage-deep' : 'bg-sage';
   const ctaBorderClass = 'border border-sage-deep';

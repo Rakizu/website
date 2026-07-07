@@ -128,7 +128,7 @@ export const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ programs }) 
                      src={mockPhotos[i % mockPhotos.length]} 
                      alt={p}
                      fill
-                     className="parallax-img object-cover group-hover:scale-110 transition-transform duration-[2s] ease-[cubic-bezier(0.19,1,0.22,1)]"
+                     className="parallax-img object-cover group-hover:scale-110 transition-transform duration-[2s] ease-fluid"
                      sizes="(max-width: 1400px) 100vw, 1400px"
                   />
                 </div>

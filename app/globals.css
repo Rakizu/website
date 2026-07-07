@@ -54,6 +54,10 @@
   --font-heading: var(--font-jakarta), sans-serif;
   --font-body:    var(--font-outfit), sans-serif;
   --font-accent:  var(--font-lora), serif;
+
+  /* Premium Easing Curves */
+  --ease-fluid: cubic-bezier(0.104, 0.204, 0.492, 1);
+  --ease-organic: cubic-bezier(0.306, 0.968, 0.632, 1);
 }
 
 /* ── Base ────────────────────────────────────────────────────────── */
