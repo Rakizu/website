@@ -331,12 +331,12 @@ export const Navbar = () => {
       </div>
 
       <div 
-        className={`relative flex items-center justify-between h-[64px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] w-full mx-auto ${isScrolled ? 'max-w-[1000px]' : 'max-w-full'} ${
+        className={`relative flex items-center justify-center gap-4 md:gap-6 h-[64px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] w-max mx-auto px-4 ${
           shouldHideNav ? 'opacity-0 -translate-y-full' : 'opacity-100 translate-y-0'
         }`}
       >
         {/* LEFT: Standalone Logo */}
-        <div className="flex-1 flex justify-start z-20 pointer-events-none">
+        <div className="flex shrink-0 justify-center z-20 pointer-events-none">
           <a 
             href="/" 
             onClick={(e) => handleNav(e, '/')}
@@ -373,7 +373,7 @@ export const Navbar = () => {
         </div>
 
         {/* RIGHT: CTA Capsule & Mobile Toggle */}
-        <div className="flex-1 flex items-center justify-end gap-3 z-20 pointer-events-none">
+        <div className="flex shrink-0 items-center justify-center gap-3 z-20 pointer-events-none">
           <a
             href="#daftar"
             onClick={(e) => handleNav(e, '#daftar')}
