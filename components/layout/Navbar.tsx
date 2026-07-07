@@ -57,28 +57,23 @@ export const Navbar = () => {
       onLeaveBack: () => setIsScrolled(false),
     });
 
-    // 3. Real-time Intelligence Scanner for pixel-perfect theme detection
-    const checkTheme = () => {
-      const elements = document.elementsFromPoint(window.innerWidth / 2, 28);
-      const themeElement = elements.find(el => el.hasAttribute('data-theme'));
-      
-      if (themeElement) {
-        const detectedTheme = themeElement.getAttribute('data-theme');
-        if (detectedTheme === 'light' || detectedTheme === 'dark') {
-          setTheme(detectedTheme);
+    // 3. Performance-optimized Theme Detection (No Layout Thrashing)
+    const themeSections = document.querySelectorAll('[data-theme]');
+    themeSections.forEach((section) => {
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 56px",
+        end: "bottom 56px",
+        onEnter: () => {
+          const t = section.getAttribute('data-theme');
+          if (t === 'light' || t === 'dark') setTheme(t);
+        },
+        onEnterBack: () => {
+          const t = section.getAttribute('data-theme');
+          if (t === 'light' || t === 'dark') setTheme(t);
         }
-      }
-    };
-
-    ScrollTrigger.create({
-      trigger: document.body,
-      start: 0,
-      end: "max",
-      onUpdate: checkTheme
+      });
     });
-
-    // Simpan checkTheme di window agar bisa dipanggil manual dari luar ScrollTrigger
-    (window as any).__checkNavbarTheme = checkTheme;
 
     // Initialize curtain safely out of sight
     if (curtainRef.current) {
@@ -249,9 +244,8 @@ export const Navbar = () => {
                // Bypassing radar for GatePage since it might pierce through fading elements
                if (isReturnToTop) {
                  setTheme('dark');
-               } else if (typeof (window as any).__checkNavbarTheme === 'function') {
-                 (window as any).__checkNavbarTheme();
                }
+               // GSAP ScrollTrigger will auto-update the theme based on position after jump
             } : undefined
          }, liftStartTime + (index * staggerDelay));
       });
@@ -357,7 +351,6 @@ export const Navbar = () => {
         <div 
           className="absolute inset-0 rounded-full border pointer-events-auto transition-all duration-[600ms]"
           style={{
-            willChange: 'backdrop-filter',
             background: glassBg,
             backdropFilter: isScrolled ? 'blur(24px) saturate(150%)' : 'blur(12px) saturate(120%)',
             WebkitBackdropFilter: isScrolled ? 'blur(24px) saturate(150%)' : 'blur(12px) saturate(120%)',

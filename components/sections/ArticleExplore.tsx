@@ -93,7 +93,7 @@ export const ArticleExplore: React.FC<ArticleExploreProps> = ({ articles }) => {
                     src={a.image} 
                     alt={a.judul}
                     fill
-                    className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-[1s] ease-[cubic-bezier(0.19,1,0.22,1)] will-change-transform"
+                    className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-[1s] ease-[cubic-bezier(0.19,1,0.22,1)]"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>

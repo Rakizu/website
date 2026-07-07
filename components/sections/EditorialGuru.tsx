@@ -40,7 +40,7 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
           {
             yPercent: 10,
             ease: "none",
-            force3D: true,
+            ease: "none",
             scrollTrigger: {
               trigger: section,
               start: "top bottom",
@@ -106,8 +106,7 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
                     src={g.image} 
                     alt={g.nama} 
                     fill
-                    priority
-                    className="guru-img object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out will-change-transform scale-[1.15]"
+                    className="guru-img object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out scale-[1.15]"
                     sizes="(max-width: 768px) 100vw, 40vw"
                   />
                 </div>

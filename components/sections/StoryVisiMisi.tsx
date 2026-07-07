@@ -25,7 +25,6 @@ export const StoryVisiMisi = () => {
         duration: 1.5,
         stagger: 0.15,
         ease: "power3.out",
-        force3D: true,
         scrollTrigger: {
           trigger: container.current,
           start: "top 70%",
@@ -38,7 +37,6 @@ export const StoryVisiMisi = () => {
     gsap.to('.visi-image', {
       yPercent: 15,
       ease: "none",
-      force3D: true,
       scrollTrigger: {
         trigger: container.current,
         start: "top bottom",
@@ -58,12 +56,11 @@ export const StoryVisiMisi = () => {
         
         {/* Left Side: Editorial Image */}
         <div className="w-full lg:w-5/12 aspect-[3/4] relative overflow-hidden rounded-[2rem] bg-canvas-white">
-          <div className="visi-image will-change-transform absolute inset-[-10%] w-[120%] h-[120%]">
+        <div className="visi-image absolute inset-[-10%] w-[120%] h-[120%]">
             <Image 
               src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=800&auto=format&fit=crop" 
               alt="Perpustakaan Digital" 
               fill
-              priority
               className="object-cover scale-110 sepia-[0.2] contrast-[1.1]"
               sizes="(max-width: 768px) 100vw, 50vw"
             />

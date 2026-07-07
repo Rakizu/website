@@ -48,7 +48,6 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
           { 
             yPercent: 0, 
             ease: "none", 
-            force3D: true,
             scrollTrigger: {
                trigger: card,
                start: "top bottom",
@@ -68,7 +67,6 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
           opacity: 0.3,
           y: -50, // Slight upward drift as it gets buried
           ease: "none",
-          force3D: true,
           scrollTrigger: {
             trigger: cardEls[i + 1], // Triggered by the arrival of the NEXT card
             start: "top bottom",     // When next card touches bottom of viewport
@@ -86,7 +84,6 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
         y: -50,
         scale: 0.95,
         ease: "power2.out",
-        force3D: true,
         scrollTrigger: {
           trigger: cardEls[0],
           start: "top 80%",
@@ -102,7 +99,7 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
     <section id="unggulan" className="relative bg-warm-50">
       
       {/* 1. Background Sticky Title (Anticipation Builder) */}
-      <div ref={bgTextRef} className="sticky top-0 w-full h-[100dvh] flex flex-col items-center justify-center z-0 pointer-events-none px-6 text-center will-change-transform">
+      <div ref={bgTextRef} className="sticky top-0 w-full h-[100dvh] flex flex-col items-center justify-center z-0 pointer-events-none px-6 text-center">
          <h2 className="text-xs md:text-sm font-heading font-bold uppercase tracking-[0.4em] text-primary-700 mb-6">
            Pilar Pendidikan
          </h2>
@@ -120,7 +117,7 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
         {programs.map((p, i) => (
           <div
             key={i}
-            className="stack-card sticky top-0 min-h-[100dvh] flex flex-col items-center justify-center p-4 md:p-8 origin-top will-change-transform"
+            className="stack-card sticky top-0 min-h-[100dvh] flex flex-col items-center justify-center p-4 md:p-8 origin-top"
           >
             {/* Double-Bezel Massive Card */}
             <div className="w-full max-w-[1400px] h-[85vh] md:h-[90vh] rounded-[2rem] md:rounded-[2.5rem] bg-charcoal-ink p-2 md:p-3 shadow-[0_20px_50px_rgba(0,0,0,0.4)] relative overflow-hidden ring-1 ring-charcoal-ink/10">
@@ -134,8 +131,7 @@ export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) =>
                      src={mockPhotos[i % mockPhotos.length]} 
                      alt={p}
                      fill
-                     priority
-                     className="parallax-img object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)] will-change-transform"
+                     className="parallax-img object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]"
                      sizes="(max-width: 1400px) 100vw, 1400px"
                   />
                 </div>
