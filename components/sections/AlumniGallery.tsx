@@ -26,20 +26,7 @@ export const AlumniGallery: React.FC<AlumniGalleryProps> = ({ alumni }) => {
   useGSAP(() => {
     if (!sectionRef.current) return;
 
-    // Parallax effect on images
-    const images = sectionRef.current.querySelectorAll('.parallax-img');
-    images.forEach(img => {
-      gsap.to(img, {
-        yPercent: 20,
-        ease: "none",
-        scrollTrigger: {
-          trigger: img.parentElement,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-        }
-      });
-    });
+    // Parallax effect removed to prevent GPU stuttering (layout thrashing) during vertical scroll
 
     // Reveal animation for cards
     const cards = sectionRef.current.querySelectorAll('.alumni-card');
@@ -97,7 +84,7 @@ export const AlumniGallery: React.FC<AlumniGalleryProps> = ({ alumni }) => {
                     <img 
                       src={a.image} 
                       alt={a.nama}
-                      className="parallax-img absolute -top-[10%] left-0 w-full h-[120%] object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 hover:scale-105 transition-all duration-700 origin-center"
+                      className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700 origin-center"
                     />
                   </div>
                   
