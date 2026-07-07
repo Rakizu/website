@@ -84,7 +84,7 @@ export const HorizontalAlumni: React.FC<HorizontalAlumniProps> = ({ alumni }) =>
       id="alumni"
     >
       {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/cubes.png")' }} />
+      <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
 
       <div ref={containerRef} className="relative h-auto md:h-screen flex flex-col justify-center py-24 md:py-0">
         
@@ -112,10 +112,7 @@ export const HorizontalAlumni: React.FC<HorizontalAlumniProps> = ({ alumni }) =>
               >
                 {/* Unique Frame Mask */}
                 <div 
-                  className={`relative w-full md:w-[480px] overflow-hidden ${isEven ? 'aspect-[3/4]' : 'aspect-square'} bg-charcoal-ink p-3 shadow-2xl z-10 transition-transform duration-700 hover:scale-[1.02]`}
-                  style={{ 
-                    borderRadius: isEven ? '4rem 1rem 4rem 1rem' : '1rem 4rem 1rem 4rem',
-                  }}
+                  className={`relative w-full md:w-[480px] overflow-hidden ${isEven ? 'aspect-[3/4] rounded-[4rem_1rem_4rem_1rem]' : 'aspect-square rounded-[1rem_4rem_1rem_4rem]'} bg-charcoal-ink p-3 shadow-2xl z-10 transition-transform duration-700 hover:scale-[1.02]`}
                 >
                   <div className="w-full h-full overflow-hidden relative rounded-3xl md:rounded-[3rem] border border-white/20">
                     <img 
@@ -128,8 +125,7 @@ export const HorizontalAlumni: React.FC<HorizontalAlumniProps> = ({ alumni }) =>
 
                 {/* Overlapping Content Box */}
                 <div 
-                  className={`w-full md:w-[450px] flex flex-col ${isEven ? 'md:-ml-20 md:mt-32' : 'md:-ml-20 md:mb-32'} relative z-20 bg-white p-8 md:p-12 shadow-md border border-charcoal-ink/5`}
-                  style={{ borderRadius: isEven ? '1rem 3rem 1rem 3rem' : '3rem 1rem 3rem 1rem' }}
+                  className={`w-full md:w-[450px] flex flex-col ${isEven ? 'md:-ml-20 md:mt-32 rounded-[1rem_3rem_1rem_3rem]' : 'md:-ml-20 md:mb-32 rounded-[3rem_1rem_3rem_1rem]'} relative z-20 bg-white p-8 md:p-12 shadow-md border border-charcoal-ink/5`}
                 >
                   <div className="text-xs md:text-sm font-mono text-accent-gold tracking-[0.3em] mb-4 uppercase font-semibold">
                     Class of '{a.tahunLulus.slice(-2)}

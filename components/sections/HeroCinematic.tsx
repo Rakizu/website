@@ -63,15 +63,11 @@ export const HeroCinematic = () => {
     <section
       ref={container}
       data-theme="light"
-      className="relative min-h-[100dvh] flex flex-col justify-center px-6 md:px-16 overflow-hidden pt-24 pb-12"
-      style={{ background: 'var(--background)' }}
+      className="relative min-h-[100dvh] flex flex-col justify-center px-6 md:px-16 overflow-hidden pt-24 pb-12 bg-canvas"
     >
       {/* Radial warm glow (from referensi GateHero pattern) */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(80% 60% at 15% 100%, rgba(199,154,69,0.12), transparent 65%)'
-        }}
+        className="absolute inset-0 pointer-events-none bg-[radial-gradient(80%_60%_at_15%_100%,rgba(199,154,69,0.12),transparent_65%)]"
       />
 
       {/* Islamic Pattern subtle overlay */}
@@ -82,11 +78,7 @@ export const HeroCinematic = () => {
         {/* Eyebrow text */}
         <div className="hero-subtext self-start max-w-sm">
           <p
-            className="font-accent italic text-lg leading-relaxed border-l pl-6"
-            style={{
-              color: 'var(--muted-fg)',
-              borderColor: 'var(--border-clr)'
-            }}
+            className="font-accent italic text-lg leading-relaxed border-l pl-6 text-muted-fg border-border"
           >
             Membangun generasi yang tidak hanya unggul dalam akademik, tetapi juga berakar kuat pada nilai-nilai spiritual.
           </p>
@@ -94,15 +86,13 @@ export const HeroCinematic = () => {
 
         {/* Massive Headline */}
         <h1
-          className="font-heading font-bold text-5xl md:text-8xl lg:text-[8rem] leading-[1.1] md:leading-[0.95] tracking-tighter uppercase flex flex-wrap items-center gap-x-4 gap-y-6"
-          style={{ color: 'var(--foreground)' }}
+          className="font-heading font-bold text-5xl md:text-8xl lg:text-[8rem] leading-[1.1] md:leading-[0.95] tracking-tighter uppercase flex flex-wrap items-center gap-x-4 gap-y-6 text-ink"
         >
           <span className="overflow-hidden inline-block relative h-[1.1em]">
             <span ref={(el) => setWordRef(el, 0)} className="inline-block">Generasi</span>
           </span>
 
-          <span className="inline-img relative w-20 h-16 md:w-36 md:h-24 lg:w-48 lg:h-32 rounded-full overflow-hidden inline-block shrink-0"
-            style={{ border: '1px solid var(--border-clr)' }}>
+          <span className="inline-img relative w-20 h-16 md:w-36 md:h-24 lg:w-48 lg:h-32 rounded-full overflow-hidden inline-block shrink-0 border border-border">
             <Image
               src="https://images.unsplash.com/photo-1544717302-de2939b7ef71?q=80&w=400&auto=format&fit=crop"
               alt="Portrait"
@@ -118,7 +108,7 @@ export const HeroCinematic = () => {
           </span>
 
           <span className="overflow-hidden inline-block relative h-[1.1em] w-full md:w-auto">
-            <span ref={(el) => setWordRef(el, 2)} className="inline-block" style={{ color: 'var(--sage)' }}>Mandiri</span>
+            <span ref={(el) => setWordRef(el, 2)} className="inline-block text-sage">Mandiri</span>
           </span>
 
           <span className="inline-img relative w-16 h-16 md:w-28 md:h-24 lg:w-36 lg:h-32 rounded-[2rem] overflow-hidden inline-block shrink-0">
@@ -127,8 +117,7 @@ export const HeroCinematic = () => {
               alt="Education"
               fill
               priority
-              className="object-cover"
-              style={{ filter: 'sepia(0.3)' }}
+              className="object-cover sepia-[.30]"
               sizes="(max-width: 768px) 30vw, 15vw"
             />
           </span>
@@ -140,18 +129,16 @@ export const HeroCinematic = () => {
 
         {/* Bottom row */}
         <div className="hero-subtext flex flex-col md:flex-row items-start md:items-end justify-between w-full gap-12 self-end">
-          <div className="text-sm font-body uppercase tracking-[0.25em] font-semibold" style={{ color: 'var(--foreground)' }}>
+          <div className="text-sm font-body uppercase tracking-[0.25em] font-semibold text-ink">
             SMPIT Thoriqul Jannah
           </div>
 
           <button
-            className="group relative px-8 py-4 font-medium text-sm tracking-widest uppercase overflow-hidden"
-            style={{ background: 'var(--ink)', color: 'var(--cream)' }}
+            className="group relative px-8 py-4 font-medium text-sm tracking-widest uppercase overflow-hidden bg-ink text-cream"
           >
             <span className="relative z-10">Mulai Perjalanan</span>
             <div
-              className="absolute inset-0 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]"
-              style={{ background: 'var(--gold)' }}
+              className="absolute inset-0 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] bg-gold"
             />
           </button>
         </div>

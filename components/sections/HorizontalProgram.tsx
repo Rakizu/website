@@ -130,8 +130,7 @@ export const HorizontalProgram: React.FC<HorizontalProgramProps> = ({ programs }
             >
               {/* Unique Arch Window Frame overlapping the massive text */}
               <div 
-                className="absolute left-1/2 -translate-x-1/2 md:translate-x-0 md:left-[15%] top-1/2 -translate-y-1/2 w-[220px] md:w-[320px] aspect-[1/1.5] z-10 overflow-hidden border border-white/10 opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none md:pointer-events-auto"
-                style={{ borderRadius: '10rem 10rem 1rem 1rem' }} // Custom arch window shape!
+                className="absolute left-1/2 -translate-x-1/2 md:translate-x-0 md:left-[15%] top-1/2 -translate-y-1/2 w-[220px] md:w-[320px] aspect-[1/1.5] z-10 overflow-hidden border border-white/10 opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none md:pointer-events-auto rounded-[10rem_10rem_1rem_1rem]"
               >
                 <img 
                   src={mockPhotos[i % mockPhotos.length]} 
@@ -149,11 +148,7 @@ export const HorizontalProgram: React.FC<HorizontalProgramProps> = ({ programs }
 
               {/* Massive Typography Backdrop */}
               <h3 
-                className="program-text relative z-0 text-5xl md:text-[8rem] lg:text-[10rem] font-heading font-bold tracking-tighter uppercase whitespace-nowrap transition-colors duration-500"
-                style={{ 
-                  color: 'transparent', 
-                  WebkitTextStroke: '1.5px rgba(113,113,122, 0.4)' // muted-steel with lower opacity
-                }}
+                className="program-text relative z-0 text-5xl md:text-[8rem] lg:text-[10rem] font-heading font-bold tracking-tighter uppercase whitespace-nowrap transition-colors duration-500 text-transparent [-webkit-text-stroke:1.5px_rgba(113,113,122,0.4)] hover:text-cream hover:[-webkit-text-stroke:0px_transparent]"
               >
                 {p}
               </h3>
@@ -166,14 +161,6 @@ export const HorizontalProgram: React.FC<HorizontalProgramProps> = ({ programs }
         </div>
 
       </div>
-
-      <style jsx>{`
-        /* Provide a hover fallback for the text fill effect */
-        .program-text:hover {
-          color: var(--cream) !important;
-          -webkit-text-stroke: 0px transparent !important;
-        }
-      `}</style>
     </section>
   );
 };

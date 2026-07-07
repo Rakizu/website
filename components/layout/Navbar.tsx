@@ -300,10 +300,17 @@ export const Navbar = () => {
   };
 
   const isDarkBg = theme === 'dark';
-  const textColor = isDarkBg ? '#FFFFFF' : '#111111';
-  const glassBg = isScrolled 
-    ? (isDarkBg ? 'rgba(20, 20, 20, 0.4)' : 'rgba(255, 255, 255, 0.7)')
-    : (isDarkBg ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.2)');
+
+  const glassBgClass = isScrolled 
+    ? (isDarkBg ? 'bg-[#141414]/40' : 'bg-white/70')
+    : (isDarkBg ? 'bg-black/10' : 'bg-white/20');
+  const glassBorderClass = isDarkBg ? 'border-white/15' : 'border-[#2a201a]/10';
+  const glassBlurClass = isScrolled ? 'backdrop-blur-2xl backdrop-saturate-150' : 'backdrop-blur-xl backdrop-saturate-150';
+  const glassShadowClass = isScrolled ? 'shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)]' : 'shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)]';
+
+  const ctaBgClass = isDarkBg ? 'bg-[#FDF6EC]/10' : (isScrolled ? 'bg-sage-deep' : 'bg-sage');
+  const ctaBorderClass = isDarkBg ? 'border border-[#FDF6EC]/25' : 'border border-sage-deep';
+  const ctaTextShadowClass = (isScrolled || isDarkBg) ? '[text-shadow:0_0_10px_rgba(253,246,236,0.4)]' : '[text-shadow:0_1px_3px_rgba(0,0,0,0.1)]';
 
   return (
     <header
@@ -333,8 +340,7 @@ export const Navbar = () => {
         
         {/* 2. Cinematic Spotlight/Vignette */}
         <div 
-          className="absolute inset-0 pointer-events-none" 
-          style={{ background: 'radial-gradient(circle at center, transparent 20%, rgba(0,0,0,0.85) 100%)' }} 
+          className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_20%,rgba(0,0,0,0.85)_100%)]" 
         />
 
         {/* 3. Center Emblem */}
@@ -352,31 +358,16 @@ export const Navbar = () => {
       </div>
 
       <div 
-        className="relative flex items-center justify-between h-[56px] transition-all duration-[600ms]"
-        style={{
-          transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
-          width: '100%',
-          maxWidth: isScrolled ? '960px' : '100%',
-        }}
+        className={`relative flex items-center justify-between h-[56px] transition-all duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] w-full ${isScrolled ? 'max-w-[960px]' : 'max-w-full'}`}
       >
         {/* Layer 1: The Single Fluid Glass Pill Background */}
         <div 
-          className="absolute inset-0 rounded-full border pointer-events-auto transition-all duration-[600ms]"
-          style={{
-            background: glassBg,
-            backdropFilter: isScrolled ? 'blur(24px) saturate(150%)' : 'blur(12px) saturate(120%)',
-            WebkitBackdropFilter: isScrolled ? 'blur(24px) saturate(150%)' : 'blur(12px) saturate(120%)',
-            borderColor: isDarkBg ? 'rgba(255, 255, 255, 0.15)' : 'rgba(42, 32, 26, 0.1)',
-            boxShadow: isScrolled ? '0 10px 40px -10px rgba(0,0,0,0.1)' : '0 4px 20px -5px rgba(0,0,0,0.05)',
-          }}
+          className={`absolute inset-0 rounded-full border pointer-events-auto transition-all duration-[600ms] ${glassBgClass} ${glassBorderClass} ${glassBlurClass} ${glassShadowClass}`}
         />
 
         {/* Layer 2: The Content */}
         <div 
-          className="absolute inset-0 flex items-center justify-between pointer-events-none transition-all duration-[600ms]"
-          style={{
-            padding: '0 8px',
-          }}
+          className="absolute inset-0 flex items-center justify-between pointer-events-none transition-all duration-[600ms] px-2"
         >
           {/* Left: Logo */}
           <a 
@@ -397,16 +388,11 @@ export const Navbar = () => {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNav(e, link.href)}
-                  className="pointer-events-auto relative px-[11px] py-2 text-sm font-heading font-bold uppercase tracking-wider rounded-full transition-all duration-300 group overflow-hidden"
-                  style={{ 
-                    color: textColor,
-                    textShadow: isDarkBg ? '0 2px 10px rgba(0,0,0,0.5)' : 'none'
-                  }}
+                  className={`pointer-events-auto relative px-[11px] py-2 text-sm font-heading font-bold uppercase tracking-wider rounded-full transition-all duration-300 group overflow-hidden ${isDarkBg ? 'text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]' : 'text-[#111]'}`}
                 >
                   {/* Premium Hover Background */}
                   <div 
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"
-                    style={{ backgroundColor: isDarkBg ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.04)' }}
+                    className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full ${isDarkBg ? 'bg-white/10' : 'bg-black/5'}`}
                   />
                   
                   {/* Text Content */}
@@ -416,11 +402,7 @@ export const Navbar = () => {
                   
                   {/* Premium Gold Dot Indicator */}
                   <span 
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100 translate-y-2 group-hover:-translate-y-1.5 transition-all duration-300 ease-out"
-                    style={{ 
-                      backgroundColor: '#c79a45',
-                      boxShadow: '0 0 10px rgba(199,154,69,0.8)'
-                    }}
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100 translate-y-2 group-hover:-translate-y-1.5 transition-all duration-300 ease-out bg-gold shadow-[0_0_10px_rgba(199,154,69,0.8)]"
                   />
                 </a>
               );
@@ -432,37 +414,23 @@ export const Navbar = () => {
             <a
               href="#daftar"
               onClick={(e) => handleNav(e, '#daftar')}
-              className="pointer-events-auto relative hidden md:flex px-6 h-[40px] rounded-full overflow-hidden group shrink-0 items-center justify-center transition-all duration-500 z-20 hover:scale-105 hover:shadow-[0_0_20px_rgba(199,154,69,0.3)]"
-              style={{
-                background: isScrolled ? (isDarkBg ? 'rgba(253, 246, 236, 0.12)' : 'var(--sage-deep)') : (isDarkBg ? 'rgba(253, 246, 236, 0.12)' : 'var(--sage)'),
-                border: `1px solid ${isDarkBg ? 'rgba(253, 246, 236, 0.25)' : 'var(--sage-deep)'}`,
-                color: '#FDF6EC',
-              }}
+              className={`pointer-events-auto relative hidden md:flex px-6 h-[40px] rounded-full overflow-hidden group shrink-0 items-center justify-center transition-all duration-500 z-20 hover:scale-105 hover:shadow-[0_0_20px_rgba(199,154,69,0.3)] ${ctaBgClass} ${ctaBorderClass} text-[#FDF6EC]`}
             >
               <span 
-                className="relative z-10 text-sm font-heading font-bold uppercase tracking-widest transition-all duration-500"
-                style={{
-                  textShadow: isScrolled 
-                    ? '0 0 10px rgba(253, 246, 236, 0.4)' 
-                    : (isDarkBg ? '0 0 10px rgba(253, 246, 236, 0.4)' : '0 1px 3px rgba(0,0,0,0.1)')
-                }}
+                className={`relative z-10 text-sm font-heading font-bold uppercase tracking-widest transition-all duration-500 ${ctaTextShadowClass}`}
               >
                 Daftar
               </span>
               {/* Glossy Sheen Effect */}
               <div 
-                className="absolute top-0 -left-[150%] w-full h-full skew-x-[-25deg] transition-all duration-700 ease-in-out group-hover:left-[150%]" 
-                style={{ background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent)' }}
+                className="absolute top-0 -left-[150%] w-full h-full skew-x-[-25deg] transition-all duration-700 ease-in-out group-hover:left-[150%] bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.6),transparent)]" 
               />
             </a>
 
             {/* Mobile Hamburger Toggle */}
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden pointer-events-auto relative w-[40px] h-[40px] flex items-center justify-center rounded-full transition-all duration-300 z-[9999]"
-              style={{
-                color: textColor,
-              }}
+              className={`md:hidden pointer-events-auto relative w-[40px] h-[40px] flex items-center justify-center rounded-full transition-all duration-300 z-[9999] ${isDarkBg ? 'text-white' : 'text-[#111]'}`}
               aria-label="Toggle Menu"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -473,10 +441,9 @@ export const Navbar = () => {
 
       {/* Full-Screen Mobile Menu Overlay */}
       <div 
-        className={`fixed inset-0 z-[9990] flex flex-col justify-center items-center pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.85,0,0.15,1)] md:hidden ${
+        className={`fixed inset-0 z-[9990] flex flex-col justify-center items-center pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.85,0,0.15,1)] md:hidden bg-ink ${
           isMobileMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 translate-y-[-100%]'
         }`}
-        style={{ background: 'var(--ink)' }}
       >
         <IslamicPattern color="var(--gold)" opacity={0.05} />
         <nav className="flex flex-col items-center gap-8 w-full px-8 relative z-10">
@@ -503,9 +470,8 @@ export const Navbar = () => {
           ))}
           
           <div 
-            className="w-1/2 h-px my-4 origin-center" 
+            className="w-1/2 h-px my-4 origin-center bg-[linear-gradient(90deg,transparent,var(--gold),transparent)]" 
             style={{
-              background: 'linear-gradient(90deg, transparent, var(--gold), transparent)',
               transitionDelay: isMobileMenuOpen ? '500ms' : '0ms',
               transform: isMobileMenuOpen ? 'scaleX(1)' : 'scaleX(0)',
               opacity: isMobileMenuOpen ? 1 : 0,
@@ -520,10 +486,8 @@ export const Navbar = () => {
               setIsMobileMenuOpen(false);
               handleNav(e, '#daftar');
             }}
-            className="px-10 py-4 rounded-full font-heading font-bold uppercase tracking-widest shadow-[0_0_30px_rgba(107,142,35,0.4)]"
+            className="px-10 py-4 rounded-full font-heading font-bold uppercase tracking-widest shadow-[0_0_30px_rgba(107,142,35,0.4)] bg-sage text-cream"
             style={{
-              background: 'var(--sage)',
-              color: 'var(--cream)',
               transitionDelay: isMobileMenuOpen ? '600ms' : '0ms',
               transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(30px)',
               opacity: isMobileMenuOpen ? 1 : 0,

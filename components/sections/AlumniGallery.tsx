@@ -77,8 +77,7 @@ export const AlumniGallery: React.FC<AlumniGalleryProps> = ({ alumni }) => {
               >
                 {/* Photo Frame */}
                 <div 
-                  className="relative w-full aspect-[3/4] overflow-hidden shadow-2xl"
-                  style={{ borderRadius: isEven ? '3rem 1rem 3rem 1rem' : '1rem 3rem 1rem 3rem' }}
+                  className={`relative w-full aspect-[3/4] overflow-hidden shadow-2xl ${isEven ? 'rounded-[3rem_1rem_3rem_1rem]' : 'rounded-[1rem_3rem_1rem_3rem]'}`}
                 >
                   <div className="w-full h-full relative overflow-hidden rounded-3xl border border-white/20">
                     <img 
