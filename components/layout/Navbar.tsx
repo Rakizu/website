@@ -24,7 +24,6 @@ export const Navbar = () => {
   const isAnimating = useRef(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const pathname = usePathname();
   const router = useRouter();
 
@@ -61,39 +60,7 @@ export const Navbar = () => {
       onLeaveBack: () => setIsScrolled(false),
     });
 
-    // Instant theme force based on route to bypass Next.js DOM transition delays
-    if (pathname.startsWith('/artikel/')) {
-      setTheme('light');
-    } else if (pathname === '/') {
-      setTheme('dark');
-    }
-
-    // Performance-optimized Theme Detection (No Layout Thrashing)
-    const themeSections = document.querySelectorAll('[data-theme]');
-    
-    // Manual check for initial state so it doesn't get stuck waiting for a scroll event
-    themeSections.forEach(section => {
-      const rect = section.getBoundingClientRect();
-      // If this section is currently visible at the top (where the navbar is)
-      if (rect.top <= 100 && rect.bottom >= 0) {
-        const t = section.getAttribute('data-theme');
-        if (t === 'light' || t === 'dark') setTheme(t);
-      }
-    });
-
-    themeSections.forEach((section) => {
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top 60px",
-        end: "bottom 60px",
-        onToggle: (self) => {
-          if (self.isActive) {
-            const t = section.getAttribute('data-theme');
-            if (t === 'light' || t === 'dark') setTheme(t);
-          }
-        }
-      });
-    });
+    // Theme switching logic removed for a unified, highly optimized glassmorphism design.
 
     // Initialize curtain safely out of sight only if not currently animating a transition
     if (curtainRef.current && !isAnimating.current) {
@@ -227,7 +194,6 @@ export const Navbar = () => {
             router.push(href);
           } else if (href === '/' || href === currentPath) {
             window.scrollTo({ top: 0, behavior: 'auto' });
-            setTheme('dark');
             setIsScrolled(false);
             ScrollTrigger.refresh();
             resetToTopAnimations();
@@ -264,9 +230,6 @@ export const Navbar = () => {
                isAnimating.current = false;
                
                // Bypassing radar for GatePage since it might pierce through fading elements
-               if (isReturnToTop) {
-                 setTheme('dark');
-               }
                // GSAP ScrollTrigger will auto-update the theme based on position after jump
             } : undefined
          }, liftStartTime + (index * staggerDelay));
@@ -304,25 +267,25 @@ export const Navbar = () => {
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     if (href === '/') {
-      setTheme('dark');
       setIsScrolled(false);
     }
     const isRoute = href.startsWith('/') && href !== pathname;
     executeTransition(href, isRoute);
   };
 
-  const isDarkBg = theme === 'dark';
-
+  // Unified Awwwards Glassmorphism Design:
+  // Dark frosted glass ensures white text is always readable, regardless of the page background underneath.
   const glassBgClass = isScrolled 
-    ? (isDarkBg ? 'bg-[#141414]/40' : 'bg-white/70')
-    : (isDarkBg ? 'bg-black/10' : 'bg-white/20');
-  const glassBorderClass = isDarkBg ? 'border-white/15' : 'border-[#2a201a]/10';
-  const glassBlurClass = isScrolled ? 'backdrop-blur-2xl backdrop-saturate-150' : 'backdrop-blur-xl backdrop-saturate-150';
-  const glassShadowClass = isScrolled ? 'shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)]' : 'shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)]';
+    ? 'bg-[#1A1A2E]/90' // Solid dark blue-ink when scrolled
+    : 'bg-[#1A1A2E]/50'; // Semi-transparent when at top
 
-  const ctaBgClass = isDarkBg ? 'bg-[#FDF6EC]/10' : (isScrolled ? 'bg-sage-deep' : 'bg-sage');
-  const ctaBorderClass = isDarkBg ? 'border border-[#FDF6EC]/25' : 'border border-sage-deep';
-  const ctaTextShadowClass = (isScrolled || isDarkBg) ? '[text-shadow:0_0_10px_rgba(253,246,236,0.4)]' : '[text-shadow:0_1px_3px_rgba(0,0,0,0.1)]';
+  const glassBorderClass = 'border border-white/10';
+  const glassBlurClass = isScrolled ? 'backdrop-blur-2xl backdrop-saturate-200' : 'backdrop-blur-md backdrop-saturate-150';
+  const glassShadowClass = isScrolled ? 'shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]' : 'shadow-[0_4px_20px_-5px_rgba(0,0,0,0.2)]';
+
+  const ctaBgClass = isScrolled ? 'bg-sage-deep' : 'bg-sage';
+  const ctaBorderClass = 'border border-sage-deep';
+  const ctaTextShadowClass = 'text-white drop-shadow-md';
 
   return (
     <header
@@ -400,11 +363,11 @@ export const Navbar = () => {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNav(e, link.href)}
-                  className={`pointer-events-auto relative px-[11px] py-2 text-sm font-heading font-bold uppercase tracking-wider rounded-full transition-all duration-300 group overflow-hidden ${isDarkBg ? 'text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]' : 'text-[#111]'}`}
+                  className={`pointer-events-auto relative px-[11px] py-2 text-sm font-heading font-bold uppercase tracking-wider rounded-full transition-all duration-300 group overflow-hidden text-white drop-shadow-md`}
                 >
                   {/* Premium Hover Background */}
                   <div 
-                    className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full ${isDarkBg ? 'bg-white/10' : 'bg-black/5'}`}
+                    className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white/10`}
                   />
                   
                   {/* Text Content */}
@@ -442,7 +405,7 @@ export const Navbar = () => {
             {/* Mobile Hamburger Toggle */}
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`md:hidden pointer-events-auto relative w-[40px] h-[40px] flex items-center justify-center rounded-full transition-all duration-300 z-[9999] ${isDarkBg ? 'text-white' : 'text-[#111]'}`}
+              className={`md:hidden pointer-events-auto relative w-[40px] h-[40px] flex items-center justify-center rounded-full transition-all duration-300 z-[9999] text-white`}
               aria-label="Toggle Menu"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
