@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { IslamicPattern } from '@/components/ui/IslamicPattern';
 
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
@@ -36,52 +37,57 @@ export default function AdminLogin() {
     }
   };
 
+  const glassBtnClass = "relative overflow-hidden group transition-all duration-500 hover:scale-105 hover:shadow-[0_0_25px_rgba(53,71,17,0.8)] border-0 bg-[#354711]/90 backdrop-blur-md backdrop-saturate-150 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.2),inset_1px_2px_0_-1px_rgba(255,255,255,0.4),inset_-1px_-1px_0_-1px_rgba(0,0,0,0.3),0_4px_15px_rgba(53,71,17,0.6)] text-white drop-shadow-md";
+
   return (
-    <div className="relative min-h-screen w-full bg-[#F8F8FF] text-slate-800 flex items-center justify-center overflow-hidden z-[3000]">
+    <div className="relative min-h-screen w-full bg-ink text-cream flex items-center justify-center overflow-hidden z-[3000]">
       {/* Hide global footer/header if leaked */}
       <style>{`
         footer, nav.fixed { display: none !important; }
       `}</style>
+      
+      <IslamicPattern color="#c79a45" opacity={0.03} />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(0,0,0,0.8)_100%)] pointer-events-none" />
 
-      {/* Enterprise Login Card */}
-      <div className="relative z-20 w-full max-w-[400px] p-8 md:p-10 rounded-2xl bg-white border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-        <div className="flex flex-col items-center mb-8">
-          <div className="w-10 h-10 rounded-lg bg-slate-900 flex items-center justify-center mb-4 shadow-sm">
-            <span className="font-heading font-bold text-sm text-white tracking-widest">TJ</span>
+      {/* Cinematic Ultra-Glassmorphism Login Card */}
+      <div className="relative z-20 w-full max-w-[420px] p-10 rounded-[2rem] border border-white/5 bg-[#1A1A2E]/40 backdrop-blur-2xl backdrop-saturate-200 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08),0_20px_60px_rgba(0,0,0,0.6)]">
+        <div className="flex flex-col items-center mb-10">
+          <div className="w-12 h-12 rounded-xl bg-sage flex items-center justify-center mb-5 shadow-[0_0_20px_rgba(107,142,35,0.4)]">
+            <span className="font-heading font-bold text-lg text-cream tracking-widest">TJ</span>
           </div>
-          <h1 className="font-heading font-semibold text-2xl tracking-tight text-slate-900 mb-1">Sign in to Workspace</h1>
-          <p className="text-xs text-slate-500 font-medium">
-            Enter your credentials to continue
+          <h1 className="font-heading font-semibold text-2xl tracking-tight text-cream mb-2">Workspace</h1>
+          <p className="text-xs text-cream/50 font-medium tracking-wide uppercase">
+            Restricted Access
           </p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-5">
-          <div className="space-y-1.5">
-            <label className="text-[11px] font-semibold text-slate-700 ml-1">Username</label>
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div className="space-y-2">
+            <label className="text-[10px] uppercase tracking-widest font-bold text-cream/70 ml-1">Username</label>
             <input
               type="text"
               placeholder="admin / writer"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2.5 outline-none text-slate-900 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-shadow text-sm font-medium placeholder-slate-400"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none text-cream focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/50 transition-all text-sm font-medium placeholder-cream/20 backdrop-blur-md"
               required
             />
           </div>
           
-          <div className="space-y-1.5">
-            <label className="text-[11px] font-semibold text-slate-700 ml-1">Password</label>
+          <div className="space-y-2">
+            <label className="text-[10px] uppercase tracking-widest font-bold text-cream/70 ml-1">Password</label>
             <input
               type="password"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2.5 outline-none text-slate-900 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-shadow text-sm tracking-widest font-medium placeholder-slate-400"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none text-cream focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/50 transition-all text-sm tracking-widest font-medium placeholder-cream/20 backdrop-blur-md"
               required
             />
           </div>
 
           {error && (
-            <div className="p-3 rounded border border-red-200 bg-red-50 text-red-600 text-xs text-center font-medium">
+            <div className="p-3 rounded-xl border border-red-500/30 bg-red-500/10 text-red-200 text-xs text-center font-medium backdrop-blur-md">
               {error}
             </div>
           )}
@@ -89,17 +95,12 @@ export default function AdminLogin() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-2.5 mt-2 rounded-lg bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 transition-colors disabled:opacity-50 shadow-sm"
+            className={`w-full py-4 mt-4 rounded-full font-heading uppercase tracking-widest text-xs font-bold disabled:opacity-50 ${glassBtnClass}`}
           >
-            {isLoading ? 'Signing in...' : 'Continue'}
+            <span className="relative z-10">{isLoading ? 'AUTHENTICATING...' : 'SECURE LOGIN'}</span>
+            <div className="absolute top-0 -left-[150%] w-full h-full skew-x-[-25deg] transition-all duration-700 ease-in-out group-hover:left-[150%] bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.6),transparent)]" />
           </button>
         </form>
-        
-        <div className="mt-8 text-center border-t border-slate-100 pt-6">
-          <p className="text-[10px] text-slate-400 font-medium tracking-wide">
-            Internal Access Only.
-          </p>
-        </div>
       </div>
     </div>
   );

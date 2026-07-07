@@ -64,6 +64,8 @@ export default function AdminArtikelList() {
     }
   };
 
+  const glassBtnClass = "relative overflow-hidden group transition-all duration-500 hover:scale-105 hover:shadow-[0_0_25px_rgba(53,71,17,0.8)] border-0 bg-[#354711]/90 backdrop-blur-md backdrop-saturate-150 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.2),inset_1px_2px_0_-1px_rgba(255,255,255,0.4),inset_-1px_-1px_0_-1px_rgba(0,0,0,0.3),0_4px_15px_rgba(53,71,17,0.6)] text-white drop-shadow-md";
+
   return (
     <div className="w-full flex-1 p-6 md:p-10 font-sans text-gray-900 max-w-7xl mx-auto">
       {/* Page Header */}
@@ -74,10 +76,13 @@ export default function AdminArtikelList() {
         </div>
         <button 
           onClick={() => router.push('/admin/artikel/editor/new')}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors shadow-sm"
+          className={`flex items-center gap-2 px-6 py-3 rounded-full font-heading uppercase tracking-widest text-xs font-bold ${glassBtnClass}`}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 5v14M5 12h14"/></svg>
-          Tulis Baru
+          <span className="relative z-10 flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 5v14M5 12h14"/></svg>
+            Tulis Baru
+          </span>
+          <div className="absolute top-0 -left-[150%] w-full h-full skew-x-[-25deg] transition-all duration-700 ease-in-out group-hover:left-[150%] bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.6),transparent)]" />
         </button>
       </div>
 
