@@ -79,26 +79,26 @@ export const GatePage = () => {
       {/* Islamic Pattern Overlay */}
       <IslamicPattern color="#f6efe2" opacity={0.05} />
 
-      {/* Cinematic Fog & Film Grain (Pure CSS Volumetric Light) */}
+      {/* Cinematic Fog & Fluid Organic Clouds */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
         {/* Micro-Noise Film Grain */}
         <div 
-          className="absolute inset-0 opacity-[0.05] z-10 pointer-events-none bg-[url('data:image/svg+xml,%3Csvg%20viewBox=%220%200%20200%20200%22%20xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter%20id=%22noiseFilter%22%3E%3CfeTurbulence%20type=%22fractalNoise%22%20baseFrequency=%220.8%22%20numOctaves=%223%22%20stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect%20width=%22100%25%22%20height=%22100%25%22%20filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')]"
+          className="absolute inset-0 opacity-[0.06] z-20 pointer-events-none mix-blend-overlay bg-[url('data:image/svg+xml,%3Csvg%20viewBox=%220%200%20200%20200%22%20xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter%20id=%22noiseFilter%22%3E%3CfeTurbulence%20type=%22fractalNoise%22%20baseFrequency=%220.85%22%20numOctaves=%223%22%20stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect%20width=%22100%25%22%20height=%22100%25%22%20filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')]"
         />
         
-        {/* Layer 1: Core Gold Glow */}
-        <div className="cloud-layer absolute w-[150vw] h-[150vw] md:w-[80vw] md:h-[80vw] transform-gpu will-change-transform -top-[10%] -left-[10%]">
-          <div className="w-full h-full rounded-full animate-[float_12s_ease-in-out_infinite] bg-[radial-gradient(circle_at_center,rgba(231,193,121,0.15)_0%,rgba(231,193,121,0)_60%)]" />
-        </div>
-        
-        {/* Layer 2: Deep Amber Fog */}
-        <div className="cloud-layer absolute w-[180vw] h-[180vw] md:w-[100vw] md:h-[100vw] transform-gpu will-change-transform -bottom-[20%] -right-[20%]">
-          <div className="w-full h-full rounded-full animate-[float_16s_ease-in-out_infinite_reverse] bg-[radial-gradient(circle_at_center,rgba(139,94,60,0.12)_0%,rgba(139,94,60,0)_65%)]" />
-        </div>
-        
-        {/* Layer 3: Accent Ambient Light */}
-        <div className="cloud-layer absolute w-[100vw] h-[100vw] md:w-[60vw] md:h-[60vw] transform-gpu will-change-transform top-[20%] right-[10%]">
-          <div className="w-full h-full rounded-full animate-[float_10s_ease-in-out_infinite] bg-[radial-gradient(circle_at_center,rgba(218,165,32,0.08)_0%,rgba(218,165,32,0)_70%)]" />
+        {/* Organic Fluid Cloud System */}
+        <div className="absolute inset-0 z-10 w-full h-full opacity-80 overflow-hidden">
+            {/* Cloud 1: Top Left - Warm Gold */}
+            <div className="cloud-layer absolute top-[-10%] left-[-10%] w-[120vw] md:w-[60vw] aspect-square bg-[#E7C179] mix-blend-screen blur-[100px] md:blur-[140px] opacity-30 animate-[morph_15s_ease-in-out_infinite]" />
+            
+            {/* Cloud 2: Bottom Right - Deep Amber */}
+            <div className="cloud-layer absolute bottom-[-20%] right-[-10%] w-[140vw] md:w-[70vw] aspect-square bg-[#8B5E3C] mix-blend-screen blur-[120px] md:blur-[160px] opacity-40 animate-[morph_20s_ease-in-out_infinite_reverse]" />
+            
+            {/* Cloud 3: Center Ambient - Soft Sand/Cream */}
+            <div className="cloud-layer absolute top-[20%] left-[20%] w-[100vw] md:w-[50vw] aspect-square bg-[#DAA520] mix-blend-screen blur-[90px] md:blur-[120px] opacity-20 animate-[morph_25s_ease-in-out_infinite]" style={{ animationDelay: '-5s' }} />
+            
+            {/* Cloud 4: Bottom Left - Subtle Earthy Tone */}
+            <div className="cloud-layer absolute bottom-[10%] left-[10%] w-[90vw] md:w-[45vw] aspect-square bg-[#C4956A] mix-blend-screen blur-[100px] md:blur-[130px] opacity-20 animate-[morph_18s_ease-in-out_infinite_reverse]" style={{ animationDelay: '-10s' }} />
         </div>
       </div>
 
@@ -126,10 +126,10 @@ export const GatePage = () => {
 
       <style>{`
         @keyframes scrollcue{0%{transform:translateY(-100%)}100%{transform:translateY(300%)}}
-        @keyframes float {
-          0% { transform: translate3d(0, 0, 0) scale(1); }
-          50% { transform: translate3d(3%, 3%, 0) scale(1.05); }
-          100% { transform: translate3d(0, 0, 0) scale(1); }
+        @keyframes morph {
+          0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+          50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: translate3d(5%, 5%, 0) rotate(180deg) scale(1.1); }
+          100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate3d(0, 0, 0) rotate(360deg) scale(1); }
         }
       `}</style>
     </section>
