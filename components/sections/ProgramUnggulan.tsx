@@ -14,10 +14,10 @@ interface ProgramUnggulanProps {
 
 const mockPhotos = [
   "https://images.unsplash.com/photo-1564069114553-7215e1ff1890?q=80&w=1600&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1632516643720-e7f5d7d6eca9?q=80&w=1600&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1546410531-bea518040081?q=80&w=1600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop", 
   "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1600&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1609599006353-e629aaab315d?q=80&w=1600&auto=format&fit=crop"  
+  "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?q=80&w=1600&auto=format&fit=crop"  
 ];
 
 const programDetails = [

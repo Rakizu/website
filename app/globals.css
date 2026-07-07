@@ -95,16 +95,7 @@
   section {
     position: relative;
   }
-  section::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: 
-      radial-gradient(100% 80% at 50% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 60%),
-      radial-gradient(150% 150% at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.15) 100%);
-    /* This creates a subtle dome lighting effect on all backgrounds */
-  }
+  /* Removed cinematic global depth due to performance issues */
 }
 
 /* ── Fluid cinematic type scale ──────────────────────────────────── */
@@ -134,24 +125,10 @@
 /* ── Cinematic helpers ───────────────────────────────────────────── */
 
 /* Film grain overlay — place on relative parents */
-.cinematic-grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.06;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+/* Cinematic grain removed for performance. Use Tailwind if needed. */
 
 /* Cinematic vignette */
-.vignette::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0,0,0,0.55) 100%);
-}
+/* Vignette removed for performance. Use Tailwind if needed. */
 
 /* GSAP reveal primitive */
 .will-reveal {

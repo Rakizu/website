@@ -16,8 +16,8 @@ interface Ekskul {
 
 const mockImages = [
   "https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?q=80&w=800&auto=format&fit=crop", // Pramuka
-  "https://images.unsplash.com/photo-1609599006353-e629aaab315d?q=80&w=800&auto=format&fit=crop", // Klub Tahfidz
-  "https://images.unsplash.com/photo-1546410531-bea518040081?q=80&w=800&auto=format&fit=crop", // English Club
+  "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?q=80&w=800&auto=format&fit=crop", // Klub Tahfidz
+  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop", // English Club
   "https://images.unsplash.com/photo-1564069114553-7215e1ff1890?q=80&w=800&auto=format&fit=crop", // Science Club
   "https://images.unsplash.com/photo-1518605368461-1e12d6a5674d?q=80&w=800&auto=format&fit=crop"  // Olahraga
 ];
