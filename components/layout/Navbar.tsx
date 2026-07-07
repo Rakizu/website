@@ -83,8 +83,8 @@ export const Navbar = () => {
       });
     });
 
-    // Initialize curtain safely out of sight
-    if (curtainRef.current) {
+    // Initialize curtain safely out of sight only if not currently animating a transition
+    if (curtainRef.current && !isAnimating.current) {
       gsap.set(curtainRef.current, { autoAlpha: 0 });
       curtainRef.current.querySelectorAll('path').forEach(p => p.setAttribute("d", "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z"));
     }
