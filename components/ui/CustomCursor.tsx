@@ -3,8 +3,12 @@
 import React, { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { usePathname } from 'next/navigation';
 
 export const CustomCursor = () => {
+  const pathname = usePathname();
+  const isAdmin = pathname?.startsWith('/admin');
+
   const cursorRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   
@@ -13,6 +17,7 @@ export const CustomCursor = () => {
   const [cursorState, setCursorState] = useState<'default' | 'hover' | 'drag'>('default');
 
   useEffect(() => {
+    if (isAdmin) return;
     if (window.matchMedia('(pointer: fine)').matches) {
       setIsPointer(true);
       document.body.classList.add('hide-default-cursor');
@@ -20,10 +25,10 @@ export const CustomCursor = () => {
     return () => {
       document.body.classList.remove('hide-default-cursor');
     };
-  }, []);
+  }, [isAdmin]);
 
   useGSAP(() => {
-    if (!isPointer || !cursorRef.current) return;
+    if (isAdmin || !isPointer || !cursorRef.current) return;
 
     // Zero-latency tracking for ultra-lightweight and precise feel
     // duration 0.05 gives just a microscopic buttery smooth buffer without feeling "laggy"
@@ -61,9 +66,9 @@ export const CustomCursor = () => {
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
     };
-  }, [isPointer, isVisible]);
+  }, [isPointer, isVisible, isAdmin]);
 
-  if (!isPointer) return null;
+  if (isAdmin || !isPointer) return null;
 
   // Ultra-minimal morphing cursor
   const baseClass = "fixed top-0 left-0 flex items-center justify-center rounded-full pointer-events-none z-[100000] mix-blend-difference transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] will-change-transform";

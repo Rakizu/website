@@ -218,20 +218,20 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
         </div>
 
         {/* Right Column: Premium Properties Sidebar */}
-        <aside className="w-[320px] flex-shrink-0 bg-white border-l border-slate-200/60 overflow-y-auto hidden lg:block z-10 shadow-[-4px_0_24px_rgba(0,0,0,0.01)]">
-          <div className="sticky top-0 p-4 border-b border-slate-100 bg-white/80 backdrop-blur-md">
-            <h2 className="text-[11px] font-bold uppercase tracking-widest text-slate-500">Properties</h2>
+        <aside className="w-[280px] flex-shrink-0 bg-white border-l border-slate-200/60 overflow-y-auto hidden lg:block z-10 shadow-[-4px_0_24px_rgba(0,0,0,0.01)]">
+          <div className="sticky top-0 p-3.5 border-b border-slate-100 bg-white/80 backdrop-blur-md">
+            <h2 className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Properties</h2>
           </div>
           
-          <div className="p-6 space-y-6">
+          <div className="p-5 space-y-5">
             
             {/* Input Group: Kategori */}
-            <div className="space-y-2">
-              <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest">Kategori</label>
+            <div className="space-y-1.5">
+              <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Kategori</label>
               <select
                 value={formData.kategori}
                 onChange={(e) => setFormData({ ...formData, kategori: e.target.value })}
-                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-5 py-2.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm font-medium shadow-sm appearance-none cursor-pointer"
+                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-4 py-2 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-[13px] font-medium shadow-sm appearance-none cursor-pointer"
               >
                 {predefinedCategories.map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
@@ -240,25 +240,25 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
             </div>
 
             {/* Input Group: Excerpt */}
-            <div className="space-y-2">
-              <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest">Ringkasan Singkat</label>
+            <div className="space-y-1.5">
+              <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Ringkasan Singkat</label>
               <textarea
                 placeholder="Tulis ringkasan singkat..."
                 value={formData.excerpt}
                 onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                className="w-full bg-slate-50 border border-slate-200/80 rounded-[24px] px-5 py-4 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm font-medium placeholder-slate-400 shadow-sm resize-none h-28 leading-relaxed"
+                className="w-full bg-slate-50 border border-slate-200/80 rounded-[20px] px-4 py-3 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-[13px] font-medium placeholder-slate-400 shadow-sm resize-none h-24 leading-relaxed"
               />
             </div>
 
             {/* Input Group: Image */}
-            <div className="space-y-2">
-              <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest">Gambar Sampul URL</label>
+            <div className="space-y-1.5">
+              <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Gambar Sampul URL</label>
               <input
                 type="text"
                 placeholder="https://..."
                 value={formData.image}
                 onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-5 py-2.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm font-medium placeholder-slate-400 shadow-sm"
+                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-4 py-2 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-[13px] font-medium placeholder-slate-400 shadow-sm"
               />
               {formData.image && (
                 <div className="mt-2 w-full h-24 rounded-lg bg-slate-100 border border-slate-200/80 overflow-hidden relative shadow-inner">
@@ -270,40 +270,40 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
             <div className="h-px w-full bg-slate-100 my-2" />
 
             {/* Input Group: Penulis */}
-            <div className="space-y-2">
-              <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest">Nama Penulis</label>
+            <div className="space-y-1.5">
+              <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Nama Penulis</label>
               <input
                 type="text"
                 placeholder="Contoh: Budi Santoso"
                 value={formData.penulis}
                 onChange={(e) => setFormData({ ...formData, penulis: e.target.value })}
-                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-5 py-2.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm font-medium placeholder-slate-400 shadow-sm"
+                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-4 py-2 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-[13px] font-medium placeholder-slate-400 shadow-sm"
               />
             </div>
 
             {/* Input Group: Peran */}
-            <div className="space-y-2">
-              <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest">Peran Penulis</label>
+            <div className="space-y-1.5">
+              <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Peran Penulis</label>
               <input
                 type="text"
                 placeholder="Contoh: Editor Utama"
                 value={formData.author_role}
                 onChange={(e) => setFormData({ ...formData, author_role: e.target.value })}
-                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-5 py-2.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm font-medium placeholder-slate-400 shadow-sm"
+                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-4 py-2 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-[13px] font-medium placeholder-slate-400 shadow-sm"
               />
             </div>
 
             <div className="h-px w-full bg-slate-100 my-2" />
 
             {/* Input Group: Tags */}
-            <div className="space-y-2 pb-8">
-              <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest">Metadata Tags</label>
+            <div className="space-y-1.5 pb-6">
+              <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Metadata Tags</label>
               <input
                 type="text"
                 placeholder="Pendidikan, Sekolah..."
                 value={formData.tags}
                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-5 py-2.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm font-medium placeholder-slate-400 shadow-sm"
+                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-4 py-2 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-[13px] font-medium placeholder-slate-400 shadow-sm"
               />
               <p className="mt-1 text-[10px] font-medium text-slate-400 leading-tight">Pisahkan dengan koma (contoh: Acara, Olahraga).</p>
             </div>
