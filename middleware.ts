@@ -8,8 +8,11 @@ export function middleware(request: NextRequest) {
   if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
     const session = request.cookies.get('tj_session');
 
-    // Jika tidak ada sesi, tendang kembali ke halaman login
-    if (!session) {
+    // Verifikasi sederhana: token harus ada dan memiliki panjang yang wajar
+    // (Idealnya ini divalidasi dengan library JWT seperti 'jose')
+    const isValidSession = session?.value && session.value.length > 20;
+
+    if (!isValidSession) {
       const loginUrl = new URL('/admin/login', request.url);
       return NextResponse.redirect(loginUrl);
     }

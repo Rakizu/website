@@ -19,6 +19,9 @@ function getData() {
   return JSON.parse(fileContents);
 }
 
+// Revalidate every 60 seconds (ISR) - useful when this is migrated to Sanity fetch
+export const revalidate = 60;
+
 export default function Home() {
   const data = getData();
 
