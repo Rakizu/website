@@ -87,12 +87,28 @@ export const GatePage = () => {
         />
         
         {/* Organic Fluid Cloud System */}
-        <div className="absolute inset-0 z-10 w-full h-full opacity-80 overflow-hidden">
-            {/* User SVG Cloud Asset */}
-            <div className="cloud-layer absolute inset-0 w-full h-full opacity-40 mix-blend-screen animate-[float_20s_ease-in-out_infinite]">
-              {/* Alpha Transparency applied via opacity class */}
-              <img src="/cloud.svg" alt="" className="w-full h-full object-cover object-center opacity-70" />
+        <div className="absolute inset-0 z-10 w-full h-full overflow-hidden">
+            
+            {/* Cloud 1: Top Left */}
+            <div className="cloud-layer absolute top-[-10%] left-[-15%] w-[80vw] md:w-[45vw] aspect-[3/2] opacity-40 mix-blend-screen animate-[float_18s_ease-in-out_infinite]">
+              <img src="/cloud.svg" alt="" className="w-full h-full object-contain opacity-70" />
             </div>
+            
+            {/* Cloud 2: Bottom Right (Larger, floating reverse) */}
+            <div className="cloud-layer absolute bottom-[-15%] right-[-10%] w-[100vw] md:w-[55vw] aspect-[3/2] opacity-50 mix-blend-screen animate-[float_22s_ease-in-out_infinite_reverse]">
+              <img src="/cloud.svg" alt="" className="w-full h-full object-contain opacity-60" />
+            </div>
+            
+            {/* Cloud 3: Center Ambient (Smaller, deep background) */}
+            <div className="cloud-layer absolute top-[25%] left-[30%] w-[60vw] md:w-[35vw] aspect-[3/2] opacity-25 mix-blend-screen animate-[float_25s_ease-in-out_infinite]" style={{ animationDelay: '-5s' }}>
+              <img src="/cloud.svg" alt="" className="w-full h-full object-contain opacity-50" />
+            </div>
+            
+            {/* Cloud 4: Bottom Left (Horizontally flipped for variety) */}
+            <div className="cloud-layer absolute bottom-[10%] left-[-5%] w-[70vw] md:w-[40vw] aspect-[3/2] opacity-35 mix-blend-screen animate-[float_15s_ease-in-out_infinite_reverse]" style={{ animationDelay: '-10s' }}>
+              <img src="/cloud.svg" alt="" className="w-full h-full object-contain opacity-60 scale-x-[-1]" />
+            </div>
+
         </div>
       </div>
 
