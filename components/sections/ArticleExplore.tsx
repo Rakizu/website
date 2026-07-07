@@ -85,7 +85,7 @@ export const ArticleExplore: React.FC<ArticleExploreProps> = ({ articles }) => {
                 key={a.id} 
                 href={`/artikel/${a.id}`} 
                 isRoute={true}
-                className="explore-card group block break-inside-avoid relative overflow-hidden bg-charcoal-ink/5 rounded-xl p-4 md:p-6 border border-charcoal-ink/5 hover:border-accent-gold/30 transition-colors duration-500"
+                className="explore-card group block break-inside-avoid relative overflow-hidden bg-charcoal-ink/5 rounded-xl p-4 md:p-6 border border-charcoal-ink/5 hover:border-accent-gold/30 transition-colors duration-500 will-change-transform transform-gpu"
               >
                 <div className="w-full aspect-[4/3] rounded-lg overflow-hidden mb-6 relative">
                   <div className="absolute inset-0 bg-charcoal-ink/20 group-hover:bg-transparent transition-colors duration-500 z-10" />

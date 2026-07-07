@@ -68,13 +68,13 @@ export const ArticleContent: React.FC<ArticleContentProps> = ({
       <div className="fixed top-0 left-0 w-full h-1 z-[60] pointer-events-none bg-accent-gold/20">
         <div 
           ref={progressRef}
-          className="h-full w-full bg-accent-gold origin-left scale-x-0"
+          className="h-full w-full bg-accent-gold origin-left scale-x-0 will-change-transform transform-gpu"
         />
       </div>
 
       <article ref={containerRef} className="max-w-[70ch] mx-auto px-6 mt-24 md:mt-32 relative z-10">
         {/* Drop Cap Paragraph */}
-        <p className="reveal-p text-xl md:text-[22px] text-charcoal-ink leading-[1.8] font-body mb-8">
+        <p className="reveal-p text-xl md:text-[22px] text-charcoal-ink leading-[1.8] font-body mb-8 will-change-transform transform-gpu">
           <span className="float-left text-7xl md:text-[8rem] font-accent italic text-accent-sage leading-[0.8] pr-6 pt-2 font-light">
             {firstLetter}
           </span>
@@ -83,13 +83,13 @@ export const ArticleContent: React.FC<ArticleContentProps> = ({
 
         {/* Remaining Paragraphs */}
         {remainingParagraphs.map((p, idx) => (
-          <p key={idx} className="reveal-p text-xl md:text-[22px] text-muted-steel leading-[1.8] font-body mb-8">
+          <p key={idx} className="reveal-p text-xl md:text-[22px] text-muted-steel leading-[1.8] font-body mb-8 will-change-transform transform-gpu">
             {p}
           </p>
         ))}
 
         {/* End of Article Ornament */}
-        <div className="reveal-p flex flex-col items-center justify-center mt-24">
+        <div className="reveal-p flex flex-col items-center justify-center mt-24 will-change-transform transform-gpu">
           <div className="flex items-center gap-4 opacity-40 mb-12">
             <span className="h-px w-12 bg-charcoal-ink" />
             <div className="w-2 h-2 rotate-45 bg-accent-gold" />

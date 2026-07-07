@@ -147,10 +147,10 @@ export default async function ArtikelPage({ params }: { params: Promise<{ id: st
             <div className="absolute inset-0 bg-charcoal-ink/80 group-hover:bg-charcoal-ink/60 transition-colors duration-[1s] z-10" />
             
             <div className="relative z-20 text-center flex flex-col items-center px-6">
-              <span className="text-accent-gold text-xs uppercase tracking-[0.4em] font-semibold mb-6 block transform group-hover:-translate-y-2 transition-transform duration-700">
+              <span className="text-accent-gold text-xs uppercase tracking-[0.4em] font-semibold mb-6 block transform group-hover:-translate-y-2 transition-transform duration-700 will-change-transform transform-gpu">
                 Sebelumnya
               </span>
-              <h2 className="text-2xl md:text-4xl font-heading text-pure-surface max-w-sm tracking-tighter leading-tight transform group-hover:scale-105 transition-transform duration-1000 ease-out">
+              <h2 className="text-2xl md:text-4xl font-heading text-pure-surface max-w-sm tracking-tighter leading-tight transform group-hover:scale-105 transition-transform duration-1000 ease-out will-change-transform transform-gpu">
                 {prevArtikel.judul}
               </h2>
             </div>
@@ -176,10 +176,10 @@ export default async function ArtikelPage({ params }: { params: Promise<{ id: st
             <div className="absolute inset-0 bg-charcoal-ink/80 group-hover:bg-charcoal-ink/60 transition-colors duration-[1s] z-10" />
             
             <div className="relative z-20 text-center flex flex-col items-center px-6">
-              <span className="text-accent-gold text-xs uppercase tracking-[0.4em] font-semibold mb-6 block transform group-hover:-translate-y-2 transition-transform duration-700">
+              <span className="text-accent-gold text-xs uppercase tracking-[0.4em] font-semibold mb-6 block transform group-hover:-translate-y-2 transition-transform duration-700 will-change-transform transform-gpu">
                 Selanjutnya
               </span>
-              <h2 className="text-2xl md:text-4xl font-heading text-pure-surface max-w-sm tracking-tighter leading-tight transform group-hover:scale-105 transition-transform duration-1000 ease-out">
+              <h2 className="text-2xl md:text-4xl font-heading text-pure-surface max-w-sm tracking-tighter leading-tight transform group-hover:scale-105 transition-transform duration-1000 ease-out will-change-transform transform-gpu">
                 {nextArtikel.judul}
               </h2>
             </div>
