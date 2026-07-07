@@ -84,15 +84,13 @@ export const Navbar = () => {
     themeSections.forEach((section) => {
       ScrollTrigger.create({
         trigger: section,
-        start: "top 56px",
-        end: "bottom 56px",
-        onEnter: () => {
-          const t = section.getAttribute('data-theme');
-          if (t === 'light' || t === 'dark') setTheme(t);
-        },
-        onEnterBack: () => {
-          const t = section.getAttribute('data-theme');
-          if (t === 'light' || t === 'dark') setTheme(t);
+        start: "top 60px",
+        end: "bottom 60px",
+        onToggle: (self) => {
+          if (self.isActive) {
+            const t = section.getAttribute('data-theme');
+            if (t === 'light' || t === 'dark') setTheme(t);
+          }
         }
       });
     });
