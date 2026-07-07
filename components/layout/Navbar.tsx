@@ -50,6 +50,14 @@ export const Navbar = () => {
   useGSAP(() => {
     // Global shrink/expand based on scroll position
     const shrinkOffset = pathname === '/' ? window.innerHeight * 2.8 : 100;
+    
+    // Check initial scroll state so it doesn't flicker on refresh
+    if (window.scrollY > shrinkOffset) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+
     ScrollTrigger.create({
       start: `top -${shrinkOffset}`,
       end: "max",
@@ -57,7 +65,7 @@ export const Navbar = () => {
       onLeaveBack: () => setIsScrolled(false),
     });
 
-    // 3. Performance-optimized Theme Detection (No Layout Thrashing)
+    // Performance-optimized Theme Detection (No Layout Thrashing)
     const themeSections = document.querySelectorAll('[data-theme]');
     themeSections.forEach((section) => {
       ScrollTrigger.create({
@@ -80,7 +88,9 @@ export const Navbar = () => {
       gsap.set(curtainRef.current, { autoAlpha: 0 });
       curtainRef.current.querySelectorAll('path').forEach(p => p.setAttribute("d", "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z"));
     }
-  }, { scope: navRef });
+  }, { scope: navRef, dependencies: [pathname] });
+
+  const shouldHideNav = pathname === '/' && !isScrolled;
 
   const executeTransition = (href: string, isRoute: boolean = false) => {
     if (isAnimating.current) return;
@@ -298,7 +308,9 @@ export const Navbar = () => {
   return (
     <header
       ref={navRef}
-      className="fixed top-3 left-0 w-full z-[1000] px-[58px] pointer-events-none flex justify-center"
+      className={`fixed top-3 left-0 w-full z-[1000] px-[58px] pointer-events-none flex justify-center transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        shouldHideNav ? 'opacity-0 -translate-y-full' : 'opacity-100 translate-y-0'
+      }`}
     >
       {/* Cinematic Liquid Color Cascade (SVG) */}
       <svg 
