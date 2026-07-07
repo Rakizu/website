@@ -71,10 +71,10 @@ export const CurriculumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
         
         {/* Header */}
         <div className="text-center mb-32">
-          <h2 className="text-5xl md:text-7xl font-heading font-bold text-charcoal-ink tracking-tight mb-6">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold tracking-tighter leading-[1.1] text-charcoal-ink mb-6">
             Proses.
           </h2>
-          <p className="text-xl text-muted-steel max-w-2xl mx-auto">
+          <p className="text-base md:text-lg leading-relaxed text-muted-steel max-w-[65ch] mx-auto">
             Kurikulum kami dirancang untuk menyeimbangkan keunggulan akademik nasional dengan pembentukan karakter Islami yang kuat.
           </p>
         </div>
@@ -106,10 +106,10 @@ export const CurriculumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
             <h3 className="text-sm font-medium uppercase tracking-widest text-accent-gold mb-4">
               Konsep Utama
             </h3>
-            <div className="text-4xl font-heading text-charcoal-ink mb-6">
+            <div className="text-2xl md:text-3xl font-heading text-charcoal-ink mb-4">
               {kurikulum.konsep}
             </div>
-            <p className="text-muted-steel leading-relaxed">
+            <p className="text-muted-steel leading-relaxed text-sm md:text-base max-w-[65ch] md:ml-auto">
               Sistem terpadu yang memastikan setiap jam yang dihabiskan siswa bernilai ibadah dan ilmu.
             </p>
           </div>
@@ -128,10 +128,10 @@ export const CurriculumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
                 <h3 className="text-sm font-medium uppercase tracking-widest text-accent-gold mb-4">
                   Sesi {s.nama}
                 </h3>
-                <div className="text-3xl font-heading text-charcoal-ink mb-4">
+                <div className="text-xl md:text-2xl font-heading text-charcoal-ink mb-3">
                   {s.waktu}
                 </div>
-                <p className="text-muted-steel leading-relaxed">
+                <p className={`text-muted-steel leading-relaxed text-sm md:text-base max-w-[65ch] ${isLeft ? 'md:ml-auto' : ''}`}>
                   {s.fokus}
                 </p>
               </div>

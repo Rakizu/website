@@ -84,7 +84,7 @@ export const EditorialTeachers: React.FC<EditorialTeachersProps> = ({ guru }) =>
           <div className="inline-block border border-whisper-border px-4 py-2 text-base font-semibold uppercase tracking-[0.25em] text-cream/90 mb-8">
             Para Pendidik
           </div>
-          <h2 className="text-5xl md:text-7xl font-heading font-medium tracking-tighter max-w-2xl">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold tracking-tighter leading-[1.1] max-w-2xl">
             Di Balik Setiap Perjalanan Hebat.
           </h2>
         </div>
@@ -116,11 +116,11 @@ export const EditorialTeachers: React.FC<EditorialTeachersProps> = ({ guru }) =>
                     {g.mapel}
                   </span>
                   
-                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-heading text-pure-surface mb-12 tracking-tight">
+                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-heading text-pure-surface mb-8 tracking-tight">
                     {g.nama}
                   </h3>
 
-                  <blockquote className="text-2xl md:text-3xl font-accent italic text-cream/80 leading-relaxed max-w-xl border-l-2 border-accent-gold pl-8">
+                  <blockquote className="text-xl md:text-2xl font-accent italic text-cream/80 leading-relaxed max-w-[65ch] border-l-2 border-accent-gold pl-6 md:pl-8">
                     &quot;{g.quote}&quot;
                   </blockquote>
                 </div>

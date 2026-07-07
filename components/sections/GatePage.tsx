@@ -58,7 +58,7 @@ export const GatePage = () => {
     tl.to('.cloud-layer', {
       scale: 2.5,
       opacity: 0,
-      duration: tl.recent().endTime(), // span the entire timeline
+      duration: tl.duration(), // span the entire timeline
       ease: "power2.in",
       stagger: 0.2
     }, 0); // Start at the very beginning (0)

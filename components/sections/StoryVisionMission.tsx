@@ -73,7 +73,7 @@ export const StoryVisionMission = () => {
             Target Lulusan
           </div>
           
-          <h2 className="font-accent italic text-4xl md:text-5xl lg:text-[4rem] text-charcoal-ink leading-[1.3] md:leading-[1.2] tracking-tight">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-accent italic font-bold tracking-tighter leading-[1.1] text-charcoal-ink">
             <div className="story-line overflow-hidden pb-2">Tidak sekadar menguasai</div>
             <div className="story-line overflow-hidden pb-2">ilmu dunia, mereka adalah</div>
             <div className="story-line overflow-hidden pb-2 text-accent-sage">penerus yang sholeh,</div>
@@ -81,7 +81,7 @@ export const StoryVisionMission = () => {
           </h2>
           
           <div className="story-line mt-12 max-w-xl">
-            <p className="text-muted-steel text-lg leading-relaxed font-body">
+            <p className="text-muted-steel text-base md:text-lg leading-relaxed font-body max-w-[65ch]">
               Kami percaya setiap anak memiliki jalan cahayanya masing-masing. Tugas kami bukanlah menyeragamkan mereka, melainkan menuntun potensi unik mereka menjadi karya nyata di masa depan.
             </p>
           </div>

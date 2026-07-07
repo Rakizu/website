@@ -86,10 +86,10 @@ export const HorizontalExtracurriculars: React.FC<HorizontalExtracurricularsProp
         
         {/* Header Title (Fixed position during pin on desktop) */}
         <div className="absolute top-12 md:top-24 left-6 md:left-16 z-20">
-          <h2 className="text-4xl md:text-6xl font-heading tracking-tight mb-2">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold tracking-tighter leading-[1.1] mb-6">
             Minat & Bakat
           </h2>
-          <p className="text-muted-steel font-body max-w-sm">
+          <p className="text-muted-steel font-body max-w-sm md:max-w-md text-base md:text-lg leading-relaxed">
             Eksplorasi potensi di luar kelas akademik.
           </p>
         </div>
@@ -120,7 +120,7 @@ export const HorizontalExtracurriculars: React.FC<HorizontalExtracurricularsProp
               
               {/* Content */}
               <div className="relative z-10 transform group-hover:-translate-y-2 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                <h3 className="text-3xl md:text-4xl font-heading font-medium tracking-tight mb-4 text-white group-hover:text-accent-gold transition-colors duration-500">
+                <h3 className="text-2xl md:text-3xl font-heading font-bold tracking-tight mb-4 text-white group-hover:text-accent-gold transition-colors duration-500">
                   {e.nama}
                 </h3>
                 <p className="text-muted-steel leading-relaxed text-sm md:text-base max-w-[90%]">

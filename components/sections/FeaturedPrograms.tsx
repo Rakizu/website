@@ -87,7 +87,7 @@ export const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ programs }) 
          <h2 className="text-xs md:text-sm font-heading font-bold uppercase tracking-[0.4em] text-primary-700 mb-6">
            Pilar Pendidikan
          </h2>
-         <h3 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tighter text-warm-900 leading-[1.1]">
+         <h3 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold tracking-tighter leading-[1.1] text-warm-900">
            Program<br/>Unggulan
          </h3>
       </div>
@@ -129,16 +129,16 @@ export const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ programs }) 
                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-12">
                       
                       <div className="flex flex-col">
-                        <span className="font-accent italic text-4xl md:text-6xl lg:text-7xl text-gold-300 mb-2 md:mb-4 drop-shadow-md">
+                        <span className="font-accent italic text-3xl md:text-5xl text-gold-300 mb-2 md:mb-4 drop-shadow-md">
                           0{i + 1}
                         </span>
-                        <h4 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold uppercase tracking-tighter text-pure-surface drop-shadow-lg leading-[0.9]">
+                        <h4 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold uppercase tracking-tighter text-pure-surface drop-shadow-lg leading-[1.1]">
                           {p}
                         </h4>
                       </div>
 
-                      <div className="md:w-1/3 shrink-0">
-                        <p className="text-pure-surface/80 text-sm md:text-lg leading-relaxed font-body border-l border-gold-300/30 pl-4 md:pl-6 py-2">
+                      <div className="md:w-[45%] shrink-0">
+                        <p className="text-pure-surface/80 text-sm md:text-base leading-relaxed font-body border-l border-gold-300/30 pl-4 md:pl-6 py-2 max-w-[65ch]">
                           {programDetails[i % programDetails.length]}
                         </p>
                       </div>
