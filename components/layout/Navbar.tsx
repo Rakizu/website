@@ -335,7 +335,7 @@ export const Navbar = () => {
     >
       {/* Cinematic Liquid Color Cascade (SVG) */}
       <svg 
-        className="fixed inset-0 w-screen h-screen z-[9998] pointer-events-none invisible opacity-0"
+        className="fixed -top-[10vh] -left-[10vw] w-[120vw] h-[120vh] z-[9998] pointer-events-none invisible opacity-0"
         viewBox="0 0 100 100" 
         preserveAspectRatio="none"
         ref={curtainRef}
