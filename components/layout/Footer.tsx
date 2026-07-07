@@ -52,7 +52,7 @@ export const Footer = () => {
         {/* Massive Footer Typography (Hidden on compact mode) */}
         {!isCompact && (
           <div className="overflow-hidden mb-8 perspective-[1000px]">
-            <h2 className="footer-text origin-bottom text-[10vw] font-heading font-bold uppercase tracking-tighter leading-none text-pure-surface mix-blend-overlay">
+            <h2 className="footer-text origin-bottom text-[10vw] font-heading font-bold uppercase tracking-tighter leading-none text-pure-surface/90">
               Mari Melangkah
             </h2>
           </div>

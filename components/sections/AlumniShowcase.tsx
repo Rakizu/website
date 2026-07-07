@@ -105,7 +105,7 @@ export const AlumniShowcase: React.FC<AlumniShowcaseProps> = ({ alumni }) => {
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal-ink/80 via-transparent to-transparent" />
 
                 {/* Year badge */}
-                <div className="absolute top-6 left-6 px-4 py-2 border border-pure-surface/30 backdrop-blur-sm">
+                <div className="absolute top-6 left-6 px-4 py-2 border border-pure-surface/30 bg-charcoal-ink/80">
                   <span className="text-xs font-mono text-pure-surface/80 tracking-widest">
                     Angkatan &apos;{a.tahunLulus.slice(-2)}
                   </span>

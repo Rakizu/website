@@ -128,7 +128,7 @@ export const HorizontalAlumni: React.FC<HorizontalAlumniProps> = ({ alumni }) =>
 
                 {/* Overlapping Content Box */}
                 <div 
-                  className={`w-full md:w-[450px] flex flex-col ${isEven ? 'md:-ml-20 md:mt-32' : 'md:-ml-20 md:mb-32'} relative z-20 bg-white/80 backdrop-blur-xl p-8 md:p-12 shadow-xl border border-charcoal-ink/5`}
+                  className={`w-full md:w-[450px] flex flex-col ${isEven ? 'md:-ml-20 md:mt-32' : 'md:-ml-20 md:mb-32'} relative z-20 bg-white p-8 md:p-12 shadow-md border border-charcoal-ink/5`}
                   style={{ borderRadius: isEven ? '1rem 3rem 1rem 3rem' : '3rem 1rem 3rem 1rem' }}
                 >
                   <div className="text-xs md:text-sm font-mono text-accent-gold tracking-[0.3em] mb-4 uppercase font-semibold">

@@ -130,7 +130,7 @@ export const HorizontalProgram: React.FC<HorizontalProgramProps> = ({ programs }
             >
               {/* Unique Arch Window Frame overlapping the massive text */}
               <div 
-                className="absolute left-1/2 -translate-x-1/2 md:translate-x-0 md:left-[15%] top-1/2 -translate-y-1/2 w-[220px] md:w-[320px] aspect-[1/1.5] z-10 overflow-hidden border border-white/10 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700 pointer-events-none md:pointer-events-auto"
+                className="absolute left-1/2 -translate-x-1/2 md:translate-x-0 md:left-[15%] top-1/2 -translate-y-1/2 w-[220px] md:w-[320px] aspect-[1/1.5] z-10 overflow-hidden border border-white/10 opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none md:pointer-events-auto"
                 style={{ borderRadius: '10rem 10rem 1rem 1rem' }} // Custom arch window shape!
               >
                 <img 
@@ -139,11 +139,11 @@ export const HorizontalProgram: React.FC<HorizontalProgramProps> = ({ programs }
                   className="arch-img w-[130%] h-full object-cover origin-left"
                 />
                 {/* Vintage overlay tint */}
-                <div className="absolute inset-0 bg-accent-gold/20 mix-blend-overlay"></div>
+                <div className="absolute inset-0 bg-accent-gold/10"></div>
               </div>
 
               {/* Number Kicker */}
-              <div className="relative z-20 text-xl md:text-3xl font-accent italic text-accent-gold mr-4 md:mr-10 md:-mt-16 bg-charcoal-ink/50 backdrop-blur-sm p-2 rounded-full hidden md:block">
+              <div className="relative z-20 text-xl md:text-3xl font-accent italic text-accent-gold mr-4 md:mr-10 md:-mt-16 bg-charcoal-ink/90 p-2 rounded-full hidden md:block">
                 {String(i + 1).padStart(2, '0')}
               </div>
 

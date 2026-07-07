@@ -67,7 +67,7 @@ export const GatePage = () => {
     >
       {/* Warm cinematic light leak */}
       <div
-        className="absolute inset-0 mix-blend-soft-light pointer-events-none"
+        className="absolute inset-0 opacity-40 pointer-events-none"
         style={{
           background: 'radial-gradient(120% 80% at 70% 15%, rgba(231,193,121,0.4), transparent 55%)'
         }}

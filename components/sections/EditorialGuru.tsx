@@ -100,7 +100,7 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
               >
                 {/* Image Side */}
                 <div className="w-full md:w-5/12 aspect-[3/4] overflow-hidden rounded-sm relative bg-sage/20">
-                  <div className="absolute inset-0 bg-sage-deep z-10 opacity-10 mix-blend-multiply pointer-events-none" />
+                  <div className="absolute inset-0 bg-sage-deep z-10 opacity-30 pointer-events-none" />
                   <Image 
                     src={g.image} 
                     alt={g.nama} 

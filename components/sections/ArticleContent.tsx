@@ -65,7 +65,7 @@ export const ArticleContent: React.FC<ArticleContentProps> = ({
   return (
     <>
       {/* Reading Progress Indicator */}
-      <div className="fixed top-0 left-0 w-full h-1 z-[60] pointer-events-none mix-blend-difference">
+      <div className="fixed top-0 left-0 w-full h-1 z-[60] pointer-events-none bg-accent-gold/20">
         <div 
           ref={progressRef}
           className="h-full w-full bg-accent-gold origin-left scale-x-0"
