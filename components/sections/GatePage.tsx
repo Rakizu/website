@@ -85,20 +85,21 @@ export const GatePage = () => {
       {/* Islamic Pattern Overlay */}
       <IslamicPattern color="#f6efe2" opacity={0.05} />
 
-      {/* Cinematic Clouds (Parallax 2D) */}
+      {/* Cinematic Fog (Pure CSS Volumetric Light) */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
-        {/* Placeholder images: Ganti src dengan path WebP awan Anda */}
-        <img 
-          src="https://raw.githubusercontent.com/Rakizu/website/main/public/cloud-placeholder.webp" 
-          alt="cloud" 
-          className="cloud-layer absolute w-[150%] md:w-[100%] opacity-40 transform-gpu will-change-transform object-cover"
-          style={{ top: '10%' }}
+        <div 
+          className="cloud-layer absolute w-[150vw] h-[150vw] md:w-[80vw] md:h-[80vw] transform-gpu will-change-transform rounded-full"
+          style={{ 
+            background: 'radial-gradient(circle at center, rgba(231,193,121,0.12) 0%, rgba(231,193,121,0) 65%)',
+            top: '-20%', left: '-10%'
+          }}
         />
-        <img 
-          src="https://raw.githubusercontent.com/Rakizu/website/main/public/cloud-placeholder.webp" 
-          alt="cloud" 
-          className="cloud-layer absolute w-[180%] md:w-[120%] opacity-30 transform-gpu will-change-transform object-cover rotate-180"
-          style={{ top: '20%' }}
+        <div 
+          className="cloud-layer absolute w-[180vw] h-[180vw] md:w-[100vw] md:h-[100vw] transform-gpu will-change-transform rounded-full"
+          style={{ 
+            background: 'radial-gradient(circle at center, rgba(231,193,121,0.1) 0%, rgba(231,193,121,0) 65%)',
+            bottom: '-20%', right: '-20%'
+          }}
         />
       </div>
 
