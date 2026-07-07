@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Lindungi semua rute /admin kecuali halaman login
@@ -29,7 +29,7 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// Hanya jalankan middleware ini pada rute admin
+// Hanya jalankan proxy ini pada rute admin
 export const config = {
   matcher: ['/admin/:path*'],
 };
