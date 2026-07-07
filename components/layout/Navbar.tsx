@@ -326,9 +326,7 @@ export const Navbar = () => {
   return (
     <header
       ref={navRef}
-      className={`fixed top-3 left-0 w-full z-[1000] px-[58px] pointer-events-none flex justify-center transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-        shouldHideNav ? 'opacity-0 -translate-y-full' : 'opacity-100 translate-y-0'
-      }`}
+      className="fixed top-3 left-0 w-full z-[1000] px-[58px] pointer-events-none flex justify-center"
     >
       {/* Cinematic Liquid Color Cascade (SVG) */}
       <svg 
@@ -369,7 +367,9 @@ export const Navbar = () => {
       </div>
 
       <div 
-        className={`relative flex items-center justify-between h-[56px] transition-all duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] w-full ${isScrolled ? 'max-w-[960px]' : 'max-w-full'}`}
+        className={`relative flex items-center justify-between h-[56px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] w-full ${isScrolled ? 'max-w-[960px]' : 'max-w-full'} ${
+          shouldHideNav ? 'opacity-0 -translate-y-full' : 'opacity-100 translate-y-0'
+        }`}
       >
         {/* Layer 1: The Single Fluid Glass Pill Background */}
         <div 
