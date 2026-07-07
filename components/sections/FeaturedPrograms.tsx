@@ -40,7 +40,20 @@ export const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ programs }) 
     
     const cardEls = gsap.utils.toArray<HTMLElement>('.stack-card');
     cardEls.forEach((card, i) => {
-      // Internal image parallax removed to save GPU cycles and prevent layout thrashing
+      // Re-introducing buttery smooth Parallax for the inner image
+      const img = card.querySelector('.parallax-img');
+      if (img) {
+        gsap.to(img, {
+          yPercent: 15,
+          ease: "none",
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom",
+            end: "top top", // Stops parallax once the card pins
+            scrub: true,
+          }
+        });
+      }
 
       if (i === cardEls.length - 1) return; // Last card doesn't scale away
       
@@ -115,7 +128,7 @@ export const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ programs }) 
                      src={mockPhotos[i % mockPhotos.length]} 
                      alt={p}
                      fill
-                     className="parallax-img object-cover"
+                     className="parallax-img object-cover group-hover:scale-110 transition-transform duration-[2s] ease-[cubic-bezier(0.19,1,0.22,1)]"
                      sizes="(max-width: 1400px) 100vw, 1400px"
                   />
                 </div>
