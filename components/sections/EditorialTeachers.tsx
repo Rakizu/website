@@ -17,11 +17,11 @@ interface Guru {
   image: string;
 }
 
-interface EditorialGuruProps {
+interface EditorialTeachersProps {
   guru: Guru[];
 }
 
-export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
+export const EditorialTeachers: React.FC<EditorialTeachersProps> = ({ guru }) => {
   const container = useRef<HTMLElement>(null);
 
   useGSAP(() => {

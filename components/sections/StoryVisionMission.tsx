@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const StoryVisiMisi = () => {
+export const StoryVisionMission = () => {
   const container = useRef<HTMLElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 

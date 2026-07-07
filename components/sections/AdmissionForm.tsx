@@ -8,7 +8,7 @@ import { IslamicPattern } from '@/components/ui/IslamicPattern';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const FormSPMB = () => {
+export const AdmissionForm = () => {
   const container = useRef<HTMLElement>(null);
 
   useGSAP(() => {

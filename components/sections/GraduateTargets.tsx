@@ -13,11 +13,11 @@ interface TargetItem {
   deskripsi: string;
 }
 
-interface TargetLulusanProps {
+interface GraduateTargetsProps {
   targetLulusan: TargetItem[];
 }
 
-export const TargetLulusan: React.FC<TargetLulusanProps> = ({ targetLulusan }) => {
+export const GraduateTargets: React.FC<GraduateTargetsProps> = ({ targetLulusan }) => {
   const container = useRef<HTMLElement>(null);
 
   useGSAP(() => {

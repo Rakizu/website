@@ -22,11 +22,11 @@ const mockImages = [
   "https://images.unsplash.com/photo-1518605368461-1e12d6a5674d?q=80&w=800&auto=format&fit=crop"  // Olahraga
 ];
 
-interface HorizontalEkskulProps {
+interface HorizontalExtracurricularsProps {
   ekskul: Ekskul[];
 }
 
-export const HorizontalEkskul: React.FC<HorizontalEkskulProps> = ({ ekskul }) => {
+export const HorizontalExtracurriculars: React.FC<HorizontalExtracurricularsProps> = ({ ekskul }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);

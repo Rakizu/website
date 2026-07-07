@@ -17,11 +17,11 @@ interface Artikel {
   image: string;
 }
 
-interface ArtikelHighlightProps {
+interface ArticleHighlightProps {
   artikel: Artikel[];
 }
 
-export const ArtikelHighlight: React.FC<ArtikelHighlightProps> = ({ artikel }) => {
+export const ArticleHighlight: React.FC<ArticleHighlightProps> = ({ artikel }) => {
   const container = useRef<HTMLElement>(null);
 
   useGSAP(() => {

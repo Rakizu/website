@@ -15,11 +15,11 @@ interface Fasilitas {
   image: string;
 }
 
-interface FasilitasGridProps {
+interface FacilityGridProps {
   fasilitas: Fasilitas[];
 }
 
-export const FasilitasGrid: React.FC<FasilitasGridProps> = ({ fasilitas }) => {
+export const FacilityGrid: React.FC<FacilityGridProps> = ({ fasilitas }) => {
   const container = useRef<HTMLElement>(null);
 
   useGSAP(() => {

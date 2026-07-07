@@ -15,7 +15,7 @@ interface KurikulumProps {
   };
 }
 
-export const KurikulumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
+export const CurriculumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
   const container = useRef<HTMLElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
 

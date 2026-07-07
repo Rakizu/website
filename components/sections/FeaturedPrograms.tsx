@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface ProgramUnggulanProps {
+interface FeaturedProgramsProps {
   programs: string[];
 }
 
@@ -28,7 +28,7 @@ const programDetails = [
   "Program karantina dan sertifikasi hafalan 30 Juz dengan sanad bersambung."
 ];
 
-export const ProgramUnggulan: React.FC<ProgramUnggulanProps> = ({ programs }) => {
+export const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ programs }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const bgTextRef = useRef<HTMLDivElement>(null);
 

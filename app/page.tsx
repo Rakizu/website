@@ -2,15 +2,15 @@ import fs from 'fs';
 import path from 'path';
 import { GatePage } from '@/components/sections/GatePage';
 import { HeroCinematic } from '@/components/sections/HeroCinematic';
-import { StoryVisiMisi } from '@/components/sections/StoryVisiMisi';
-import { FasilitasGrid } from '@/components/sections/FasilitasGrid';
-import { EditorialGuru } from '@/components/sections/EditorialGuru';
-import { KurikulumTree } from '@/components/sections/KurikulumTree';
-import { HorizontalEkskul } from '@/components/sections/HorizontalEkskul';
-import { ProgramUnggulan } from '@/components/sections/ProgramUnggulan';
+import { StoryVisionMission } from '@/components/sections/StoryVisionMission';
+import { FacilityGrid } from '@/components/sections/FacilityGrid';
+import { EditorialTeachers } from '@/components/sections/EditorialTeachers';
+import { CurriculumTree } from '@/components/sections/CurriculumTree';
+import { HorizontalExtracurriculars } from '@/components/sections/HorizontalExtracurriculars';
+import { FeaturedPrograms } from '@/components/sections/FeaturedPrograms';
 import { AlumniGallery } from '@/components/sections/AlumniGallery';
-import { ArtikelHighlight } from '@/components/sections/ArtikelHighlight';
-import { FormSPMB } from '@/components/sections/FormSPMB';
+import { ArticleHighlight } from '@/components/sections/ArticleHighlight';
+import { AdmissionForm } from '@/components/sections/AdmissionForm';
 
 // Simulate CMS fetch
 function getData() {
@@ -30,31 +30,31 @@ export default function Home() {
       <GatePage />
       <HeroCinematic />
       <section id="visi" data-theme="light">
-        <StoryVisiMisi />
+        <StoryVisionMission />
       </section>
       <section id="fasilitas" data-theme="light">
-        <FasilitasGrid fasilitas={data.fasilitas} />
+        <FacilityGrid fasilitas={data.fasilitas} />
       </section>
       <section id="guru" data-theme="dark">
-        <EditorialGuru guru={data.guru} />
+        <EditorialTeachers guru={data.guru} />
       </section>
       <section id="kurikulum" data-theme="light">
-        <KurikulumTree kurikulum={data.kurikulum} />
+        <CurriculumTree kurikulum={data.kurikulum} />
       </section>
       <div data-theme="dark">
-        <ProgramUnggulan programs={data.kurikulum.programUnggulan} />
+        <FeaturedPrograms programs={data.kurikulum.programUnggulan} />
         <section id="ekskul">
-          <HorizontalEkskul ekskul={data.ekskul} />
+          <HorizontalExtracurriculars ekskul={data.ekskul} />
         </section>
       </div>
       <div data-theme="light">
         <AlumniGallery alumni={data.alumni} />
       </div>
       <div data-theme="dark">
-        <ArtikelHighlight artikel={data.artikel} />
+        <ArticleHighlight artikel={data.artikel} />
       </div>
       <section id="daftar" data-theme="dark">
-        <FormSPMB />
+        <AdmissionForm />
       </section>
     </main>
   );

@@ -14,11 +14,11 @@ interface Prestasi {
   tahun: string;
 }
 
-interface PrestasiWaterfallProps {
+interface AchievementWaterfallProps {
   prestasi: Prestasi[];
 }
 
-export const PrestasiWaterfall: React.FC<PrestasiWaterfallProps> = ({ prestasi }) => {
+export const AchievementWaterfall: React.FC<AchievementWaterfallProps> = ({ prestasi }) => {
   const container = useRef<HTMLElement>(null);
 
   useGSAP(() => {
