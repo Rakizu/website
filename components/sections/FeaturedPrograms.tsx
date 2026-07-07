@@ -40,10 +40,10 @@ export const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ programs }) 
     
     const cardEls = gsap.utils.toArray<HTMLElement>('.stack-card');
     cardEls.forEach((card, i) => {
-      // Re-introducing buttery smooth Parallax for the inner image
-      const img = card.querySelector('.parallax-img');
-      if (img) {
-        gsap.to(img, {
+      // Separate GSAP target from CSS target to prevent massive transition lag
+      const parallaxWrapper = card.querySelector('.parallax-wrapper');
+      if (parallaxWrapper) {
+        gsap.to(parallaxWrapper, {
           yPercent: 15,
           ease: "none",
           scrollTrigger: {
@@ -122,13 +122,15 @@ export const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ programs }) 
               {/* Inner Core */}
               <div className="relative w-full h-full overflow-hidden group">
                 
-                {/* Parallax Image */}
-                <div className="absolute inset-[-10%] w-[120%] h-[120%]">
+                {/* Parallax Wrapper (GSAP Target) */}
+                <div className="parallax-wrapper absolute inset-[-10%] w-[120%] h-[120%] will-change-transform transform-gpu">
                   <Image 
                      src={mockPhotos[i % mockPhotos.length]} 
                      alt={p}
                      fill
-                     className="parallax-img object-cover group-hover:scale-110 transition-transform duration-[2s] ease-fluid"
+                     quality={75}
+                     priority={i === 0}
+                     className="object-cover group-hover:scale-110 transition-transform duration-[2s] ease-fluid will-change-transform transform-gpu"
                      sizes="(max-width: 1400px) 100vw, 1400px"
                   />
                 </div>
