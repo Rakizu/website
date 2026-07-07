@@ -5,6 +5,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SmoothScroll } from '@/components/layout/SmoothScroll';
 import { IslamicPattern } from '@/components/ui/IslamicPattern';
+import { CustomCursor } from '@/components/ui/CustomCursor';
 
 const plusJakartaSans = Plus_Jakarta_Sans({ 
   subsets: ['latin'],
@@ -42,6 +43,7 @@ export default function RootLayout({
           <IslamicPattern color="var(--gold-soft)" opacity={0.06} />
         </div>
         <div className="relative z-10">
+          <CustomCursor />
           <Navbar />
           <SmoothScroll />
           {children}

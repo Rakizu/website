@@ -166,3 +166,8 @@
   height: 1px;
   width: 100%;
 }
+
+/* Custom Cursor Hiding */
+.hide-default-cursor, .hide-default-cursor * {
+  cursor: none !important;
+}
