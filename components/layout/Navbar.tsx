@@ -137,11 +137,13 @@ export const Navbar = () => {
       content.style.pointerEvents = 'auto'; // Block clicks
       
       const tl = gsap.timeline();
+      const easeInOut = "power4.inOut";
+      const duration = 1.0;
+      const staggerDelay = 0.12;
       
       // 1. Initial State
       tl.set(svg, { autoAlpha: 1 });
       tl.set(content, { autoAlpha: 0 });
-      tl.set(logoWrapper, { yPercent: -150 });
       tl.set(pulseRing, { scale: 1, opacity: 0 });
       paths.forEach(p => p?.setAttribute("d", "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z"));
       
@@ -151,28 +153,25 @@ export const Navbar = () => {
          const progress = { value: 0 };
          tl.to(progress, {
             value: 100,
-            duration: 0.9,
-            ease: "power3.inOut",
+            duration: duration,
+            ease: easeInOut,
             onUpdate: () => {
-               // ORGANIC PHYSICS: Use Math.pow(x, 3) to move the peak of the sine wave to ~80% of the animation.
-               // This means the liquid drags and bulges massively right before it hits the bottom, then snaps flat!
+               // AWWWARDS STANDARD: Pure sine wave for perfect symmetrical liquid sweep
                const x = progress.value / 100;
-               const bow = Math.sin(Math.pow(x, 3) * Math.PI) * 60;
+               const bow = Math.sin(x * Math.PI) * 150; // Deep elegant curve
                path.setAttribute("d", `M 0 0 L 100 0 L 100 ${progress.value} Q 50 ${progress.value + bow} 0 ${progress.value} Z`);
             }
-         }, index * 0.12); // Stagger
+         }, index * staggerDelay);
       });
       
-      // Fade in pattern/vignette gently
-      tl.to(content, { autoAlpha: 1, duration: 0.4 }, 0.1);
+      // 3. Reveal Content (Logo & Vignette fade in as the curtain covers the screen)
+      tl.to(content, { autoAlpha: 1, duration: 0.5, ease: "power2.out" }, duration * 0.4);
       
-      // Slide down logo wrapper synced with Ink wave (now index 1)
-      tl.to(logoWrapper, { yPercent: 0, duration: 0.9, ease: "power3.inOut" }, 0.12);
-      
-      tl.addLabel("covered", 0.9);
-      
-      // 2. Centerpiece Animations
-      tl.addLabel("sheenDone", "covered+=0.2");
+      // 4. Centerpiece Micro-interactions
+      const contentReadyTime = duration + staggerDelay; 
+      tl.to(pulseRing, {
+         scale: 2, opacity: 0, duration: 0.8, ease: "power2.out", startAt: { scale: 1, opacity: 0.8 }
+      }, contentReadyTime);
       
       // 5. Trigger Routing / Scrolling in the background
       tl.add(() => {
@@ -225,35 +224,25 @@ export const Navbar = () => {
             ScrollTrigger.refresh();
             syncAnimations();
           }
-      }, "sheenDone-=0.2");
-      
-      tl.to(pulseRing, {
-         scale: 2, opacity: 0, duration: 0.8, ease: "power2.out", startAt: { scale: 1, opacity: 0.8 }
-      }, "sheenDone");
+      }, contentReadyTime + 0.2);
       
       // 6. Liquid Lift (OUT)
       const reversePaths = [...paths].reverse();
-      
-      tl.addLabel("liftStart", "sheenDone+=0.1");
+      const liftStartTime = contentReadyTime + 0.8;
       
       // Fade out content perfectly seamlessly as the lift begins
-      tl.to(content, { autoAlpha: 0, duration: 0.6 }, "liftStart");
-      
-      // Slide logo down to exit (parallax)
-      tl.to(logoWrapper, { yPercent: 150, duration: 0.9, ease: "power3.inOut" }, "liftStart");
+      tl.to(content, { autoAlpha: 0, duration: 0.5, ease: "power2.inOut" }, liftStartTime);
       
       reversePaths.forEach((path, index) => {
          if (!path) return;
          const liftProgress = { value: 0 };
          tl.to(liftProgress, {
             value: 100,
-            duration: 0.9,
-            ease: "power3.inOut",
+            duration: duration,
+            ease: easeInOut,
             onUpdate: () => {
-               // ORGANIC PHYSICS: Use Math.pow(x, 0.33) to move the peak to ~12% of the animation.
-               // This means gravity resists the lift, causing a sudden heavy sag at the start, which smoothly resolves.
                const x = liftProgress.value / 100;
-               const bow = Math.sin(Math.pow(x, 0.33) * Math.PI) * 60;
+               const bow = Math.sin(x * Math.PI) * 150; 
                // Lift animation: The liquid drains downwards seamlessly
                path.setAttribute("d", `M 0 ${liftProgress.value} Q 50 ${liftProgress.value + bow} 100 ${liftProgress.value} L 100 100 L 0 100 Z`);
             },
@@ -268,7 +257,7 @@ export const Navbar = () => {
                }
                // GSAP ScrollTrigger will auto-update the theme based on position after jump
             } : undefined
-         }, `liftStart+=${index * 0.12}`);
+         }, liftStartTime + (index * staggerDelay));
       });
     } else if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -330,7 +319,7 @@ export const Navbar = () => {
     >
       {/* Cinematic Liquid Color Cascade (SVG) */}
       <svg 
-        className="fixed -top-[10vh] -left-[10vw] w-[120vw] h-[120vh] z-[9998] pointer-events-none invisible opacity-0"
+        className="fixed inset-0 w-full h-[100dvh] scale-[1.02] z-[9998] pointer-events-none invisible opacity-0"
         viewBox="0 0 100 100" 
         preserveAspectRatio="none"
         ref={curtainRef}
@@ -342,7 +331,7 @@ export const Navbar = () => {
       {/* Main Content (Transparent Overlay) */}
       <div 
         ref={contentRef}
-        className="fixed inset-0 z-[9999] pointer-events-none flex flex-col items-center justify-center invisible opacity-0 overflow-hidden"
+        className="fixed inset-0 w-full h-[100dvh] z-[9999] pointer-events-none flex flex-col items-center justify-center invisible opacity-0 overflow-hidden"
       >
         {/* 1. Background Pattern */}
         <IslamicPattern color="#c79a45" opacity={0.04} />
