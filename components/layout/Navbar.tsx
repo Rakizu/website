@@ -60,7 +60,7 @@ export const Navbar = () => {
 
   useGSAP(() => {
     // Global shrink/expand based on scroll position
-    const shrinkOffset = pathname === '/' ? window.innerHeight * 2.8 : 100;
+    const shrinkOffset = 100;
     
     // Check initial scroll state so it doesn't flicker on refresh
     if (window.scrollY > shrinkOffset) {
@@ -85,7 +85,7 @@ export const Navbar = () => {
     }
   }, { scope: navRef, dependencies: [pathname] });
 
-  const shouldHideNav = pathname === '/' && !isScrolled;
+  const shouldHideNav = false; // Navbar is always visible but naturally hidden behind GatePage initially
 
   const executeTransition = (href: string, isRoute: boolean = false) => {
     if (isAnimating.current) return;
@@ -112,10 +112,11 @@ export const Navbar = () => {
       }
     }
     
-    // Tirai dipicu jika: rute berubah, lompat dari halaman lain, target valid TAPI belum dilihat, atau kembali ke atas (klik logo jika belum di atas)
+    // Tirai dipicu jika: rute berubah, lompat dari halaman lain, atau target valid TAPI belum dilihat
     const computedIsRoute = isRoute || (href.startsWith('/') && href !== currentPath);
     const isReturnToTop = href === '/' && currentPath === '/' && window.scrollY > 0;
-    const shouldRunCurtain = (target && !isArticleToArticle && !isAlreadyInSection) || computedIsRoute || isCrossPageHash || isReturnToTop;
+    // We intentionally remove isReturnToTop from shouldRunCurtain so clicking the logo just smoothly scrolls up
+    const shouldRunCurtain = (target && !isArticleToArticle && !isAlreadyInSection) || computedIsRoute || isCrossPageHash;
     
     if (shouldRunCurtain && curtainRef.current && contentRef.current) {
       isAnimating.current = true;
@@ -304,8 +305,10 @@ export const Navbar = () => {
     ? 'shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08),inset_1px_2px_0_-1px_rgba(255,255,255,0.5),inset_-1px_-1px_0_-1px_rgba(255,255,255,0.2),inset_0_-2px_4px_rgba(0,0,0,0.4),0_12px_40px_rgba(0,0,0,0.6)]'
     : 'shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08),inset_1px_2px_0_-1px_rgba(255,255,255,0.3),inset_-1px_-1px_0_-1px_rgba(255,255,255,0.1),inset_0_-2px_4px_rgba(0,0,0,0.2),0_8px_24px_rgba(0,0,0,0.3)]';
 
-  const ctaBgClass = isScrolled ? 'bg-sage-deep' : 'bg-sage';
-  const ctaBorderClass = 'border border-sage-deep';
+  // Ultra-Glassmorphism for CTA (Sage Green)
+  const ctaBgClass = 'bg-[#40916C]/80'; // Semi-transparent sage
+  const ctaBlurClass = 'backdrop-blur-md backdrop-saturate-150';
+  const ctaShadowClass = 'shadow-[inset_0_0_0_1px_rgba(255,255,255,0.2),inset_1px_2px_0_-1px_rgba(255,255,255,0.5),inset_-1px_-1px_0_-1px_rgba(0,0,0,0.2),0_4px_15px_rgba(64,145,108,0.5)]';
   const ctaTextShadowClass = 'text-white drop-shadow-md';
 
   return (
@@ -352,9 +355,7 @@ export const Navbar = () => {
       </div>
 
       <div 
-        className={`relative flex items-center justify-center gap-4 md:gap-6 h-[64px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] w-max mx-auto px-4 ${
-          shouldHideNav ? 'opacity-0 -translate-y-full' : 'opacity-100 translate-y-0'
-        }`}
+        className={`relative flex items-center justify-center gap-4 md:gap-6 h-[64px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] w-max mx-auto px-4 opacity-100 translate-y-0`}
       >
         {/* LEFT: Standalone Logo */}
         <div className="flex shrink-0 justify-center z-20 pointer-events-none">
@@ -415,7 +416,7 @@ export const Navbar = () => {
           <a
             href="#daftar"
             onClick={(e) => handleNav(e, '#daftar')}
-            className={`pointer-events-auto relative hidden md:flex px-6 h-[48px] rounded-full overflow-hidden group shrink-0 items-center justify-center transition-all duration-500 hover:scale-105 hover:shadow-[0_0_20px_rgba(199,154,69,0.4)] ${ctaBgClass} ${ctaBorderClass} text-[#FDF6EC]`}
+            className={`pointer-events-auto relative hidden md:flex px-6 h-[48px] rounded-full overflow-hidden group shrink-0 items-center justify-center transition-all duration-500 hover:scale-105 hover:shadow-[0_0_25px_rgba(64,145,108,0.8)] border-0 ${ctaBgClass} ${ctaBlurClass} ${ctaShadowClass} text-[#FDF6EC]`}
           >
             <span className={`relative z-10 text-sm font-heading font-bold uppercase tracking-widest transition-all duration-500 ${ctaTextShadowClass}`}>
               Daftar
