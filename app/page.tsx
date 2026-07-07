@@ -29,15 +29,19 @@ export default function Home() {
     <main className="bg-canvas-white text-charcoal-ink min-h-screen" data-theme="light">
       <GatePage />
       <HeroCinematic />
+      
+      {/* 1. TENTANG KAMI (Profil) */}
       <section id="visi" data-theme="light">
         <StoryVisionMission />
-      </section>
-      <section id="fasilitas" data-theme="light">
-        <FacilityGrid fasilitas={data.fasilitas} />
       </section>
       <section id="guru" data-theme="dark">
         <EditorialTeachers guru={data.guru} />
       </section>
+      <section id="alumni" data-theme="light">
+        <AlumniGallery alumni={data.alumni} />
+      </section>
+
+      {/* 2. PROGRAM */}
       <section id="kurikulum" data-theme="light">
         <CurriculumTree kurikulum={data.kurikulum} />
       </section>
@@ -47,12 +51,16 @@ export default function Home() {
           <HorizontalExtracurriculars ekskul={data.ekskul} />
         </section>
       </div>
-      <div data-theme="light">
-        <AlumniGallery alumni={data.alumni} />
-      </div>
-      <div data-theme="dark">
+
+      {/* 3. FASILITAS */}
+      <section id="fasilitas" data-theme="light">
+        <FacilityGrid fasilitas={data.fasilitas} />
+      </section>
+
+      {/* 4. BERITA & DAFTAR */}
+      <section id="artikel" data-theme="dark">
         <ArticleHighlight artikel={data.artikel} />
-      </div>
+      </section>
       <section id="daftar" data-theme="dark">
         <AdmissionForm />
       </section>

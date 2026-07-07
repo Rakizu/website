@@ -11,14 +11,10 @@ import { Menu, X } from 'lucide-react';
 gsap.registerPlugin(ScrollTrigger);
 
 const navLinks = [
-  { label: 'Visi', href: '#visi' },
+  { label: 'Tentang Kami', href: '#visi' },
+  { label: 'Program', href: '#kurikulum' },
   { label: 'Fasilitas', href: '#fasilitas' },
-  { label: 'Guru', href: '#guru' },
-  { label: 'Akademik', href: '#kurikulum' },
-  { label: 'Unggulan', href: '#unggulan' },
-  { label: 'Ekskul', href: '#ekskul' },
-  { label: 'Alumni', href: '#alumni' },
-  { label: 'Artikel', href: '#artikel' },
+  { label: 'Berita', href: '#artikel' },
 ];
 
 export const Navbar = () => {
