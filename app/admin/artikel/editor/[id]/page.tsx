@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { use } from 'react';
 
 export default function ArticleEditor({ params }: { params: Promise<{ id: string }> }) {
-  // Gunakan 'use' untuk unwrap Promise (Next.js 15 req)
   const resolvedParams = use(params);
   const { id } = resolvedParams;
   const isNew = id === 'new';
@@ -52,7 +51,6 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
     }
   };
 
-  // Auto-resize textarea
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
@@ -97,7 +95,6 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
     const method = isNew ? 'POST' : 'PUT';
     const url = isNew ? '/api/artikel' : `/api/artikel/${id}`;
 
-    // Siapkan payload dengan tag array
     const payload = {
       ...formData,
       tags: formData.tags.split(',').map(t => t.trim()).filter(t => t !== '')
@@ -127,57 +124,65 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
   };
 
   if (isLoading) {
-    return <div className="h-screen w-full flex items-center justify-center bg-gray-50 text-gray-500 animate-pulse text-sm font-medium">Memuat Data...</div>;
+    return (
+      <div className="h-screen w-full flex items-center justify-center bg-[#FAFAFA] text-slate-400 font-semibold tracking-widest text-sm uppercase">
+        <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
+        Memuat Data...
+      </div>
+    );
   }
 
   return (
-    <div className="h-screen w-full bg-white flex flex-col font-sans text-gray-900 overflow-hidden">
+    <div className="h-screen w-full bg-[#FAFAFA] flex flex-col font-sans text-slate-900 overflow-hidden">
       <style>{`#admin-global-header { display: none !important; }`}</style>
-      {/* Unified Full-Width Header */}
-      <header className="flex-shrink-0 h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 z-10">
+      
+      {/* SaaS Editor Toolbar */}
+      <header className="flex-shrink-0 h-14 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_4px_24px_rgba(0,0,0,0.02)] flex items-center justify-between px-6 z-20">
         <div className="flex items-center gap-4">
           <button 
             onClick={() => router.push('/admin/artikel')}
-            className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+            className="flex items-center justify-center w-8 h-8 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors border border-transparent hover:border-slate-200"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Kembali
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </button>
           
-          <div className="h-5 w-px bg-gray-300"></div>
+          <div className="h-4 w-px bg-slate-200"></div>
           
-          <div className="text-sm font-medium text-gray-400">
-            {isNew ? 'Membuat Artikel Baru' : 'Mengedit Artikel'}
+          <div className="text-[13px] font-semibold text-slate-500">
+            {isNew ? 'New Draft' : 'Editing Article'}
           </div>
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-500">Status:</span>
+          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 px-1.5 py-1.5 rounded-lg">
+            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest pl-2">Status</span>
             <button
               disabled={userRole === 'writer'}
               onClick={() => setFormData({ ...formData, status: formData.status === 'Published' ? 'Draft' : 'Published' })}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-md border transition-colors ${
+              className={`px-3 py-1 text-[11px] font-bold uppercase tracking-wider rounded-md border transition-colors shadow-sm ${
                 formData.status === 'Published' 
-                  ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100' 
-                  : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
+                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200/80 hover:bg-emerald-100' 
+                  : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
               } ${userRole === 'writer' ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
-              {userRole === 'writer' ? 'DRAFT (Terkunci)' : formData.status}
+              {userRole === 'writer' ? 'DRAFT (Locked)' : formData.status}
             </button>
           </div>
 
           <button 
             onClick={handleSave}
             disabled={isSaving}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors shadow-sm disabled:opacity-50"
+            className="relative group overflow-hidden flex items-center gap-2 px-5 py-2 bg-slate-900 text-white text-[13px] font-semibold rounded-lg hover:bg-slate-800 transition-all shadow-[0_4px_12px_rgba(0,0,0,0.1)] active:scale-[0.98] border border-slate-900/50 disabled:opacity-70 disabled:active:scale-100"
           >
-            {isSaving ? (
-              <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
-            ) : (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-            )}
-            {isSaving ? 'Menyimpan...' : 'Simpan'}
+            <span className="relative z-10 flex items-center gap-2">
+              {isSaving ? (
+                <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
+              ) : (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              )}
+              {isSaving ? 'Menyimpan...' : 'Simpan Perubahan'}
+            </span>
+            {!isSaving && <div className="absolute top-0 -left-[150%] w-full h-full skew-x-[-25deg] transition-all duration-700 ease-in-out group-hover:left-[150%] bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.15),transparent)]" />}
           </button>
         </div>
       </header>
@@ -185,16 +190,16 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
       {/* Main Workspace: 2 Columns */}
       <div className="flex-1 flex overflow-hidden">
         
-        {/* Left Column: Document Canvas */}
-        <div className="flex-1 overflow-y-auto bg-white flex justify-center pb-32">
-          <div className="w-full max-w-3xl px-8 py-12 md:py-16">
+        {/* Left Column: Premium Document Canvas */}
+        <div className="flex-1 overflow-y-auto bg-slate-50/50 flex justify-center pb-32 pt-8 scrollbar-hide">
+          <div className="w-full max-w-3xl px-12 py-16 bg-white border border-slate-200/60 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.02)] min-h-[800px]">
             
             <textarea
               rows={1}
-              placeholder="Judul Artikel..."
+              placeholder="Ketik Judul Besar di Sini..."
               value={formData.judul}
               onChange={(e) => setFormData({ ...formData, judul: e.target.value })}
-              className="w-full bg-transparent border-none outline-none font-bold text-4xl text-gray-900 placeholder-gray-300 resize-none overflow-hidden leading-tight mb-6"
+              className="w-full bg-transparent border-none outline-none font-heading font-bold text-4xl text-slate-900 placeholder-slate-300 resize-none overflow-hidden leading-tight mb-8"
               onInput={(e) => {
                 const target = e.target as HTMLTextAreaElement;
                 target.style.height = 'auto';
@@ -204,28 +209,29 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
             
             <textarea
               ref={textareaRef}
-              placeholder="Ketik konten utama di sini..."
+              placeholder="Mulai menulis cerita Anda yang luar biasa..."
               value={formData.content}
               onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-              className="w-full bg-transparent border-none outline-none text-gray-800 text-lg leading-relaxed resize-none min-h-[500px] placeholder-gray-300"
+              className="w-full bg-transparent border-none outline-none font-sans font-medium text-slate-700 text-lg leading-[1.8] resize-none min-h-[500px] placeholder-slate-300"
             />
           </div>
         </div>
 
-        {/* Right Column: Properties Sidebar */}
-        <aside className="w-80 flex-shrink-0 bg-gray-50 border-l border-gray-200 overflow-y-auto hidden lg:block">
-          <div className="p-4 border-b border-gray-200 bg-gray-100/50">
-            <h2 className="text-sm font-semibold text-gray-700">Pengaturan Dokumen</h2>
+        {/* Right Column: Premium Properties Sidebar */}
+        <aside className="w-[320px] flex-shrink-0 bg-white border-l border-slate-200/60 overflow-y-auto hidden lg:block z-10 shadow-[-4px_0_24px_rgba(0,0,0,0.01)]">
+          <div className="sticky top-0 p-4 border-b border-slate-100 bg-white/80 backdrop-blur-md">
+            <h2 className="text-[11px] font-bold uppercase tracking-widest text-slate-500">Properties</h2>
           </div>
           
-          <div className="p-5 space-y-5">
-            {/* Kategori */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Kategori</label>
+          <div className="p-6 space-y-6">
+            
+            {/* Input Group: Kategori */}
+            <div className="space-y-2">
+              <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest">Kategori</label>
               <select
                 value={formData.kategori}
                 onChange={(e) => setFormData({ ...formData, kategori: e.target.value })}
-                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+                className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-3.5 py-2.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm font-medium shadow-sm appearance-none cursor-pointer"
               >
                 {predefinedCategories.map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
@@ -233,68 +239,73 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
               </select>
             </div>
 
-            {/* Excerpt */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Ringkasan Singkat</label>
+            {/* Input Group: Excerpt */}
+            <div className="space-y-2">
+              <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest">Ringkasan Singkat</label>
               <textarea
-                placeholder="Deskripsi singkat..."
+                placeholder="Tulis ringkasan singkat..."
                 value={formData.excerpt}
                 onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow resize-none h-24"
+                className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-3.5 py-3 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm font-medium placeholder-slate-400 shadow-sm resize-none h-28 leading-relaxed"
               />
             </div>
 
-            {/* Cover Image */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Gambar Sampul (URL)</label>
+            {/* Input Group: Image */}
+            <div className="space-y-2">
+              <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest">Gambar Sampul URL</label>
               <input
                 type="text"
                 placeholder="https://..."
                 value={formData.image}
                 onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+                className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-3.5 py-2.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm font-medium placeholder-slate-400 shadow-sm"
               />
+              {formData.image && (
+                <div className="mt-2 w-full h-24 rounded-lg bg-slate-100 border border-slate-200/80 overflow-hidden relative shadow-inner">
+                  <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
+                </div>
+              )}
             </div>
 
-            <hr className="border-gray-200" />
+            <div className="h-px w-full bg-slate-100 my-2" />
 
-            {/* Penulis */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Nama Penulis</label>
+            {/* Input Group: Penulis */}
+            <div className="space-y-2">
+              <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest">Nama Penulis</label>
               <input
                 type="text"
                 placeholder="Contoh: Budi Santoso"
                 value={formData.penulis}
                 onChange={(e) => setFormData({ ...formData, penulis: e.target.value })}
-                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+                className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-3.5 py-2.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm font-medium placeholder-slate-400 shadow-sm"
               />
             </div>
 
-            {/* Peran Penulis */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Peran Penulis</label>
+            {/* Input Group: Peran */}
+            <div className="space-y-2">
+              <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest">Peran Penulis</label>
               <input
                 type="text"
                 placeholder="Contoh: Editor Utama"
                 value={formData.author_role}
                 onChange={(e) => setFormData({ ...formData, author_role: e.target.value })}
-                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+                className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-3.5 py-2.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm font-medium placeholder-slate-400 shadow-sm"
               />
             </div>
 
-            <hr className="border-gray-200" />
+            <div className="h-px w-full bg-slate-100 my-2" />
 
-            {/* Tags */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Tags</label>
+            {/* Input Group: Tags */}
+            <div className="space-y-2 pb-8">
+              <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest">Metadata Tags</label>
               <input
                 type="text"
                 placeholder="Pendidikan, Sekolah..."
                 value={formData.tags}
                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+                className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-3.5 py-2.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-sm font-medium placeholder-slate-400 shadow-sm"
               />
-              <p className="mt-1.5 text-xs text-gray-500">Pisahkan dengan koma.</p>
+              <p className="mt-1 text-[10px] font-medium text-slate-400 leading-tight">Pisahkan dengan koma (contoh: Acara, Olahraga).</p>
             </div>
             
           </div>
