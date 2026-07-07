@@ -104,7 +104,7 @@ export const HorizontalExtracurriculars: React.FC<HorizontalExtracurricularsProp
           {ekskul.map((e, i) => (
             <div 
               key={e.id}
-              className="ekskul-item relative w-full md:w-[440px] aspect-[4/5] rounded-[2.5rem] p-10 flex flex-col justify-end group overflow-hidden border border-white/5 shrink-0"
+              className="ekskul-item relative w-full md:w-[440px] aspect-[4/5] rounded-[2.5rem] p-10 flex flex-col justify-end group overflow-hidden border border-white/5 shrink-0 transform-gpu will-change-transform"
             >
               {/* Background Mock Image */}
               <div className="absolute inset-0 w-full h-full">
@@ -112,7 +112,7 @@ export const HorizontalExtracurriculars: React.FC<HorizontalExtracurricularsProp
                   src={mockImages[i % mockImages.length]} 
                   alt={e.nama}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 transform-gpu"
                   sizes="(max-width: 768px) 100vw, 440px"
                 />
               </div>
@@ -121,7 +121,7 @@ export const HorizontalExtracurriculars: React.FC<HorizontalExtracurricularsProp
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal-ink via-charcoal-ink/60 to-transparent opacity-90 group-hover:opacity-80 transition-opacity duration-500" />
               
               {/* Content */}
-              <div className="relative z-10 transform group-hover:-translate-y-2 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+              <div className="relative z-10 transform group-hover:-translate-y-2 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu">
                 <h3 className="text-2xl md:text-3xl font-heading font-bold tracking-tight mb-4 text-white group-hover:text-accent-gold transition-colors duration-500">
                   {e.nama}
                 </h3>

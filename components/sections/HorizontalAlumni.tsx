@@ -112,13 +112,13 @@ export const HorizontalAlumni: React.FC<HorizontalAlumniProps> = ({ alumni }) =>
               >
                 {/* Unique Frame Mask */}
                 <div 
-                  className={`relative w-full md:w-[480px] overflow-hidden ${isEven ? 'aspect-[3/4] rounded-[4rem_1rem_4rem_1rem]' : 'aspect-square rounded-[1rem_4rem_1rem_4rem]'} bg-charcoal-ink p-3 shadow-2xl z-10 transition-transform duration-700 hover:scale-[1.02]`}
+                  className={`relative w-full md:w-[480px] overflow-hidden ${isEven ? 'aspect-[3/4] rounded-[4rem_1rem_4rem_1rem]' : 'aspect-square rounded-[1rem_4rem_1rem_4rem]'} bg-charcoal-ink p-3 shadow-2xl z-10 transition-transform duration-700 hover:scale-[1.02] transform-gpu will-change-transform`}
                 >
                   <div className="w-full h-full overflow-hidden relative rounded-3xl md:rounded-[3rem] border border-white/20">
                     <img 
                       src={a.image} 
                       alt={a.nama}
-                      className="parallax-img absolute inset-0 w-[120%] h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700 origin-left"
+                      className="parallax-img absolute inset-0 w-[120%] h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700 origin-left transform-gpu"
                     />
                   </div>
                 </div>
