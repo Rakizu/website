@@ -132,18 +132,18 @@ export const Navbar = () => {
       
       const content = contentRef.current;
       const logoWrapper = content.querySelector('.logo-wrapper');
+      const sheen = content.querySelector('.sheen-layer');
       const pulseRing = content.querySelector('.pulse-ring');
       
       content.style.pointerEvents = 'auto'; // Block clicks
       
       const tl = gsap.timeline();
-      const easeInOut = "power4.inOut";
-      const duration = 1.0;
-      const staggerDelay = 0.12;
       
       // 1. Initial State
       tl.set(svg, { autoAlpha: 1 });
       tl.set(content, { autoAlpha: 0 });
+      tl.set(logoWrapper, { yPercent: -150 });
+      tl.set(sheen, { left: '-150%' });
       tl.set(pulseRing, { scale: 1, opacity: 0 });
       paths.forEach(p => p?.setAttribute("d", "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z"));
       
@@ -153,25 +153,29 @@ export const Navbar = () => {
          const progress = { value: 0 };
          tl.to(progress, {
             value: 100,
-            duration: duration,
-            ease: easeInOut,
+            duration: 0.9,
+            ease: "power3.inOut",
             onUpdate: () => {
-               // AWWWARDS STANDARD: Pure sine wave for perfect symmetrical liquid sweep
+               // ORGANIC PHYSICS: Use Math.pow(x, 3) to move the peak of the sine wave to ~80% of the animation.
+               // This means the liquid drags and bulges massively right before it hits the bottom, then snaps flat!
                const x = progress.value / 100;
-               const bow = Math.sin(x * Math.PI) * 150; // Deep elegant curve
+               const bow = Math.sin(Math.pow(x, 3) * Math.PI) * 60;
                path.setAttribute("d", `M 0 0 L 100 0 L 100 ${progress.value} Q 50 ${progress.value + bow} 0 ${progress.value} Z`);
             }
-         }, index * staggerDelay);
+         }, index * 0.12); // Stagger
       });
       
-      // 3. Reveal Content (Logo & Vignette fade in as the curtain covers the screen)
-      tl.to(content, { autoAlpha: 1, duration: 0.5, ease: "power2.out" }, duration * 0.4);
+      // Fade in pattern/vignette gently
+      tl.to(content, { autoAlpha: 1, duration: 0.4 }, 0.1);
       
-      // 4. Centerpiece Micro-interactions
-      const contentReadyTime = duration + staggerDelay; 
-      tl.to(pulseRing, {
-         scale: 2, opacity: 0, duration: 0.8, ease: "power2.out", startAt: { scale: 1, opacity: 0.8 }
-      }, contentReadyTime);
+      // Slide down logo wrapper synced with Ink wave (now index 1)
+      tl.to(logoWrapper, { yPercent: 0, duration: 0.9, ease: "power3.inOut" }, 0.12);
+      
+      tl.addLabel("covered", 0.9);
+      
+      // 2. Centerpiece Animations
+      tl.to(sheen, { left: '150%', duration: 0.75, ease: "power2.inOut" }, "covered");
+      tl.addLabel("sheenDone");
       
       // 5. Trigger Routing / Scrolling in the background
       tl.add(() => {
@@ -224,25 +228,35 @@ export const Navbar = () => {
             ScrollTrigger.refresh();
             syncAnimations();
           }
-      }, contentReadyTime + 0.2);
+      }, "sheenDone-=0.2");
+      
+      tl.to(pulseRing, {
+         scale: 2, opacity: 0, duration: 0.8, ease: "power2.out", startAt: { scale: 1, opacity: 0.8 }
+      }, "sheenDone");
       
       // 6. Liquid Lift (OUT)
       const reversePaths = [...paths].reverse();
-      const liftStartTime = contentReadyTime + 0.8;
+      
+      tl.addLabel("liftStart", "sheenDone+=0.1");
       
       // Fade out content perfectly seamlessly as the lift begins
-      tl.to(content, { autoAlpha: 0, duration: 0.5, ease: "power2.inOut" }, liftStartTime);
+      tl.to(content, { autoAlpha: 0, duration: 0.6 }, "liftStart");
+      
+      // Slide logo down to exit (parallax)
+      tl.to(logoWrapper, { yPercent: 150, duration: 0.9, ease: "power3.inOut" }, "liftStart");
       
       reversePaths.forEach((path, index) => {
          if (!path) return;
          const liftProgress = { value: 0 };
          tl.to(liftProgress, {
             value: 100,
-            duration: duration,
-            ease: easeInOut,
+            duration: 0.9,
+            ease: "power3.inOut",
             onUpdate: () => {
+               // ORGANIC PHYSICS: Use Math.pow(x, 0.33) to move the peak to ~12% of the animation.
+               // This means gravity resists the lift, causing a sudden heavy sag at the start, which smoothly resolves.
                const x = liftProgress.value / 100;
-               const bow = Math.sin(x * Math.PI) * 150; 
+               const bow = Math.sin(Math.pow(x, 0.33) * Math.PI) * 60;
                // Lift animation: The liquid drains downwards seamlessly
                path.setAttribute("d", `M 0 ${liftProgress.value} Q 50 ${liftProgress.value + bow} 100 ${liftProgress.value} L 100 100 L 0 100 Z`);
             },
@@ -257,7 +271,7 @@ export const Navbar = () => {
                }
                // GSAP ScrollTrigger will auto-update the theme based on position after jump
             } : undefined
-         }, liftStartTime + (index * staggerDelay));
+         }, `liftStart+=${index * 0.12}`);
       });
     } else if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -347,13 +361,22 @@ export const Navbar = () => {
         <div className="logo-wrapper relative flex flex-col items-center justify-center">
           <div className="relative flex items-center justify-center">
             {/* Elegant radar pulse */}
-            <div className="pulse-ring absolute w-48 h-48 rounded-full border border-accent-gold/50 opacity-0" />
+            <div className="pulse-ring absolute inset-0 rounded-full border border-accent-gold/50 opacity-0" />
             
             {/* Core Emblem Container */}
-            <div className="relative flex items-center justify-center">
-              <img src="/logo.png" alt="TJ Logo" className="relative z-10 h-32 w-auto object-contain drop-shadow-[0_0_30px_rgba(199,154,69,0.6)]" />
+            <div className="relative flex items-center justify-center w-24 h-24 rounded-full border border-accent-gold/40 shadow-[0_0_60px_rgba(199,154,69,0.25)] bg-charcoal-ink/80 backdrop-blur-md overflow-hidden">
+              <span className="relative z-10 font-heading font-bold text-4xl tracking-tighter text-accent-gold drop-shadow-[0_0_20px_rgba(199,154,69,0.8)]">TJ</span>
+              
+              {/* Glossy Sheen Sweep (Mengkilap) */}
+              <div 
+                className="sheen-layer absolute top-0 w-full h-full skew-x-[-25deg] z-20 mix-blend-overlay -left-[150%] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.9),transparent)]"
+              />
             </div>
           </div>
+          
+          <span className="mt-8 font-accent italic text-accent-gold/70 text-xs md:text-sm tracking-[0.4em] uppercase animate-pulse">
+            Memuat Ruang
+          </span>
         </div>
       </div>
 
