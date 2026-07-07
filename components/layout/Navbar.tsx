@@ -67,6 +67,17 @@ export const Navbar = () => {
 
     // Performance-optimized Theme Detection (No Layout Thrashing)
     const themeSections = document.querySelectorAll('[data-theme]');
+    
+    // Manual check for initial state so it doesn't get stuck waiting for a scroll event
+    themeSections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      // If this section is currently visible at the top (where the navbar is)
+      if (rect.top <= 100 && rect.bottom >= 0) {
+        const t = section.getAttribute('data-theme');
+        if (t === 'light' || t === 'dark') setTheme(t);
+      }
+    });
+
     themeSections.forEach((section) => {
       ScrollTrigger.create({
         trigger: section,
@@ -375,7 +386,11 @@ export const Navbar = () => {
             onClick={(e) => handleNav(e, '/')}
             className="pointer-events-auto relative flex shrink-0 items-center justify-center transition-all duration-500 z-20 group"
           >
-            <img src="/logo.png" alt="TJ Logo" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform" />
+            <img 
+              src="/logo.png" 
+              alt="TJ Logo" 
+              className={`h-10 w-auto object-contain group-hover:scale-105 transition-all duration-500 ${!isDarkBg ? 'brightness-0 opacity-90' : ''}`} 
+            />
           </a>
 
           {/* Center: Tight Navigation Links */}
