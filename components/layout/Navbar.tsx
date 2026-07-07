@@ -127,6 +127,7 @@ export const Navbar = () => {
       
       const content = contentRef.current;
       const logoWrapper = content.querySelector('.logo-wrapper');
+      const logoImage = content.querySelector('.logo-wrapper img');
       const pulseRing = content.querySelector('.pulse-ring');
       
       content.style.pointerEvents = 'auto'; // Block clicks
@@ -139,6 +140,7 @@ export const Navbar = () => {
       // 1. Initial State
       tl.set(svg, { autoAlpha: 1 });
       tl.set(content, { autoAlpha: 0 });
+      tl.set(logoImage, { scale: 0.85, opacity: 0 });
       tl.set(pulseRing, { scale: 1, opacity: 0 });
       paths.forEach(p => p?.setAttribute("d", "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z"));
       
@@ -161,6 +163,7 @@ export const Navbar = () => {
       
       // 3. Reveal Content (Logo & Vignette fade in as the curtain covers the screen)
       tl.to(content, { autoAlpha: 1, duration: 0.5, ease: "power2.out" }, duration * 0.4);
+      tl.to(logoImage, { scale: 1, opacity: 1, duration: 1.2, ease: "expo.out" }, duration * 0.4);
       
       // 4. Centerpiece Micro-interactions
       const contentReadyTime = duration + staggerDelay; 
