@@ -11,8 +11,24 @@ import { Menu, X } from 'lucide-react';
 gsap.registerPlugin(ScrollTrigger);
 
 const navLinks = [
-  { label: 'Profil', href: '#visi' },
-  { label: 'Program', href: '#kurikulum' },
+  { 
+    label: 'Profil', 
+    href: '#visi',
+    children: [
+      { label: 'Visi & Misi', href: '#visi' },
+      { label: 'Tim Pendidik', href: '#guru' },
+      { label: 'Jejaring Alumni', href: '#alumni' },
+    ]
+  },
+  { 
+    label: 'Program', 
+    href: '#kurikulum',
+    children: [
+      { label: 'Kurikulum Terpadu', href: '#kurikulum' },
+      { label: 'Program Unggulan', href: '#unggulan' },
+      { label: 'Ekstrakurikuler', href: '#ekskul' },
+    ]
+  },
   { label: 'Fasilitas', href: '#fasilitas' },
   { label: 'Berita', href: '#artikel' },
 ];
@@ -353,13 +369,12 @@ export const Navbar = () => {
           <nav 
             className={`pointer-events-auto flex items-center gap-1 h-[48px] px-1.5 rounded-full transition-all duration-[600ms] border ${glassBgClass} ${glassBorderClass} ${glassBlurClass} ${glassShadowClass}`}
           >
-            {navLinks.map((link) => {
-              return (
+            {navLinks.map((link) => (
+              <div key={link.label} className="relative group">
                 <a
-                  key={link.href}
                   href={link.href}
                   onClick={(e) => handleNav(e, link.href)}
-                  className={`relative px-4 py-2 text-sm font-heading font-bold uppercase tracking-wider rounded-full transition-all duration-300 group overflow-hidden text-white drop-shadow-md`}
+                  className={`relative flex px-4 py-2 text-sm font-heading font-bold uppercase tracking-wider rounded-full transition-all duration-300 overflow-hidden text-white drop-shadow-md`}
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white/10" />
                   <span className="relative z-10 opacity-75 group-hover:opacity-100 transition-opacity duration-300">
@@ -367,8 +382,26 @@ export const Navbar = () => {
                   </span>
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100 translate-y-2 group-hover:-translate-y-1.5 transition-all duration-300 ease-out bg-gold shadow-[0_0_10px_rgba(199,154,69,0.8)]" />
                 </a>
-              );
-            })}
+
+                {/* Desktop Dropdown Panel */}
+                {link.children && (
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-out translate-y-4 group-hover:translate-y-0 z-50">
+                    <div className={`flex flex-col min-w-[220px] p-2 rounded-2xl border ${glassBgClass} ${glassBorderClass} ${glassBlurClass} shadow-2xl`}>
+                      {link.children.map(child => (
+                        <a 
+                          key={child.label}
+                          href={child.href}
+                          onClick={(e) => handleNav(e, child.href)}
+                          className="px-4 py-3 text-sm font-heading font-bold tracking-wider uppercase text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 text-center"
+                        >
+                          {child.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
           </nav>
         </div>
 
@@ -403,16 +436,11 @@ export const Navbar = () => {
         }`}
       >
         <IslamicPattern color="var(--gold)" opacity={0.05} />
-        <nav className="flex flex-col items-center gap-8 w-full px-8 relative z-10">
+        <nav className="flex flex-col items-center gap-8 w-full px-8 relative z-10 overflow-y-auto max-h-[80vh] pb-10">
           {navLinks.map((link, i) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => {
-                setIsMobileMenuOpen(false);
-                handleNav(e, link.href);
-              }}
-              className="text-3xl sm:text-4xl font-heading font-bold text-cream uppercase tracking-widest relative"
+            <div 
+              key={link.label} 
+              className="flex flex-col items-center gap-4 w-full relative"
               style={{
                 transitionDelay: isMobileMenuOpen ? `${100 + (i * 50)}ms` : '0ms',
                 transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(30px)',
@@ -422,8 +450,36 @@ export const Navbar = () => {
                 transitionTimingFunction: 'cubic-bezier(0.2, 0.8, 0.2, 1)'
               }}
             >
-              {link.label}
-            </a>
+              <a
+                href={link.href}
+                onClick={(e) => {
+                  setIsMobileMenuOpen(false);
+                  handleNav(e, link.href);
+                }}
+                className="text-3xl sm:text-4xl font-heading font-bold text-cream uppercase tracking-widest inline-block"
+              >
+                {link.label}
+              </a>
+              
+              {/* Mobile Submenu */}
+              {link.children && (
+                <div className="flex flex-col items-center gap-3">
+                  {link.children.map(child => (
+                    <a
+                      key={child.label}
+                      href={child.href}
+                      onClick={(e) => {
+                        setIsMobileMenuOpen(false);
+                        handleNav(e, child.href);
+                      }}
+                      className="text-lg sm:text-xl font-heading text-cream/50 hover:text-cream uppercase tracking-wider transition-colors"
+                    >
+                      {child.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
           
           <div 
