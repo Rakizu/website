@@ -101,7 +101,7 @@ export const EditorialTeachers: React.FC<EditorialTeachersProps> = ({ guru }) =>
                   className={`guru-row group flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-16 md:gap-24 cursor-default`}
                 >
                   {/* Image Side */}
-                  <div className="w-full md:w-5/12 aspect-[3/4] overflow-hidden rounded-sm relative bg-sage/20 shadow-[0_20px_50px_rgba(0,0,0,0.3)] group-hover:shadow-[0_40px_80px_-15px_rgba(199,154,69,0.2)] transform -translate-y-2 group-hover:-translate-y-4 transition-all duration-700 ease-out">
+                  <div className="w-full md:w-5/12 aspect-[3/4] overflow-hidden rounded-sm relative bg-sage/20 group-hover:shadow-[0_30px_60px_-15px_rgba(199,154,69,0.15)] group-hover:-translate-y-2 transition-all duration-700 ease-out">
                     <div className="absolute inset-0 bg-sage-deep z-10 opacity-30 pointer-events-none group-hover:opacity-0 transition-opacity duration-700" />
                     <Image 
                       src={g.image} 
