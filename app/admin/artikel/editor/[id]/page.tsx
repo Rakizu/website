@@ -12,6 +12,7 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
 
   const [isLoading, setIsLoading] = useState(!isNew);
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   const [formData, setFormData] = useState({
     judul: '',
@@ -28,6 +29,7 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
   const [userRole, setUserRole] = useState('writer');
   const predefinedCategories = ['Edukasi', 'Berita', 'Kegiatan', 'Pengumuman', 'Prestasi'];
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetchAuth();
@@ -120,6 +122,40 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
       alert('Terjadi kesalahan jaringan.');
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert('File harus berupa gambar (JPG, PNG, GIF, WebP)');
+      return;
+    }
+
+    setIsUploading(true);
+    const data = new FormData();
+    data.append('file', file);
+
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: data,
+      });
+      const json = await res.json();
+      
+      if (json.success) {
+        setFormData(prev => ({ ...prev, image: json.url }));
+      } else {
+        alert('Gagal mengunggah gambar: ' + json.message);
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Terjadi kesalahan saat mengunggah.');
+    } finally {
+      setIsUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
@@ -254,7 +290,24 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
             <div className="space-y-1">
               <div className="flex items-center justify-between">
                 <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Gambar Sampul</label>
-                <span className="text-[9px] font-medium text-slate-400">Via URL</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[9px] font-medium text-slate-400">URL</span>
+                  <span className="text-[9px] font-medium text-slate-300">|</span>
+                  <button 
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isUploading}
+                    className="text-[9px] font-bold text-blue-600 hover:text-blue-800 disabled:opacity-50 transition-colors uppercase tracking-widest cursor-pointer"
+                  >
+                    {isUploading ? 'Uploading...' : 'Upload'}
+                  </button>
+                  <input 
+                    type="file" 
+                    accept="image/*" 
+                    className="hidden" 
+                    ref={fileInputRef}
+                    onChange={handleUploadImage}
+                  />
+                </div>
               </div>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
