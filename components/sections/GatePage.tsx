@@ -85,22 +85,28 @@ export const GatePage = () => {
       {/* Islamic Pattern Overlay */}
       <IslamicPattern color="#f6efe2" opacity={0.05} />
 
-      {/* Cinematic Fog (Pure CSS Volumetric Light) */}
+      {/* Cinematic Fog & Film Grain (Pure CSS Volumetric Light) */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
+        {/* Micro-Noise Film Grain */}
         <div 
-          className="cloud-layer absolute w-[150vw] h-[150vw] md:w-[80vw] md:h-[80vw] transform-gpu will-change-transform rounded-full"
-          style={{ 
-            background: 'radial-gradient(circle at center, rgba(231,193,121,0.12) 0%, rgba(231,193,121,0) 65%)',
-            top: '-20%', left: '-10%'
-          }}
+          className="absolute inset-0 opacity-[0.05] z-10 pointer-events-none"
+          style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")" }}
         />
-        <div 
-          className="cloud-layer absolute w-[180vw] h-[180vw] md:w-[100vw] md:h-[100vw] transform-gpu will-change-transform rounded-full"
-          style={{ 
-            background: 'radial-gradient(circle at center, rgba(231,193,121,0.1) 0%, rgba(231,193,121,0) 65%)',
-            bottom: '-20%', right: '-20%'
-          }}
-        />
+        
+        {/* Layer 1: Core Gold Glow */}
+        <div className="cloud-layer absolute w-[150vw] h-[150vw] md:w-[80vw] md:h-[80vw] transform-gpu will-change-transform" style={{ top: '-10%', left: '-10%' }}>
+          <div className="w-full h-full rounded-full animate-[float_12s_ease-in-out_infinite]" style={{ background: 'radial-gradient(circle at center, rgba(231,193,121,0.15) 0%, rgba(231,193,121,0) 60%)' }} />
+        </div>
+        
+        {/* Layer 2: Deep Amber Fog */}
+        <div className="cloud-layer absolute w-[180vw] h-[180vw] md:w-[100vw] md:h-[100vw] transform-gpu will-change-transform" style={{ bottom: '-20%', right: '-20%' }}>
+          <div className="w-full h-full rounded-full animate-[float_16s_ease-in-out_infinite_reverse]" style={{ background: 'radial-gradient(circle at center, rgba(139,94,60,0.12) 0%, rgba(139,94,60,0) 65%)' }} />
+        </div>
+        
+        {/* Layer 3: Accent Ambient Light */}
+        <div className="cloud-layer absolute w-[100vw] h-[100vw] md:w-[60vw] md:h-[60vw] transform-gpu will-change-transform" style={{ top: '20%', right: '10%' }}>
+          <div className="w-full h-full rounded-full animate-[float_10s_ease-in-out_infinite]" style={{ background: 'radial-gradient(circle at center, rgba(218,165,32,0.08) 0%, rgba(218,165,32,0) 70%)' }} />
+        </div>
       </div>
 
       {/* Text Container */}
@@ -111,7 +117,8 @@ export const GatePage = () => {
             className={`gate-word absolute text-6xl md:text-8xl lg:text-[9rem] tracking-tighter whitespace-nowrap transform-gpu ${w.className}`}
             style={{ 
               opacity: 0, 
-              color: w.className.includes('text-accent-gold') ? undefined : '#FDF6EC' 
+              color: w.className.includes('text-accent-gold') ? undefined : '#FDF6EC',
+              textShadow: '0 10px 40px rgba(231,193,121,0.3)'
             }}
           >
             {w.text}
@@ -130,7 +137,14 @@ export const GatePage = () => {
         </span>
       </div>
 
-      <style>{`@keyframes scrollcue{0%{transform:translateY(-100%)}100%{transform:translateY(300%)}}`}</style>
+      <style>{`
+        @keyframes scrollcue{0%{transform:translateY(-100%)}100%{transform:translateY(300%)}}
+        @keyframes float {
+          0% { transform: translate3d(0, 0, 0) scale(1); }
+          50% { transform: translate3d(3%, 3%, 0) scale(1.05); }
+          100% { transform: translate3d(0, 0, 0) scale(1); }
+        }
+      `}</style>
     </section>
   );
 };
