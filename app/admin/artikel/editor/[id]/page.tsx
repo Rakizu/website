@@ -254,36 +254,67 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
         </div>
 
         {/* Right Column: Premium Properties Sidebar */}
-        <aside className="w-[250px] flex-shrink-0 bg-white border-l border-slate-200/60 overflow-y-auto hidden lg:block z-10 shadow-[-4px_0_24px_rgba(0,0,0,0.01)]">
+        <aside className="w-[320px] flex-shrink-0 bg-white border-l border-slate-200/60 overflow-y-auto hidden lg:block z-10 shadow-[-4px_0_24px_rgba(0,0,0,0.01)]">
           <div className="sticky top-0 p-3 border-b border-slate-100 bg-white/80 backdrop-blur-md">
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Properties</h2>
           </div>
           
           <div className="p-4 space-y-4">
             
-            {/* Input Group: Kategori */}
-            <div className="space-y-1">
-              <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Kategori</label>
-              <select
-                value={formData.kategori}
-                onChange={(e) => setFormData({ ...formData, kategori: e.target.value })}
-                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-3 py-1.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-xs font-medium shadow-sm appearance-none cursor-pointer"
-              >
-                {predefinedCategories.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
+            {/* Grid 2 Columns for Kategori & Tags */}
+            <div className="grid grid-cols-2 gap-3">
+              {/* Input Group: Kategori */}
+              <div className="space-y-1">
+                <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Kategori</label>
+                <select
+                  value={formData.kategori}
+                  onChange={(e) => setFormData({ ...formData, kategori: e.target.value })}
+                  className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-3 py-1.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-xs font-medium shadow-sm appearance-none cursor-pointer"
+                >
+                  {predefinedCategories.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Input Group: Tags */}
+              <div className="space-y-1">
+                <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Tags</label>
+                <input
+                  type="text"
+                  placeholder="Acara, Umum..."
+                  value={formData.tags}
+                  onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+                  className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-3 py-1.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-xs font-medium placeholder-slate-400 shadow-sm"
+                />
+              </div>
             </div>
 
-            {/* Input Group: Excerpt */}
-            <div className="space-y-1">
-              <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Ringkasan</label>
-              <textarea
-                placeholder="Tulis ringkasan..."
-                value={formData.excerpt}
-                onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                className="w-full bg-slate-50 border border-slate-200/80 rounded-[16px] px-3 py-2 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-xs font-medium placeholder-slate-400 shadow-sm resize-none h-20 leading-relaxed"
-              />
+            {/* Grid 2 Columns for Penulis & Peran */}
+            <div className="grid grid-cols-2 gap-3">
+              {/* Input Group: Penulis */}
+              <div className="space-y-1">
+                <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Penulis</label>
+                <input
+                  type="text"
+                  placeholder="Budi Santoso"
+                  value={formData.penulis}
+                  onChange={(e) => setFormData({ ...formData, penulis: e.target.value })}
+                  className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-3 py-1.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-xs font-medium placeholder-slate-400 shadow-sm"
+                />
+              </div>
+
+              {/* Input Group: Peran */}
+              <div className="space-y-1">
+                <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Peran</label>
+                <input
+                  type="text"
+                  placeholder="Editor Utama"
+                  value={formData.author_role}
+                  onChange={(e) => setFormData({ ...formData, author_role: e.target.value })}
+                  className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-3 py-1.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-xs font-medium placeholder-slate-400 shadow-sm"
+                />
+              </div>
             </div>
 
             {/* Input Group: Image */}
@@ -327,51 +358,21 @@ export default function ArticleEditor({ params }: { params: Promise<{ id: string
               </div>
 
               {formData.image && (
-                <div className="mt-2 w-full h-20 rounded-lg bg-slate-100 border border-slate-200/80 overflow-hidden relative shadow-inner">
+                <div className="mt-2 w-full h-24 rounded-lg bg-slate-100 border border-slate-200/80 overflow-hidden relative shadow-inner">
                   <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
                 </div>
               )}
             </div>
 
-            <div className="h-px w-full bg-slate-100 my-2" />
-
-            {/* Input Group: Penulis */}
+            {/* Input Group: Excerpt */}
             <div className="space-y-1">
-              <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Penulis</label>
-              <input
-                type="text"
-                placeholder="Budi Santoso"
-                value={formData.penulis}
-                onChange={(e) => setFormData({ ...formData, penulis: e.target.value })}
-                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-3 py-1.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-xs font-medium placeholder-slate-400 shadow-sm"
+              <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Ringkasan</label>
+              <textarea
+                placeholder="Tulis ringkasan..."
+                value={formData.excerpt}
+                onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
+                className="w-full bg-slate-50 border border-slate-200/80 rounded-[16px] px-3 py-2 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-xs font-medium placeholder-slate-400 shadow-sm resize-none h-24 leading-relaxed"
               />
-            </div>
-
-            {/* Input Group: Peran */}
-            <div className="space-y-1">
-              <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Peran</label>
-              <input
-                type="text"
-                placeholder="Editor Utama"
-                value={formData.author_role}
-                onChange={(e) => setFormData({ ...formData, author_role: e.target.value })}
-                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-3 py-1.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-xs font-medium placeholder-slate-400 shadow-sm"
-              />
-            </div>
-
-            <div className="h-px w-full bg-slate-100 my-2" />
-
-            {/* Input Group: Tags */}
-            <div className="space-y-1 pb-4">
-              <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Tags</label>
-              <input
-                type="text"
-                placeholder="Acara, Sekolah..."
-                value={formData.tags}
-                onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                className="w-full bg-slate-50 border border-slate-200/80 rounded-full px-3 py-1.5 outline-none text-slate-900 focus:border-slate-400 focus:ring-4 focus:ring-slate-100 transition-all text-xs font-medium placeholder-slate-400 shadow-sm"
-              />
-              <p className="mt-1 text-[9px] font-medium text-slate-400 leading-tight">Pisahkan dengan koma.</p>
             </div>
             
           </div>
