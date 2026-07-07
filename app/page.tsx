@@ -45,12 +45,16 @@ export default function Home() {
       <section id="kurikulum" data-theme="light">
         <CurriculumTree kurikulum={data.kurikulum} />
       </section>
-      <div data-theme="dark">
+      
+      {/* FeaturedPrograms is light (bg-warm-50) */}
+      <section id="unggulan" data-theme="light">
         <FeaturedPrograms programs={data.kurikulum.programUnggulan} />
-        <section id="ekskul">
-          <HorizontalExtracurriculars ekskul={data.ekskul} />
-        </section>
-      </div>
+      </section>
+
+      {/* HorizontalExtracurriculars is dark (bg-charcoal-ink) */}
+      <section id="ekskul" data-theme="dark">
+        <HorizontalExtracurriculars ekskul={data.ekskul} />
+      </section>
 
       {/* 3. FASILITAS */}
       <section id="fasilitas" data-theme="light">
