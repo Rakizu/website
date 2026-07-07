@@ -112,11 +112,10 @@ export const Navbar = () => {
       }
     }
     
-    // Tirai dipicu jika: rute berubah, lompat dari halaman lain, atau target valid TAPI belum dilihat
+    // Tirai dipicu jika: rute berubah, lompat dari halaman lain, target valid TAPI belum dilihat, atau kembali ke atas
     const computedIsRoute = isRoute || (href.startsWith('/') && href !== currentPath);
     const isReturnToTop = href === '/' && currentPath === '/' && window.scrollY > 0;
-    // We intentionally remove isReturnToTop from shouldRunCurtain so clicking the logo just smoothly scrolls up
-    const shouldRunCurtain = (target && !isArticleToArticle && !isAlreadyInSection) || computedIsRoute || isCrossPageHash;
+    const shouldRunCurtain = (target && !isArticleToArticle && !isAlreadyInSection) || computedIsRoute || isCrossPageHash || isReturnToTop;
     
     if (shouldRunCurtain && curtainRef.current && contentRef.current) {
       isAnimating.current = true;
@@ -305,10 +304,10 @@ export const Navbar = () => {
     ? 'shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08),inset_1px_2px_0_-1px_rgba(255,255,255,0.5),inset_-1px_-1px_0_-1px_rgba(255,255,255,0.2),inset_0_-2px_4px_rgba(0,0,0,0.4),0_12px_40px_rgba(0,0,0,0.6)]'
     : 'shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08),inset_1px_2px_0_-1px_rgba(255,255,255,0.3),inset_-1px_-1px_0_-1px_rgba(255,255,255,0.1),inset_0_-2px_4px_rgba(0,0,0,0.2),0_8px_24px_rgba(0,0,0,0.3)]';
 
-  // Ultra-Glassmorphism for CTA (Sage Green)
-  const ctaBgClass = 'bg-[#40916C]/80'; // Semi-transparent sage
+  // Ultra-Glassmorphism for CTA (Deep Sage Green matching ProfilGuru)
+  const ctaBgClass = 'bg-[#354711]/90'; // Deep Sage
   const ctaBlurClass = 'backdrop-blur-md backdrop-saturate-150';
-  const ctaShadowClass = 'shadow-[inset_0_0_0_1px_rgba(255,255,255,0.2),inset_1px_2px_0_-1px_rgba(255,255,255,0.5),inset_-1px_-1px_0_-1px_rgba(0,0,0,0.2),0_4px_15px_rgba(64,145,108,0.5)]';
+  const ctaShadowClass = 'shadow-[inset_0_0_0_1px_rgba(255,255,255,0.2),inset_1px_2px_0_-1px_rgba(255,255,255,0.4),inset_-1px_-1px_0_-1px_rgba(0,0,0,0.3),0_4px_15px_rgba(53,71,17,0.6)]';
   const ctaTextShadowClass = 'text-white drop-shadow-md';
 
   return (
