@@ -54,6 +54,15 @@ export const GatePage = () => {
       }
     });
 
+    // Animate clouds over the entire duration of the pinning
+    tl.to('.cloud-layer', {
+      scale: 2.5,
+      opacity: 0,
+      duration: tl.recent().endTime(), // span the entire timeline
+      ease: "power2.in",
+      stagger: 0.2
+    }, 0); // Start at the very beginning (0)
+
     tl.to(container.current, { autoAlpha: 0, duration: 1, ease: "power2.inOut" });
 
   }, { scope: container });
@@ -75,6 +84,23 @@ export const GatePage = () => {
 
       {/* Islamic Pattern Overlay */}
       <IslamicPattern color="#f6efe2" opacity={0.05} />
+
+      {/* Cinematic Clouds (Parallax 2D) */}
+      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
+        {/* Placeholder images: Ganti src dengan path WebP awan Anda */}
+        <img 
+          src="https://raw.githubusercontent.com/Rakizu/website/main/public/cloud-placeholder.webp" 
+          alt="cloud" 
+          className="cloud-layer absolute w-[150%] md:w-[100%] opacity-40 transform-gpu will-change-transform object-cover"
+          style={{ top: '10%' }}
+        />
+        <img 
+          src="https://raw.githubusercontent.com/Rakizu/website/main/public/cloud-placeholder.webp" 
+          alt="cloud" 
+          className="cloud-layer absolute w-[180%] md:w-[120%] opacity-30 transform-gpu will-change-transform object-cover rotate-180"
+          style={{ top: '20%' }}
+        />
+      </div>
 
       {/* Text Container */}
       <div ref={textContainer} className="relative z-10 w-full h-full flex items-center justify-center">
