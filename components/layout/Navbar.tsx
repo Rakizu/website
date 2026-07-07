@@ -11,7 +11,7 @@ import { Menu, X } from 'lucide-react';
 gsap.registerPlugin(ScrollTrigger);
 
 const navLinks = [
-  { label: 'Tentang Kami', href: '#visi' },
+  { label: 'Profil', href: '#visi' },
   { label: 'Program', href: '#kurikulum' },
   { label: 'Fasilitas', href: '#fasilitas' },
   { label: 'Berita', href: '#artikel' },
