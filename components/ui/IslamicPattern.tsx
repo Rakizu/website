@@ -12,11 +12,11 @@ export function IslamicPattern({
 }) {
   return (
     <svg
-      className={className}
+      className={`absolute inset-0 pointer-events-none ${className}`}
       aria-hidden="true"
       width="100%"
       height="100%"
-      style={{ opacity, position: 'absolute', inset: 0, pointerEvents: 'none' }}
+      style={{ opacity }}
     >
       <defs>
         <pattern

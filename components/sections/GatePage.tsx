@@ -109,10 +109,7 @@ export const GatePage = () => {
         {wordsData.map((w, i) => (
           <div
             key={i}
-            className={`gate-word absolute text-6xl md:text-8xl lg:text-[9rem] tracking-tighter whitespace-nowrap transform-gpu ${w.className} opacity-0 drop-shadow-[0_10px_40px_rgba(231,193,121,0.3)]`}
-            style={{ 
-              color: w.className.includes('text-accent-gold') ? undefined : '#FDF6EC'
-            }}
+            className={`gate-word absolute text-6xl md:text-8xl lg:text-[9rem] tracking-tighter whitespace-nowrap transform-gpu opacity-0 drop-shadow-[0_10px_40px_rgba(231,193,121,0.3)] ${w.className} ${w.className.includes('text-accent-gold') ? '' : 'text-[#FDF6EC]'}`}
           >
             {w.text}
           </div>
@@ -121,8 +118,7 @@ export const GatePage = () => {
 
       {/* Scroll cue */}
       <div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        style={{ color: 'rgba(246,239,226,0.5)' }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#f6efe2]/50"
       >
         <span className="text-[10px] uppercase tracking-[0.35em]">Gulir</span>
         <span className="relative block h-10 w-px overflow-hidden bg-white/20">
