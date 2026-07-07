@@ -40,7 +40,6 @@ export const EditorialGuru: React.FC<EditorialGuruProps> = ({ guru }) => {
           {
             yPercent: 10,
             ease: "none",
-            ease: "none",
             scrollTrigger: {
               trigger: section,
               start: "top bottom",

@@ -47,7 +47,6 @@ export const HorizontalEkskul: React.FC<HorizontalEkskulProps> = ({ ekskul }) =>
           stagger: 0.1,
           duration: 1,
           ease: "power3.out",
-          ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 80%"
