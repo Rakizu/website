@@ -17,25 +17,29 @@ interface KurikulumProps {
 
 export const CurriculumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
   const container = useRef<HTMLElement>(null);
-  const dropRef = useRef<HTMLDivElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
 
   useGSAP(() => {
-    if (!container.current || !dropRef.current) return;
+    if (!container.current || !pathRef.current) return;
 
-    // Cinematic Waterfall Drop (golden liquid tail effect)
-    gsap.fromTo(dropRef.current, 
-      { y: -300 }, // Start fully above the track
-      {
-        y: () => container.current!.offsetHeight, // Travel all the way down
-        ease: "none",
-        scrollTrigger: {
-          trigger: container.current,
-          start: "top 40%",
-          end: "bottom 80%",
-          scrub: 1.5,
-        }
+    // Calculate exact path length for drawing animation
+    const length = pathRef.current.getTotalLength();
+    gsap.set(pathRef.current, { 
+      strokeDasharray: length, 
+      strokeDashoffset: length 
+    });
+
+    // Cinematic drawing of the center wavy line
+    gsap.to(pathRef.current, {
+      strokeDashoffset: 0,
+      ease: "power1.inOut",
+      scrollTrigger: {
+        trigger: container.current,
+        start: "top 40%",
+        end: "bottom 80%",
+        scrub: 1.5,
       }
-    );
+    });
 
     // Animate content nodes revealing with ultra-premium physics
     const nodes = container.current.querySelectorAll('.kurikulum-node');
@@ -112,19 +116,34 @@ export const CurriculumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
           </p>
         </div>
 
-        {/* Center Line (Waterfall Drop) */}
-        <div className="absolute left-[36px] md:left-1/2 top-56 bottom-0 w-[3px] md:-translate-x-1/2 z-0 overflow-hidden rounded-full">
-          {/* Faint background track */}
-          <div className="absolute inset-0 bg-charcoal-ink/5 w-full h-full" />
-          
-          {/* The Falling Drop */}
-          <div 
-            ref={dropRef}
-            className="absolute top-0 left-0 w-full h-[200px] md:h-[300px] bg-gradient-to-b from-transparent via-accent-gold/60 to-accent-gold will-change-transform"
-          >
-            {/* The bright glowing head of the drop */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-[0_0_20px_4px_rgba(212,175,55,0.8)]" />
-          </div>
+        {/* Wavy SVG Line Center */}
+        <div className="absolute left-[36px] md:left-1/2 top-56 bottom-0 w-[60px] md:w-[160px] md:-translate-x-1/2 z-0">
+          <svg className="w-full h-full drop-shadow-[0_0_15px_rgba(212,175,55,0.5)]" preserveAspectRatio="none" viewBox="0 0 200 1000">
+            {/* Faint Background Wave */}
+            <path 
+              d="M 100 0 C 200 100, 200 200, 100 300 C 0 400, 0 500, 100 600 C 200 700, 200 800, 100 900 C 0 1000, 0 1100, 100 1200"
+              stroke="rgba(0,0,0,0.05)"
+              strokeWidth="4"
+              fill="none"
+              strokeLinecap="round"
+            />
+            {/* Glowing Golden Wave Trail */}
+            <path 
+              ref={pathRef}
+              d="M 100 0 C 200 100, 200 200, 100 300 C 0 400, 0 500, 100 600 C 200 700, 200 800, 100 900 C 0 1000, 0 1100, 100 1200" 
+              stroke="url(#goldGradient)"
+              strokeWidth="4"
+              fill="none"
+              strokeLinecap="round"
+            />
+            <defs>
+              <linearGradient id="goldGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#D4AF37" stopOpacity="1" />
+                <stop offset="80%" stopColor="#D4AF37" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
 
         {/* Nodes / Content */}
@@ -135,7 +154,7 @@ export const CurriculumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
             return (
               <div 
                 key={i}
-                className={`kurikulum-node w-full md:w-1/2 relative ${isLeft ? 'md:pr-24 self-start text-left md:text-right' : 'md:pl-24 self-end text-left'}`}
+                className={`kurikulum-node w-full md:w-1/2 relative ${isLeft ? 'md:pr-32 self-start text-left md:text-right' : 'md:pl-32 self-end text-left'}`}
               >
                 {/* Mobile Dot */}
                 <div className="timeline-dot md:hidden absolute left-[-64px] top-3 w-4 h-4 rounded-full bg-canvas-white border-[3px] border-charcoal-ink/20 shadow-sm will-change-transform" />
