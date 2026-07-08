@@ -17,29 +17,25 @@ interface KurikulumProps {
 
 export const CurriculumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
   const container = useRef<HTMLElement>(null);
-  const pathRef = useRef<SVGPathElement>(null);
+  const dropRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (!container.current || !pathRef.current) return;
+    if (!container.current || !dropRef.current) return;
 
-    // Calculate exact path length for drawing animation
-    const length = pathRef.current.getTotalLength();
-    gsap.set(pathRef.current, { 
-      strokeDasharray: length, 
-      strokeDashoffset: length 
-    });
-
-    // Cinematic drawing of the center line (golden liquid effect)
-    gsap.to(pathRef.current, {
-      strokeDashoffset: 0,
-      ease: "power2.inOut",
-      scrollTrigger: {
-        trigger: container.current,
-        start: "top 40%",
-        end: "bottom 80%",
-        scrub: 1.5,
+    // Cinematic Waterfall Drop (golden liquid tail effect)
+    gsap.fromTo(dropRef.current, 
+      { y: -300 }, // Start fully above the track
+      {
+        y: () => container.current!.offsetHeight, // Travel all the way down
+        ease: "none",
+        scrollTrigger: {
+          trigger: container.current,
+          start: "top 40%",
+          end: "bottom 80%",
+          scrub: 1.5,
+        }
       }
-    });
+    );
 
     // Animate content nodes revealing with ultra-premium physics
     const nodes = container.current.querySelectorAll('.kurikulum-node');
@@ -116,27 +112,19 @@ export const CurriculumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
           </p>
         </div>
 
-        {/* Center SVG Line (The "Tree" or "Journey") */}
-        <div className="absolute left-[36px] md:left-1/2 top-56 bottom-0 w-[3px] md:-translate-x-1/2 z-0">
-          <svg className="w-full h-full drop-shadow-[0_0_15px_rgba(212,175,55,0.5)]" preserveAspectRatio="none" viewBox="0 0 3 1000">
-            <path 
-              ref={pathRef}
-              d="M1.5 0V1000" 
-              stroke="url(#goldGradient)"
-              strokeWidth="3"
-              fill="none"
-              strokeLinecap="round"
-            />
-            <defs>
-              <linearGradient id="goldGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#D4AF37" stopOpacity="1" />
-                <stop offset="80%" stopColor="#D4AF37" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
+        {/* Center Line (Waterfall Drop) */}
+        <div className="absolute left-[36px] md:left-1/2 top-56 bottom-0 w-[3px] md:-translate-x-1/2 z-0 overflow-hidden rounded-full">
           {/* Faint background track */}
-          <div className="absolute inset-0 bg-charcoal-ink/5 w-full h-full -z-10 rounded-full" />
+          <div className="absolute inset-0 bg-charcoal-ink/5 w-full h-full" />
+          
+          {/* The Falling Drop */}
+          <div 
+            ref={dropRef}
+            className="absolute top-0 left-0 w-full h-[200px] md:h-[300px] bg-gradient-to-b from-transparent via-accent-gold/60 to-accent-gold will-change-transform"
+          >
+            {/* The bright glowing head of the drop */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-[0_0_20px_4px_rgba(212,175,55,0.8)]" />
+          </div>
         </div>
 
         {/* Nodes / Content */}
