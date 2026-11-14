@@ -50,16 +50,16 @@ export const CurriculumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
       gsap.fromTo(node,
         { 
           opacity: 0, 
-          x: isLeft ? -50 : 50,
-          y: 40,
-          filter: 'blur(12px)'
+          x: isLeft ? -40 : 40,
+          y: 30,
+          scale: 0.96
         },
         {
           opacity: 1,
           x: 0,
           y: 0,
-          filter: 'blur(0px)',
-          duration: 1.6,
+          scale: 1,
+          duration: 1.4,
           ease: "power3.out",
           scrollTrigger: {
             trigger: node,
@@ -111,7 +111,7 @@ export const CurriculumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold tracking-tighter leading-[1.1] text-charcoal-ink mb-6">
             Proses Terpadu.
           </h2>
-          <p className="text-base md:text-lg leading-relaxed text-muted-steel max-w-[55ch] mx-auto font-body">
+          <p className="text-lg md:text-xl lg:text-[21px] leading-[1.6] text-charcoal-ink/75 max-w-[50ch] mx-auto font-body">
             Kurikulum kami dirancang untuk menyeimbangkan keunggulan akademik nasional dengan pembentukan karakter Islami yang kuat.
           </p>
         </div>
@@ -169,7 +169,7 @@ export const CurriculumTree: React.FC<KurikulumProps> = ({ kurikulum }) => {
                   {s.waktu}
                 </h4>
                 
-                <p className={`text-base md:text-lg text-muted-steel font-body leading-relaxed max-w-[40ch] ${isLeft ? 'md:ml-auto' : ''}`}>
+                <p className={`text-[17px] md:text-[19px] lg:text-[21px] text-charcoal-ink/75 font-body leading-[1.55] max-w-[42ch] ${isLeft ? 'md:ml-auto' : ''}`}>
                   {s.fokus}
                 </p>
               </div>

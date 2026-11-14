@@ -13,22 +13,25 @@ export const SmoothScroll = () => {
       smoothWheel: true,
     });
 
+    // Expose lenis instance globally for modal/overlay freeze
+    (window as any).__lenis = lenis;
+
     // Connect Lenis to GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
+    const updateRaf = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
 
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.add(updateRaf);
+    gsap.ticker.lagSmoothing(0); // Disable lag smoothing to prevent stutter with Lenis
 
     ScrollTrigger.config({ ignoreMobileResize: true });
 
     return () => {
+      delete (window as any).__lenis;
       lenis.destroy();
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
+      gsap.ticker.remove(updateRaf);
     };
   }, []);
 

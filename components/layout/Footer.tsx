@@ -28,15 +28,14 @@ export const Footer = () => {
     
     const text = container.current.querySelector('.footer-text');
     
-    // Split the text into two lines if needed, or just mask reveal the whole thing
+    // Efek "Tiang Didirikan" (3D Hinge / Swing Up)
     gsap.fromTo(text,
-      { yPercent: 100, opacity: 0, rotationX: -45, transformPerspective: 1000 },
+      { opacity: 0, rotationX: -90, transformPerspective: 1000, transformOrigin: "bottom center" },
       { 
-        yPercent: 0, 
-        opacity: 0.9, 
+        opacity: 1, 
         rotationX: 0,
-        duration: 1.5, 
-        ease: "power4.out",
+        duration: 1.8, 
+        ease: "back.out(1.4)", // Memberikan sedikit pantulan layaknya tiang yang baru tegak
         scrollTrigger: {
           trigger: container.current,
           start: "top 75%",
@@ -56,7 +55,7 @@ export const Footer = () => {
         {!isCompact && (
           <div className="overflow-hidden mb-16 md:mb-24 perspective-[1000px]">
             <h2 className="footer-text origin-bottom text-[12vw] font-heading font-black uppercase tracking-tighter leading-[0.8] text-white">
-              Mari <span className="text-accent-gold italic font-light tracking-normal">Melangkah</span>
+              Mari Melangkah
             </h2>
           </div>
         )}

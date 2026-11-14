@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { revalidatePath } from 'next/cache';
 
 const dataFilePath = path.join(process.cwd(), 'content', 'data.json');
 
@@ -66,6 +67,7 @@ export async function POST(request: Request) {
     data.artikel.unshift(newArticle);
     
     await writeData(data);
+    revalidatePath('/');
     
     return NextResponse.json({ success: true, data: newArticle }, { status: 201 });
   } catch (error) {

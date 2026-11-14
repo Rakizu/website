@@ -73,46 +73,55 @@ export const GatePage = () => {
       ease: "power2.in"
     }, "-=0.3");
 
-    // 3. Cinematic Word Flash Sequence
+    // 3. Cinematic Deep Z-Space Sequence
     wordElements.forEach((word, i) => {
       const isLast = i === wordElements.length - 1;
-      
-      // Flash in
-      tl.to(word, { 
-        opacity: 1, 
-        scale: 1, 
-        filter: "blur(0px)", 
-        duration: 0.8, 
-        ease: "expo.out" 
-      }, i === 0 ? "-=0.1" : "-=0.6");
+      const wordTl = gsap.timeline();
 
-      // Flash out (unless it's the very last word, we let it linger a tiny bit)
+      // Setup state awal: Raksasa, sangat buram, transparan (berada di depan wajah penonton)
+      gsap.set(word, { scale: 1.8, opacity: 0, filter: "blur(40px)" });
+
+      // Fase 1: Menghantam masuk ke titik fokus (Mengecil jadi 1.0)
+      wordTl.to(word, {
+         scale: 1,
+         opacity: 1,
+         filter: "blur(0px)",
+         duration: 1.4,
+         ease: "power4.out"
+      });
+
+      // Fase 2: Memudar mundur ke dalam kegelapan (Mengecil jadi 0.7)
       if (!isLast) {
-        tl.to(word, { 
-          opacity: 0, 
-          scale: 1.1, 
-          filter: "blur(15px)", 
-          duration: 0.6, 
-          ease: "power2.in" 
-        }, "+=0.1"); // Very brief hold
+         wordTl.to(word, {
+            scale: 0.7,
+            opacity: 0,
+            filter: "blur(20px)",
+            duration: 1.2,
+            ease: "power2.inOut"
+         }, "+=0.15"); // Jeda singkat saat gambar terlihat paling jelas
       } else {
-        // Last word explosive fade out
-        tl.to(word, { 
-          opacity: 0, 
-          scale: 1.5, 
-          filter: "blur(20px)", 
-          duration: 1.2, 
-          ease: "power3.in" 
-        }, "+=0.4");
+         // Klimaks kata terakhir: Bertahan lebih lama, lalu meledak ke depan (Membesar)
+         wordTl.to(word, {
+            scale: 1.3,
+            opacity: 0,
+            filter: "blur(30px)",
+            duration: 1.5,
+            ease: "power3.in"
+         }, "+=0.8");
       }
+
+      // Penjadwalan tumpang tindih ekstrim (Crossfade)
+      // Kata berikutnya mulai menghantam masuk saat kata sebelumnya baru mulai memudar mundur
+      const overlap = i === 0 ? "-=0.2" : "-=1.5"; 
+      tl.add(wordTl, overlap);
     });
 
     // 4. Slide up the entire gate page like a theater curtain
     tl.to(container.current, {
       yPercent: -100,
-      duration: 1.5,
-      ease: "cubic-bezier(0.85, 0, 0.15, 1)", // Premium awwwards easing
-    }, "-=0.6");
+      duration: 1.8,
+      ease: "power4.inOut", // Easing sangat lambat di awal dan akhir
+    }, "-=1.2"); // Tirai mulai ditarik ke atas bertepatan dengan ledakan kata terakhir
 
   }, { scope: container, dependencies: [isCompleted] });
 
@@ -154,7 +163,7 @@ export const GatePage = () => {
         {wordsData.map((w, i) => (
           <div
             key={i}
-            className={`gate-word absolute text-5xl md:text-8xl lg:text-[9rem] tracking-tighter whitespace-nowrap transform-gpu opacity-0 drop-shadow-[0_10px_40px_rgba(231,193,121,0.3)] ${w.className} ${w.className.includes('text-accent-gold') ? '' : 'text-[#FDF6EC]'}`}
+            className={`gate-word absolute text-[15vw] md:text-[12vw] leading-none tracking-tighter whitespace-nowrap transform-gpu opacity-0 drop-shadow-[0_10px_40px_rgba(231,193,121,0.3)] ${w.className} ${w.className.includes('text-accent-gold') ? '' : 'text-[#FDF6EC]'}`}
           >
             {w.text}
           </div>

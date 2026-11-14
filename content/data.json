@@ -42,13 +42,6 @@
         "waktu": "12.30 – 16.30",
         "fokus": "Diniyah, Tahfidz, & Pembinaan Karakter. Pulang setelah Ashar berjamaah"
       }
-    ],
-    "programUnggulan": [
-      "Bina Olimpiade IPA",
-      "Bina Matematika",
-      "English Class",
-      "Kelas Bahasa Arab",
-      "Kelas Tahfidz"
     ]
   },
   "spmb": {
@@ -150,44 +143,137 @@
   ],
   "ekskul": [
     {
-      "id": "e1",
-      "nama": "Pramuka SIT",
-      "deskripsi": "Membentuk kemandirian, kedisiplinan, dan jiwa kepemimpinan islami."
+      "id": "ea1",
+      "nama": "IPA",
+      "deskripsi": "Eksplorasi sains mendalam dan persiapan olimpiade.",
+      "kategori": "Akademik",
+      "mainImage": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop",
+      "galleryImages": []
     },
     {
-      "id": "e2",
-      "nama": "Klub Tahfidz",
-      "deskripsi": "Akselerasi hafalan Quran dengan metode mutqin dan tahsin bersertifikat."
+      "id": "ea2",
+      "nama": "Matematika",
+      "deskripsi": "Pengembangan logika dan penalaran analitis.",
+      "kategori": "Akademik",
+      "mainImage": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop",
+      "galleryImages": []
     },
     {
-      "id": "e3",
-      "nama": "English Club",
-      "deskripsi": "Mengasah kemampuan speaking, debate, dan storytelling berbahasa Inggris."
+      "id": "ea3",
+      "nama": "IPS",
+      "deskripsi": "Pemahaman sosial, sejarah, dan dinamika masyarakat.",
+      "kategori": "Akademik",
+      "mainImage": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop",
+      "galleryImages": []
     },
     {
-      "id": "e4",
-      "nama": "Science Club",
-      "deskripsi": "Persiapan olimpiade sains nasional dan eksperimen aplikatif."
+      "id": "ea4",
+      "nama": "Coding",
+      "deskripsi": "Pemrograman komputer dan pengembangan teknologi digital.",
+      "kategori": "Akademik",
+      "mainImage": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop",
+      "galleryImages": []
+    },
+    {
+      "id": "ea5",
+      "nama": "Bahasa Inggris",
+      "deskripsi": "Penguasaan komunikasi global secara aktif.",
+      "kategori": "Akademik",
+      "mainImage": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop",
+      "galleryImages": []
+    },
+    {
+      "id": "ea6",
+      "nama": "Bahasa Arab",
+      "deskripsi": "Kefasihan bahasa Al-Qur'an dan literatur Islam.",
+      "kategori": "Akademik",
+      "mainImage": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop",
+      "galleryImages": []
+    },
+    {
+      "id": "ea7",
+      "nama": "Tahfidz",
+      "deskripsi": "Hafalan Al-Qur'an bersanad dengan metode mutqin.",
+      "kategori": "Akademik",
+      "mainImage": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop",
+      "galleryImages": []
+    },
+    {
+      "id": "en1",
+      "nama": "Pramuka",
+      "deskripsi": "Membentuk kemandirian, kedisiplinan, dan jiwa kepemimpinan islami.",
+      "kategori": "Non-Akademik",
+      "mainImage": "https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?q=80&w=800&auto=format&fit=crop",
+      "galleryImages": []
+    },
+    {
+      "id": "en2",
+      "nama": "Panahan",
+      "deskripsi": "Olahraga sunnah untuk melatih fokus dan ketenangan.",
+      "kategori": "Non-Akademik",
+      "mainImage": "https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?q=80&w=800&auto=format&fit=crop",
+      "galleryImages": []
+    },
+    {
+      "id": "en3",
+      "nama": "Futsal",
+      "deskripsi": "Membangun kerja sama tim, sportivitas, dan kebugaran fisik.",
+      "kategori": "Non-Akademik",
+      "mainImage": "https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?q=80&w=800&auto=format&fit=crop",
+      "galleryImages": []
+    },
+    {
+      "id": "en4",
+      "nama": "Silat",
+      "deskripsi": "Seni bela diri untuk ketahanan fisik dan perlindungan diri.",
+      "kategori": "Non-Akademik",
+      "mainImage": "https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?q=80&w=800&auto=format&fit=crop",
+      "galleryImages": []
+    },
+    {
+      "id": "en5",
+      "nama": "Basket",
+      "deskripsi": "Mengembangkan ketangkasan dan semangat kompetisi yang sehat.",
+      "kategori": "Non-Akademik",
+      "mainImage": "https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?q=80&w=800&auto=format&fit=crop",
+      "galleryImages": []
+    },
+    {
+      "id": "en6",
+      "nama": "Vocal Grup",
+      "deskripsi": "Menyalurkan bakat seni suara Islami secara harmonis.",
+      "kategori": "Non-Akademik",
+      "mainImage": "https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?q=80&w=800&auto=format&fit=crop",
+      "galleryImages": []
     }
   ],
   "prestasi": [
     {
       "id": "p1",
+      "nama": "Ahmad Fauzi",
       "judul": "Juara 1 Olimpiade Sains Nasional",
       "tingkat": "Nasional",
-      "tahun": "2025"
+      "tahun": "2025",
+      "kutipan": "Disiplin dalam belajar dan tawakkal kepada Allah adalah kunci utama kesuksesan ini.",
+      "image": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=400&auto=format&fit=crop"
     },
     {
       "id": "p2",
+      "nama": "Siti Aminah",
       "judul": "Medali Emas Tahfidz 5 Juz",
       "tingkat": "Provinsi",
-      "tahun": "2025"
+      "tahun": "2025",
+      "kutipan": "Al-Qur'an adalah cahaya, menghafalnya adalah perjalanan menjaga cahaya itu dalam dada.",
+      "image": "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop"
     },
     {
       "id": "p3",
+      "nama": "Budi Santoso",
       "judul": "Juara 2 Lomba Pidato Bahasa Arab",
       "tingkat": "Kabupaten",
-      "tahun": "2024"
+      "tahun": "2024",
+      "kutipan": "Bahasa Arab bukan sekadar bahasa, melainkan kunci untuk memahami agama lebih dalam.",
+      "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop"
     }
   ],
   "alumni": [

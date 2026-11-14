@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { revalidatePath } from 'next/cache';
 
 const dataFilePath = path.join(process.cwd(), 'content', 'data.json');
 
@@ -65,6 +66,8 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     };
     
     await writeData(data);
+    revalidatePath('/');
+    revalidatePath(`/artikel/${id}`);
     
     return NextResponse.json({ success: true, data: data.artikel[index] }, { status: 200 });
   } catch (error) {
@@ -86,6 +89,8 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     // Remove from array
     data.artikel.splice(index, 1);
     await writeData(data);
+    revalidatePath('/');
+    revalidatePath(`/artikel/${id}`);
     
     return NextResponse.json({ success: true, message: 'Artikel berhasil dihapus' }, { status: 200 });
   } catch (error) {

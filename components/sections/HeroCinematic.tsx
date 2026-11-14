@@ -43,8 +43,7 @@ export const HeroCinematic = () => {
     });
 
     gsap.to(container.current, {
-      yPercent: 20,
-      opacity: 0,
+      yPercent: 20, // Efek tenggelam (parallax) dipertahankan
       ease: "none",
       scrollTrigger: {
         trigger: container.current,
@@ -92,7 +91,7 @@ export const HeroCinematic = () => {
             <span ref={(el) => setWordRef(el, 0)} className="inline-block">Generasi</span>
           </span>
 
-          <span className="inline-img relative w-20 h-16 md:w-36 md:h-24 lg:w-48 lg:h-32 rounded-full overflow-hidden inline-block shrink-0 border border-border">
+          <span className="inline-img relative w-16 h-12 md:w-28 md:h-20 lg:w-36 lg:h-24 rounded-full overflow-hidden inline-block shrink-0 border border-border">
             <Image
               src="https://images.unsplash.com/photo-1544717302-de2939b7ef71?q=80&w=400&auto=format&fit=crop"
               alt="Portrait"
@@ -108,10 +107,14 @@ export const HeroCinematic = () => {
           </span>
 
           <span className="overflow-hidden inline-block relative h-[1.1em] w-full md:w-auto">
-            <span ref={(el) => setWordRef(el, 2)} className="inline-block text-sage">Mandiri</span>
+            <span ref={(el) => setWordRef(el, 2)} className="inline-block text-sage">Mandiri,</span>
+          </span>
+          
+          <span className="overflow-hidden inline-block relative h-[1.1em]">
+            <span ref={(el) => setWordRef(el, 3)} className="inline-block">Kreatif</span>
           </span>
 
-          <span className="inline-img relative w-16 h-16 md:w-28 md:h-24 lg:w-36 lg:h-32 rounded-[2rem] overflow-hidden inline-block shrink-0">
+          <span className="inline-img relative w-16 h-16 md:w-24 md:h-20 lg:w-32 lg:h-24 rounded-[2rem] overflow-hidden inline-block shrink-0">
             <Image
               src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=400&auto=format&fit=crop"
               alt="Education"
@@ -122,8 +125,8 @@ export const HeroCinematic = () => {
             />
           </span>
 
-          <span className="overflow-hidden inline-block relative h-[1.1em]">
-            <span ref={(el) => setWordRef(el, 3)} className="inline-block">&amp; Kreatif</span>
+          <span className="overflow-hidden inline-block relative h-[1.1em] w-full md:w-auto">
+            <span ref={(el) => setWordRef(el, 4)} className="inline-block text-gold">&amp; Berprestasi</span>
           </span>
         </h1>
 

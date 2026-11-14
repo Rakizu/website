@@ -37,7 +37,31 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             href="/admin/artikel" 
             className="px-3 md:px-5 py-1.5 md:py-2 rounded-full text-[9px] md:text-[11px] font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all tracking-widest uppercase"
           >
-            Dashboard
+            Artikel
+          </a>
+          <a 
+            href="/admin/ekskul" 
+            className="px-3 md:px-5 py-1.5 md:py-2 rounded-full text-[9px] md:text-[11px] font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all tracking-widest uppercase"
+          >
+            Ekskul
+          </a>
+          <a 
+            href="/admin/prestasi" 
+            className="px-3 md:px-5 py-1.5 md:py-2 rounded-full text-[9px] md:text-[11px] font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all tracking-widest uppercase"
+          >
+            Prestasi
+          </a>
+          <a 
+            href="/admin/guru" 
+            className="px-3 md:px-5 py-1.5 md:py-2 rounded-full text-[9px] md:text-[11px] font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all tracking-widest uppercase"
+          >
+            Pendidik
+          </a>
+          <a 
+            href="/admin/fasilitas" 
+            className="px-3 md:px-5 py-1.5 md:py-2 rounded-full text-[9px] md:text-[11px] font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all tracking-widest uppercase"
+          >
+            Fasilitas
           </a>
           <div className="w-px h-3 md:h-4 bg-slate-200 mx-1 md:mx-2 hidden sm:block" />
           <form action="/api/auth/logout" method="POST" className="m-0 p-0">

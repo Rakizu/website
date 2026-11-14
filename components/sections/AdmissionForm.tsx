@@ -64,7 +64,7 @@ export const AdmissionForm = () => {
         <h2 className="spmb-reveal text-5xl md:text-7xl font-heading font-medium tracking-tighter mb-6">
           Waktunya Memilih.
         </h2>
-        <p className="spmb-reveal text-lg text-cream/80 mb-16 max-w-lg mx-auto">
+        <p className="spmb-reveal text-lg md:text-xl lg:text-[22px] text-cream/90 mb-16 max-w-xl mx-auto leading-[1.6]">
           Pendaftaran siswa baru tahun ajaran 2026/2027 telah dibuka. Amankan kursi untuk putra-putri Anda.
         </p>
 

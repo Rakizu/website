@@ -7,19 +7,30 @@ import { ArticleContent } from '@/components/sections/ArticleContent';
 import { ArticleExplore } from '@/components/sections/ArticleExplore';
 import Image from 'next/image';
 
+interface ArtikelItem {
+  id: string;
+  judul: string;
+  kategori: string;
+  tanggal: string;
+  penulis: string;
+  ringkasan: string;
+  gambar: string;
+  konten: string;
+}
+
 // Simulate CMS fetch for a single article and its successor
 function getArtikelData(id: string) {
   const filePath = path.join(process.cwd(), 'content/data.json');
   const fileContents = fs.readFileSync(filePath, 'utf8');
   const data = JSON.parse(fileContents);
   
-  const currentIndex = data.artikel.findIndex((a: any) => a.id === id);
+  const currentIndex = data.artikel.findIndex((a: ArtikelItem) => a.id === id);
   if (currentIndex === -1) return { artikel: null, nextArtikel: null };
   
   const artikel = data.artikel[currentIndex];
   const prevArtikel = data.artikel[(currentIndex - 1 + data.artikel.length) % data.artikel.length];
   const nextArtikel = data.artikel[(currentIndex + 1) % data.artikel.length];
-  const remainingArticles = data.artikel.filter((a: any) => a.id !== id);
+  const remainingArticles = data.artikel.filter((a: ArtikelItem) => a.id !== id);
   
   return { artikel, prevArtikel, nextArtikel, remainingArticles };
 }
@@ -30,7 +41,7 @@ export async function generateStaticParams() {
   const fileContents = fs.readFileSync(filePath, 'utf8');
   const data = JSON.parse(fileContents);
   
-  return data.artikel.map((a: any) => ({
+  return data.artikel.map((a: ArtikelItem) => ({
     id: a.id,
   }));
 }
@@ -44,10 +55,12 @@ export default async function ArtikelPage({ params }: { params: Promise<{ id: st
   }
 
   // Split paragraphs to handle the Drop Cap on the first paragraph
-  const paragraphs = artikel.content.split('\n\n');
-  const firstParagraph = paragraphs[0];
-  const firstLetter = firstParagraph.charAt(0);
-  const restOfFirstParagraph = firstParagraph.slice(1);
+  const rawContent = artikel.content || '';
+  const paragraphs = rawContent.split(/\n\n+/).filter(Boolean);
+  const firstRaw = paragraphs[0] || '';
+  const cleanFirst = firstRaw.replace(/^<p[^>]*>/i, '').replace(/<\/p>$/i, '');
+  const firstLetter = cleanFirst.charAt(0);
+  const restOfFirstParagraph = cleanFirst.slice(1);
   const remainingParagraphs = paragraphs.slice(1);
 
   return (

@@ -25,8 +25,8 @@ const navLinks = [
     href: '#kurikulum',
     children: [
       { label: 'Kurikulum Terpadu', href: '#kurikulum' },
-      { label: 'Program Unggulan', href: '#unggulan' },
-      { label: 'Ekstrakurikuler', href: '#ekskul' },
+      { label: 'Ekskul Akademik', href: '#ekskul-akademik' },
+      { label: 'Ekskul Non Akademik', href: '#ekskul-non-akademik' },
     ]
   },
   { label: 'Fasilitas', href: '#fasilitas' },
@@ -300,7 +300,7 @@ export const Navbar = () => {
 
   // We remove the basic border because the inset box-shadow handles the 3D rim lighting much better!
   const glassBorderClass = 'border-0';
-  const glassBlurClass = isScrolled ? 'backdrop-blur-xl backdrop-saturate-200' : 'backdrop-blur-md backdrop-saturate-150';
+  const glassBlurClass = isScrolled ? 'backdrop-blur-md' : 'backdrop-blur-sm';
   
   // Ultra-Glassmorphism 3D Layered Shadow (Aikawakenichi Style)
   const glassShadowClass = isScrolled 
@@ -315,8 +315,9 @@ export const Navbar = () => {
 
   return (
     <header
+      id="global-navbar"
       ref={navRef}
-      className="fixed top-1 left-0 w-full z-[1000] px-[58px] pointer-events-none flex justify-center"
+      className="fixed top-1 left-0 w-full z-[1000] px-[58px] pointer-events-none flex justify-center will-change-transform"
     >
       {/* Cinematic Liquid Color Cascade (SVG) */}
       <svg 

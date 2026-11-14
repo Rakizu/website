@@ -79,11 +79,12 @@ export const StoryVisionMission = () => {
             <div className="story-line overflow-hidden pb-2">Tidak sekadar menguasai</div>
             <div className="story-line overflow-hidden pb-2">ilmu dunia, mereka adalah</div>
             <div className="story-line overflow-hidden pb-2 text-accent-sage">penerus yang sholeh,</div>
-            <div className="story-line overflow-hidden pb-2">mandiri, dan berprestasi.</div>
+            <div className="story-line overflow-hidden pb-2">mandiri, kreatif,</div>
+            <div className="story-line overflow-hidden pb-2">dan berprestasi.</div>
           </h2>
           
           <div className="story-line mt-12 max-w-xl">
-            <p className="text-muted-steel text-base md:text-lg leading-relaxed font-body max-w-[65ch]">
+            <p className="text-charcoal-ink/80 text-[18px] md:text-[20px] lg:text-[22px] leading-[1.65] font-body max-w-[50ch]">
               Kami percaya setiap anak memiliki jalan cahayanya masing-masing. Tugas kami bukanlah menyeragamkan mereka, melainkan menuntun potensi unik mereka menjadi karya nyata di masa depan.
             </p>
           </div>

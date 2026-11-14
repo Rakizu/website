@@ -104,8 +104,8 @@ export const EditorialTeachers: React.FC<EditorialTeachersProps> = ({ guru }) =>
                   <div className="w-full md:w-5/12 aspect-[3/4] overflow-hidden rounded-sm relative bg-sage/20 group-hover:shadow-[0_30px_60px_-15px_rgba(199,154,69,0.15)] group-hover:-translate-y-2 transition-all duration-700 ease-out">
                     <div className="absolute inset-0 bg-sage-deep z-10 opacity-30 pointer-events-none group-hover:opacity-0 transition-opacity duration-700" />
                     <Image 
-                      src={g.image} 
-                      alt={g.nama} 
+                      src={g.image || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop'} 
+                      alt={g.nama || 'Guru'} 
                       fill
                       className="guru-img object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out scale-[1.15] group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 40vw"

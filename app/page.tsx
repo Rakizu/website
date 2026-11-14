@@ -1,14 +1,14 @@
 import fs from 'fs';
 import path from 'path';
-import { GatePage } from '@/components/sections/GatePage';
-import { HeroCinematic } from '@/components/sections/HeroCinematic';
+import { GatePageV2 } from '@/components/sections/GatePageV2';
+import { HeroCinematicV2 } from '@/components/sections/HeroCinematicV2';
 import { StoryVisionMission } from '@/components/sections/StoryVisionMission';
 import { FacilityGrid } from '@/components/sections/FacilityGrid';
 import { EditorialTeachers } from '@/components/sections/EditorialTeachers';
 import { CurriculumTree } from '@/components/sections/CurriculumTree';
-import { HorizontalExtracurriculars } from '@/components/sections/HorizontalExtracurriculars';
-import { FeaturedPrograms } from '@/components/sections/FeaturedPrograms';
-import { AlumniGallery } from '@/components/sections/AlumniGallery';
+import { EkskulNonAkademik } from '@/components/sections/EkskulNonAkademik';
+import { EkskulAkademik } from '@/components/sections/EkskulAkademik';
+import { HallOfFameCrown } from '@/components/sections/HallOfFameCrown';
 import { ArticleHighlight } from '@/components/sections/ArticleHighlight';
 import { AdmissionForm } from '@/components/sections/AdmissionForm';
 
@@ -24,27 +24,30 @@ export const revalidate = 60;
 
 export default function Home() {
   const data = getData();
+  const publishedArticles = (data.artikel || []).filter((a: { status?: string }) => a.status !== 'Draft');
 
   return (
     <main className="bg-canvas-white text-charcoal-ink min-h-screen" data-theme="light">
-      <GatePage />
-      <HeroCinematic />
+      <GatePageV2 />
+      <HeroCinematicV2 />
       
       {/* 1. TENTANG KAMI (Profil) */}
       <StoryVisionMission />
       <EditorialTeachers guru={data.guru} />
-      <AlumniGallery alumni={data.alumni} />
 
       {/* 2. PROGRAM */}
       <CurriculumTree kurikulum={data.kurikulum} />
-      <FeaturedPrograms programs={data.kurikulum.programUnggulan} />
-      <HorizontalExtracurriculars ekskul={data.ekskul} />
+      <EkskulAkademik programs={data.ekskul.filter((e: { kategori: string }) => e.kategori === 'Akademik')} />
+      <EkskulNonAkademik ekskul={data.ekskul.filter((e: { kategori: string }) => e.kategori === 'Non-Akademik')} />
 
       {/* 3. FASILITAS */}
       <FacilityGrid fasilitas={data.fasilitas} />
 
-      {/* 4. BERITA & DAFTAR */}
-      <ArticleHighlight artikel={data.artikel} />
+      {/* 4. PRESTASI (The Proof / Climax) */}
+      <HallOfFameCrown prestasi={data.prestasi} />
+
+      {/* 5. BERITA & DAFTAR */}
+      <ArticleHighlight artikel={publishedArticles} />
       <AdmissionForm />
     </main>
   );

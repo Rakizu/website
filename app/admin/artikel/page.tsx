@@ -20,11 +20,6 @@ export default function AdminArtikelList() {
   const [userRole, setUserRole] = useState('writer');
   const router = useRouter();
 
-  useEffect(() => {
-    fetchAuth();
-    fetchArticles();
-  }, []);
-
   const fetchAuth = async () => {
     try {
       const res = await fetch('/api/auth/me');
@@ -48,6 +43,11 @@ export default function AdminArtikelList() {
     }
   };
 
+  useEffect(() => {
+    fetchAuth();
+    fetchArticles();
+  }, []);
+
   const handleDelete = async (id: string, judul: string) => {
     if (!confirm(`Apakah Anda yakin ingin menghapus "${judul}"?`)) return;
     
@@ -59,19 +59,19 @@ export default function AdminArtikelList() {
       } else {
         alert('Gagal menghapus: ' + json.message);
       }
-    } catch (error) {
+    } catch {
       alert('Terjadi kesalahan jaringan.');
     }
   };
 
   return (
-    <div className="w-full flex-1 p-6 md:p-8 font-sans text-slate-900 max-w-[1400px] mx-auto">
+    <div className="w-full flex-1 p-6 md:p-8 font-sans text-slate-900">
       {/* SaaS Page Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight mb-1">Dokumen Artikel</h1>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight mb-1">Artikel & Berita</h1>
           <p className="text-sm font-medium text-slate-500">
-            Kelola publikasi dan draf artikel (Total: {articles.length})
+            Kelola publikasi materi wawasan dan kabar sekolah (Total: {articles.length} entri)
           </p>
         </div>
         <button 
@@ -86,7 +86,7 @@ export default function AdminArtikelList() {
         </button>
       </div>
 
-      {/* Toolbar / Filters (Placeholder for Enterprise Look) */}
+      {/* Toolbar / Search */}
       <div className="w-full bg-white border border-slate-200/80 rounded-t-[24px] p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 shadow-sm">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <div className="relative flex-1 sm:flex-none">
@@ -112,7 +112,7 @@ export default function AdminArtikelList() {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-slate-400"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
             </div>
             <p className="text-slate-700 text-sm font-semibold">Belum ada dokumen ditemukan.</p>
-            <p className="text-slate-500 text-xs mt-1 font-medium">Klik "Tulis Baru" untuk membuat artikel pertama Anda.</p>
+            <p className="text-slate-500 text-xs mt-1 font-medium">Klik &ldquo;Tulis Baru&rdquo; untuk membuat artikel pertama Anda.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">

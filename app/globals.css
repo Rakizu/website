@@ -64,16 +64,11 @@
 @layer base {
   html {
     scroll-behavior: auto; /* GSAP / Lenis handle smoothing */
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-thumb {
-    background: transparent;
-    border-radius: 999px;
-  }
-  html.is-scrolling::-webkit-scrollbar-thumb {
-    background: color-mix(in oklab, var(--gold) 55%, transparent);
+  ::-webkit-scrollbar {
+    display: none;
   }
 
   ::selection {
