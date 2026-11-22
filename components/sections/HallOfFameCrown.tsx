@@ -76,7 +76,6 @@ export const HallOfFameCrown = ({ prestasi }: { prestasi: PrestasiSiswa[] }) => 
   const lastFlippedPage = useRef<number>(0);
   
   // ─── Awwwards Polish Refs ───
-  const cursorRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
   const totalPages = (prestasi.length * 2) + 2;
 
@@ -133,34 +132,46 @@ export const HallOfFameCrown = ({ prestasi }: { prestasi: PrestasiSiswa[] }) => 
   }, [totalPages]);
 
   useGSAP(() => {
-    if (!sectionRef.current) return;
+    const section = sectionRef.current;
+    if (!section) return;
 
-    // ─── Awwwards Polish: Custom Cursor & Parallax Glow ───
-    gsap.set(cursorRef.current, { opacity: 1 });
-    const xTo = gsap.quickTo(cursorRef.current, 'x', { duration: 0.2, ease: 'power3.out' });
-    const yTo = gsap.quickTo(cursorRef.current, 'y', { duration: 0.2, ease: 'power3.out' });
-    const tiltXTo = gsap.quickTo(bookContainerRef.current, 'rotationX', { duration: 0.6, ease: 'power2.out' });
-    const tiltYTo = gsap.quickTo(bookContainerRef.current, 'rotationY', { duration: 0.6, ease: 'power2.out' });
+    // ─── Awwwards Polish: GPU-Accelerated Section-Scoped Glow & 3D Tilt ───
+    if (glowRef.current) {
+      gsap.set(glowRef.current, { xPercent: -50, yPercent: -50, force3D: true });
+    }
+    const glowXTo = glowRef.current
+      ? gsap.quickTo(glowRef.current, 'x', { duration: 0.45, ease: 'power3.out' })
+      : null;
+    const glowYTo = glowRef.current
+      ? gsap.quickTo(glowRef.current, 'y', { duration: 0.45, ease: 'power3.out' })
+      : null;
+    const tiltXTo = bookContainerRef.current
+      ? gsap.quickTo(bookContainerRef.current, 'rotationX', { duration: 0.6, ease: 'power2.out' })
+      : null;
+    const tiltYTo = bookContainerRef.current
+      ? gsap.quickTo(bookContainerRef.current, 'rotationY', { duration: 0.6, ease: 'power2.out' })
+      : null;
 
     let rafId: number | null = null;
-    const handleMouseMove = (e: MouseEvent) => {
+    let lastClientX = 0;
+    let lastClientY = 0;
+
+    const handlePointerMove = (e: PointerEvent) => {
+      if (e.pointerType === 'touch') return;
+      lastClientX = e.clientX;
+      lastClientY = e.clientY;
       if (rafId !== null) return;
       rafId = requestAnimationFrame(() => {
-        // 1. Kursor
-        xTo(e.clientX);
-        yTo(e.clientY);
+        const rect = section.getBoundingClientRect();
+        const localX = lastClientX - rect.left;
+        const localY = lastClientY - rect.top;
 
-        // 2. Reactive Lighting (Glow)
-        if (glowRef.current) {
-          const xPercent = (e.clientX / window.innerWidth) * 100;
-          const yPercent = (e.clientY / window.innerHeight) * 100;
-          glowRef.current.style.background = `radial-gradient(circle at ${xPercent}% ${yPercent}%, rgba(212,175,55,0.12) 0%, transparent 45%)`;
-        }
+        glowXTo?.(localX);
+        glowYTo?.(localY);
 
-        // 3. Parallax Micro-Depth (3D Tilt pada buku via quickTo)
-        if (bookContainerRef.current) {
-          const xOffset = (e.clientX / window.innerWidth - 0.5) * 2;
-          const yOffset = (e.clientY / window.innerHeight - 0.5) * 2;
+        if (tiltXTo && tiltYTo) {
+          const xOffset = (lastClientX / window.innerWidth - 0.5) * 2;
+          const yOffset = (lastClientY / window.innerHeight - 0.5) * 2;
           tiltYTo(xOffset * 3);
           tiltXTo(-yOffset * 3);
         }
@@ -168,7 +179,13 @@ export const HallOfFameCrown = ({ prestasi }: { prestasi: PrestasiSiswa[] }) => 
       });
     };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    const handlePointerLeave = () => {
+      tiltXTo?.(0);
+      tiltYTo?.(0);
+    };
+
+    section.addEventListener('pointermove', handlePointerMove, { passive: true });
+    section.addEventListener('pointerleave', handlePointerLeave);
 
     // ─── GSAP Scroll Sequence ───
     const scrollLength = 200 + (prestasi.length * 130);
@@ -249,22 +266,13 @@ export const HallOfFameCrown = ({ prestasi }: { prestasi: PrestasiSiswa[] }) => 
 
     return () => {
       if (rafId !== null) cancelAnimationFrame(rafId);
-      window.removeEventListener('mousemove', handleMouseMove);
+      section.removeEventListener('pointermove', handlePointerMove);
+      section.removeEventListener('pointerleave', handlePointerLeave);
     };
   }, { scope: sectionRef });
 
-  // Event handler kursor magnetik
-  const handleBookEnter = () => {
-    gsap.to(cursorRef.current, { width: 44, height: 44, backgroundColor: 'rgba(212,175,55,0.8)', duration: 0.3, ease: 'back.out(1.5)' });
-    gsap.to('.cursor-text', { opacity: 1, scale: 1, duration: 0.3, delay: 0.1 });
-  };
-  const handleBookLeave = () => {
-    gsap.to(cursorRef.current, { width: 12, height: 12, backgroundColor: '#D4AF37', duration: 0.3, ease: 'power2.out' });
-    gsap.to('.cursor-text', { opacity: 0, scale: 0, duration: 0.2 });
-  };
-
   return (
-    <section id="hall-of-fame" ref={sectionRef} className="relative min-h-[100dvh] bg-[#0A0604] overflow-clip [isolation:isolate] text-[#F8F7F2] font-sans cursor-none">
+    <section id="hall-of-fame" ref={sectionRef} className="relative min-h-[100dvh] bg-[#0A0604] overflow-clip [isolation:isolate] text-[#F8F7F2] font-sans">
       
       {/* ─── FIX CSS 3D GLITCH ─── */}
       <style dangerouslySetInnerHTML={{__html: `
@@ -275,13 +283,13 @@ export const HallOfFameCrown = ({ prestasi }: { prestasi: PrestasiSiswa[] }) => 
         }
       `}} />
 
-      {/* ─── KURSOR KUSTOM ─── */}
-      <div ref={cursorRef} className="fixed top-0 left-0 w-3 h-3 bg-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.5)] rounded-full pointer-events-none z-[9999] flex items-center justify-center opacity-0 -translate-x-1/2 -translate-y-1/2">
-        <span className="cursor-text text-[8px] font-black tracking-widest text-[#0A0604] opacity-0 scale-0 transition-all duration-300">SCROLL</span>
-      </div>
-
-      {/* ─── AMBIENT GLOW LIGHTING ─── */}
-      <div ref={glowRef} className="absolute inset-0 z-10 pointer-events-none transition-opacity duration-1000" />
+      {/* ─── AMBIENT GLOW LIGHTING (GPU-Translated Radial Layer) ─── */}
+      <div
+        ref={glowRef}
+        aria-hidden="true"
+        className="absolute top-0 left-0 w-[760px] h-[760px] rounded-full z-10 pointer-events-none will-change-transform"
+        style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 65%)' }}
+      />
 
       <div className="absolute inset-0 bg-gradient-to-b from-[#0A0604] via-[#12100D] to-[#0A0604]" />
       <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: `repeating-linear-gradient(90deg, #D4AF37 0px, transparent 1px, transparent 100px)` }} />
@@ -289,9 +297,8 @@ export const HallOfFameCrown = ({ prestasi }: { prestasi: PrestasiSiswa[] }) => 
       {/* ─── BUKU (page-flip Canvas) ─── */}
       <div className="book-wrapper absolute inset-0 z-20 flex items-center justify-center pointer-events-none opacity-0" style={{ transformStyle: 'preserve-3d' }}>
         <div 
+          data-cursor="scroll"
           className="pointer-events-auto w-[76vw] md:w-[63vw] max-w-[810px] aspect-[800/550]"
-          onMouseEnter={handleBookEnter}
-          onMouseLeave={handleBookLeave}
         >
           <div ref={bookContainerRef} className="w-full h-full relative z-20">
             
